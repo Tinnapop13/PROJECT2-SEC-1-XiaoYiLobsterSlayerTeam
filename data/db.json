@@ -6,5 +6,5 @@
         "PainPoint":"",
         "GoalAndNeed":"",
         "Personality":[""],
-        "Rating":"{ coworker: number, environment: number, responsibility: number }"
+        "Rating":{ "coworker": 0, "environment": 0, "responsibility": 0 }
 }
