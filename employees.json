@@ -1,0 +1,10 @@
+{
+        "LinkImage":"", 
+        "FakeName": "",
+        "PositionRank":"",
+        "Age":"",
+        "PainPoint":"",
+        "GoalAndNeed":"",
+        "Personality":[""],
+        "Rating":"{ coworker: number, environment: number, responsibility: number }"
+}
