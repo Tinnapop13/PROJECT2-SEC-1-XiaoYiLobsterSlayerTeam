@@ -13,13 +13,7 @@
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
   />
-  <!-- <div class="flex justify-between w-full h-24 bg-red-300">
-    <h1>This is card page !!!</h1>
-    <router-link to="/statistics"><button>statistics</button></router-link>
-    <router-link to="/details"><button>details</button></router-link>
-    <router-link to="/"><button>home</button></router-link>
-  </div> -->
-
+  
   <div class="flex justify-center items-center h-screen">
     <div class="w-[22vw] h-[70vh] bg-slate-600 rounded-md pt-5">
       <div class="flex items-center justify-center gap-x-5">
