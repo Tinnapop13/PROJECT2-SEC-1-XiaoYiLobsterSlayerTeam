@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import json from "../../data/db.json";
+import json from "../../data/employees.json"
 
 const personColor = () => {};
 </script>
