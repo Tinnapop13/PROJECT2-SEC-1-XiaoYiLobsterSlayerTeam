@@ -13,6 +13,7 @@
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
   />
+
   <!-- <div class="flex justify-between w-full h-24 bg-red-300">
     <h1>This is card page !!!</h1>
     <router-link to="/statistics"><button>statistics</button></router-link>
@@ -20,7 +21,6 @@
     <router-link to="/"><button>home</button></router-link>
   </div> -->
 
-  <base-card>
     <div class="flex justify-center items-center min-h-screen">
       <div class="w-1/5 h-[70vh] bg-slate-600 rounded-md pt-5 max-sm:w-3/4">
         <div class="flex items-center justify-center gap-x-5">
@@ -28,6 +28,15 @@
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqogG_tIinH_K1HoXM24xH5KC2hrmNs2BpX2PCmXGCgUUlVpIwBiSQMbJU13DAqRTIj2g&usqp=CAU"
             class="size-32 rounded-full p-2"
           />
+  
+  <div class="flex justify-center items-center h-screen">
+    <div class="w-[22vw] h-[70vh] bg-slate-600 rounded-md pt-5">
+      <div class="flex items-center justify-center gap-x-5">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqogG_tIinH_K1HoXM24xH5KC2hrmNs2BpX2PCmXGCgUUlVpIwBiSQMbJU13DAqRTIj2g&usqp=CAU"
+          class="size-36 rounded-full p-2"
+        />
+
 
           <div class="flex flex-col h-1/3">
             <h1 class="text-2xl font-bold text-black">User test</h1>
@@ -89,7 +98,6 @@
         </div>
       </div>
     </div>
-  </base-card>
 </template>
 
 <style scoped></style>
