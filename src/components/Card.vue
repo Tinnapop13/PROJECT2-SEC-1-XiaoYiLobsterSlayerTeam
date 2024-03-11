@@ -1,4 +1,38 @@
-<script setup></script>
+<script setup>
+const date = {
+  employees: [
+    {date: "Mon Mar 11 2024"},
+    {date: "Mon Mar 11 2003"},
+    {date: "Mon Mar 11 2050"},
+    {date: "Mon Mar 11 1994"},
+    
+  ],
+}
+
+const sortByDate = date.employees.sort((a, b) => {
+  const aDate = new Date(a.date)
+  const bDate = new Date(b.date)
+  return aDate - bDate
+})
+console.log(sortByDate)
+
+const currentDate = new Date()
+const jsonData = {
+  date: currentDate.toDateString(),
+}
+
+// const currentDate = new Date()
+
+//  fetch("/your-backend-endpoint", {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+//   body: JSON.stringify(jsonData),
+// })
+
+console.log(jsonData)
+</script>
 
 <template>
   <link
@@ -20,76 +54,72 @@
     <router-link to="/"><button>home</button></router-link>
   </div> -->
 
-  <base-card>
-    <div class="flex justify-center items-center min-h-screen">
-      <div class="w-1/5 h-[70vh] bg-slate-600 rounded-md pt-5 max-sm:w-3/4">
-        <div class="flex items-center justify-center gap-x-5">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqogG_tIinH_K1HoXM24xH5KC2hrmNs2BpX2PCmXGCgUUlVpIwBiSQMbJU13DAqRTIj2g&usqp=CAU"
-            class="size-32 rounded-full p-2"
-          />
+  <div class="flex justify-center items-center h-screen">
+    <div class="w-[22vw] h-[70vh] bg-slate-600 rounded-md pt-5">
+      <div class="flex items-center justify-center gap-x-5">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqogG_tIinH_K1HoXM24xH5KC2hrmNs2BpX2PCmXGCgUUlVpIwBiSQMbJU13DAqRTIj2g&usqp=CAU"
+          class="size-36 rounded-full p-2"
+        />
 
-          <div class="flex flex-col h-1/3">
-            <h1 class="text-2xl font-bold text-black">User test</h1>
-            <div class="ml-2">
-              <h3 class="text-xs font-medium text-black">
-                Age <slot name="age"></slot>
-              </h3>
-              <h3 class="text-xs font-medium text-black">
-                Position <slot name="position"></slot>
-              </h3>
-              <h3 class="text-xs font-medium text-black">
-                Personality <slot name="personality"></slot>
-              </h3>
-            </div>
+        <div class="flex flex-col h-1/3">
+          <h1 class="text-2xl font-bold text-black">User test</h1>
+          <div class="ml-2">
+            <h3 class="text-xs font-medium text-black">
+              Age <slot name="age"></slot>
+            </h3>
+            <h3 class="text-xs font-medium text-black">
+              Position <slot name="position"></slot>
+            </h3>
+            <h3 class="text-xs font-medium text-black">
+              Personality <slot name="personality"></slot>
+            </h3>
           </div>
         </div>
+      </div>
 
-        <div class="flex flex-col gap-y-2">
-          <h2 class="text-lg font-medium text-black underline ml-2">
-            Pain Point
-          </h2>
-          <ul class="ml-8 list-disc">
-            <li>Pain Point<slot name="painPoint"></slot></li>
-          </ul>
+      <div class="flex flex-col gap-y-2">
+        <h2 class="text-lg font-medium text-black underline ml-2">
+          Pain Point
+        </h2>
+        <ul class="ml-8 list-disc">
+          <li>Pain Point<slot name="painPoint"></slot></li>
+        </ul>
 
-          <h3 class="text-lg font-medium text-black underline ml-2">
-            Goal and Needs
-          </h3>
-          <ul class="ml-8 list-disc">
-            <li>Goal and Needs<slot name="GoalAndNeeds"></slot></li>
-          </ul>
+        <h3 class="text-lg font-medium text-black underline ml-2">
+          Goal and Needs
+        </h3>
+        <ul class="ml-8 list-disc">
+          <li>Goal and Needs<slot name="GoalAndNeeds"></slot></li>
+        </ul>
 
-          <h3 class="text-lg font-medium text-black underline ml-2">Rating</h3>
-          <div class="flex justify-center justify-evenly">
-            <div
-              class="radial-progress"
-              style="--value: 10; --size: 4rem"
-              role="progressbar"
-            >
-              <span class="material-symbols-outlined"> groups </span>
-            </div>
-            <div
-              class="radial-progress"
-              style="--value: 20; --size: 4rem"
-              role="progressbar"
-            >
-              <span class="material-symbols-outlined">
-                source_environment
-              </span>
-            </div>
-            <div
-              class="radial-progress"
-              style="--value: 90; --size: 4rem"
-              role="progressbar"
-            >
-              <span class="material-symbols-outlined"> work </span>
-            </div>
+        <h3 class="text-lg font-medium text-black underline ml-2">Rating</h3>
+        <div class="flex justify-evenly">
+          <div
+            class="radial-progress"
+            style="--value: 10; --size: 4rem"
+            role="progressbar"
+          >
+            <span class="material-symbols-outlined"> groups </span>
+          </div>
+          <div
+            class="radial-progress"
+            style="--value: 20; --size: 4rem"
+            role="progressbar"
+          >
+            <span class="material-symbols-outlined"> source_environment </span>
+          </div>
+          <div
+            class="radial-progress"
+            style="--value: 90; --size: 4rem"
+            role="progressbar"
+          >
+            <span class="material-symbols-outlined"> work </span>
           </div>
         </div>
       </div>
     </div>
-  </base-card>
+  </div>
 </template>
 
 <style scoped></style>
