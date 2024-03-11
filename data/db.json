@@ -1,0 +1,106 @@
+{
+  "employees": [
+    {
+      "id": "0",
+      "LinkImage": "https://cdn.discordapp.com/attachments/1196805209381404682/1207662535071891556/gigachad-chad.gif?ex=65fc25e1&is=65e9b0e1&hm=a2c1c9a82f42aa62d176b45677af71a055fdfab3f782069d5f419c3876c9b6c7&",
+      "FakeName": "Vietnam eatdog",
+      "PositionRank": "ddol",
+      "Age": "1000",
+      "PainPoint": "ass",
+      "GoalAndNeed": "oil",
+      "Personality": [
+        ""
+      ],
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      }
+    },
+    {
+      "id": "1",
+      "LinkImage": "https://cdn.discordapp.com/attachments/1196805209381404682/1207662079541256282/blinking_guy_meme_1569407297.gif?ex=65fc2575&is=65e9b075&hm=657c376d135bedb70bfb54cbe1834bdea2e1dfc71a8f0f403f0ec500be9ef90b&",
+      "FakeName": "Xi Jingyo",
+      "PositionRank": "God",
+      "Age": "999999",
+      "PainPoint": "ass",
+      "GoalAndNeed": "oil",
+      "Personality": [
+        ""
+      ],
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      }
+    },
+    {
+      "id": "2",
+      "LinkImage": "https://media.discordapp.net/attachments/1196805209381404682/1206957684490899476/image.png?ex=65f99570&is=65e72070&hm=fbaf6b8de3eeba698e095b7836ececa2295fc3e77ccaadcc9dcd3e584efe160d&=&format=webp&quality=lossless&width=728&height=700",
+      "FakeName": "Xi Qwee",
+      "PositionRank": "God",
+      "Age": "999999",
+      "PainPoint": "ass",
+      "GoalAndNeed": "oil",
+      "Personality": [
+        ""
+      ],
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      }
+    },
+    {
+      "id": "3",
+      "LinkImage": "https://media.discordapp.net/attachments/1196805209381404682/1206281849438208030/black.png?ex=65f72004&is=65e4ab04&hm=412d2cc7c9857258270f8f653781257c36f013461f648b9e052b21ec1ea0d205&=&format=webp&quality=lossless&width=964&height=1074",
+      "FakeName": "Xi Xeeee",
+      "PositionRank": "God",
+      "Age": "999999",
+      "PainPoint": "ass",
+      "GoalAndNeed": "oil",
+      "Personality": [
+        ""
+      ],
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      }
+    },
+    {
+      "id": "4",
+      "LinkImage": "https://media.discordapp.net/attachments/1196805209381404682/1204054048882557029/Bard_Generated_Image.jpg?ex=65f83fb7&is=65e5cab7&hm=a61f2b9f5eab6567601062a6bbb8e8ad31234527180401e06bd8e08a1c4f1d76&=&format=webp&width=700&height=700",
+      "FakeName": "Xi Mhaoti",
+      "PositionRank": "God",
+      "Age": "999999",
+      "PainPoint": "ass",
+      "GoalAndNeed": "oil",
+      "Personality": [
+        ""
+      ],
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      }
+    },
+    {
+      "id": "5",
+      "LinkImage": "https://media1.tenor.com/m/-fpilwqik0IAAAAd/wft-xdd.gif",
+      "FakeName": "Min Chong Yiaw",
+      "PositionRank": "God",
+      "Age": "999999",
+      "PainPoint": "ass",
+      "GoalAndNeed": "oil",
+      "Personality": [
+        ""
+      ],
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      }
+    }
+  ]
+}
