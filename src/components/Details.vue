@@ -1,38 +1,35 @@
 <script setup>
+import {ref, onBeforeMount} from "vue"
+import {useRoute} from "vue-router"
 
-
-import { ref, onBeforeMount } from "vue";
-import { useRoute } from "vue-router";
-
-
-const route = useRoute();
-const employeeId = ref(0);
-const loading = ref(false);
-const fetchData = ref(null);
+const route = useRoute()
+const employeeId = ref(0)
+const loading = ref(false)
+const fetchData = ref(null)
 const editTemplate = ref({
   Age: "",
   PositionRank: "",
   PainPoint: "",
   GoalAndNeed: "",
-});
+})
 
-employeeId.value = route.params.id;
+employeeId.value = route.params.id
 
 const readJsonData = async () => {
   await fetch("http://localhost:5000/employees")
     .then((respJson) => respJson.json())
     .then((data) => {
-      fetchData.value = data;
-      loading.value = true;
-    });
-  console.log(fetchData.value);
-};
+      fetchData.value = data
+      loading.value = true
+    })
+  console.log(fetchData.value)
+}
 
 const deleteJsonData = () => {
   fetch(`http://localhost:5000/employees/${employeeId.value}`, {
     method: "DELETE",
-  });
-};
+  })
+}
 
 const editJsonData = () => {
   fetch(`http://localhost:5000/employees/${employeeId.value}`, {
@@ -59,13 +56,13 @@ const editJsonData = () => {
           : editTemplate.value.GoalAndNeed,
     }),
   }).then((respJson) => {
-    respJson.json();
-  });
-};
+    respJson.json()
+  })
+}
 
 onBeforeMount(() => {
-  readJsonData();
-});
+  readJsonData()
+})
 </script>
 
 <template v-if="loading">

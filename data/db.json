@@ -84,7 +84,6 @@
         "environment": 0,
         "responsibility": 0
       }
-
     },
     {
       "id": "5",
@@ -94,7 +93,7 @@
       "Age": "999999",
       "PainPoint": "ass",
       "GoalAndNeed": "oil",
-      "Personality": [
+      "Comment": [
         ""
       ],
       "Rating": {
@@ -102,6 +101,24 @@
         "environment": 0,
         "responsibility": 0
       }
+    },
+    {
+      "id": "6",
+      "LinkImage": "",
+      "FakeName": "",
+      "PositionRank": "",
+      "Age": "",
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Personality": [
+        ""
+      ],
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "DateAdded": "Thu Mar 14 2024"
     }
   ]
 }
