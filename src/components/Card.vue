@@ -1,38 +1,4 @@
-<script setup>
-const date = {
-  employees: [
-    {date: "Mon Mar 11 2024"},
-    {date: "Mon Mar 11 2003"},
-    {date: "Mon Mar 11 2050"},
-    {date: "Mon Mar 11 1994"},
-    
-  ],
-}
-
-const sortByDate = date.employees.sort((a, b) => {
-  const aDate = new Date(a.date)
-  const bDate = new Date(b.date)
-  return aDate - bDate
-})
-console.log(sortByDate)
-
-const currentDate = new Date()
-const jsonData = {
-  date: currentDate.toDateString(),
-}
-
-// const currentDate = new Date()
-
-//  fetch("/your-backend-endpoint", {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-//   body: JSON.stringify(jsonData),
-// })
-
-console.log(jsonData)
-</script>
+<script setup></script>
 
 <template>
   <link
@@ -47,6 +13,7 @@ console.log(jsonData)
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
   />
+
   <!-- <div class="flex justify-between w-full h-24 bg-red-300">
     <h1>This is card page !!!</h1>
     <router-link to="/statistics"><button>statistics</button></router-link>
@@ -54,12 +21,12 @@ console.log(jsonData)
     <router-link to="/"><button>home</button></router-link>
   </div> -->
 
-  <div class="flex justify-center items-center h-screen">
-    <div class="w-[22vw] h-[70vh] bg-slate-600 rounded-md pt-5">
+  <div class="flex justify-center items-center min-h-screen">
+    <div class="w-1/5 h-[70vh] bg-slate-600 rounded-md pt-5 max-sm:w-3/4">
       <div class="flex items-center justify-center gap-x-5">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqogG_tIinH_K1HoXM24xH5KC2hrmNs2BpX2PCmXGCgUUlVpIwBiSQMbJU13DAqRTIj2g&usqp=CAU"
-          class="size-36 rounded-full p-2"
+          class="size-32 rounded-full p-2"
         />
 
         <div class="flex flex-col h-1/3">
@@ -94,7 +61,7 @@ console.log(jsonData)
         </ul>
 
         <h3 class="text-lg font-medium text-black underline ml-2">Rating</h3>
-        <div class="flex justify-evenly">
+        <div class="flex justify-center justify-evenly">
           <div
             class="radial-progress"
             style="--value: 10; --size: 4rem"
