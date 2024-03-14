@@ -69,19 +69,11 @@ onBeforeMount(() => {
   <div class="border border-base-300 h-screen w-screen">
     <div class="navbar bg-base-100">
       <div class="flex-1">
-        <a class="btn btn-ghost text-xl">HOME</a>
-        <a class="btn btn-ghost text-xl">STATISTIC</a>
-        <router-link
-          to="/"
-          class="btn btn-ghost text-xl"
-          @click="deleteJsonData()"
-          >DELETE</router-link
+        <router-link to="/">
+          <a class="btn btn-ghost text-xl ml-2 mr-2">HOME</a></router-link
         >
-        <router-link
-          to="/"
-          class="btn btn-ghost text-xl"
-          @click="editJsonData()"
-          >UPDATE</router-link
+        <router-link to="/statistics"
+          ><a class="btn btn-ghost text-xl ml-2">STATISTIC</a></router-link
         >
       </div>
       <div class="flex-none gap-2">
@@ -187,6 +179,38 @@ onBeforeMount(() => {
           <div class="flex flex-row justify-evenly">
             <textarea class="textarea textarea-bordered w-full">
 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto libero dolorem placeat, incidunt, provident aut, corrupti beatae quam voluptatum repellendus dolorum velit quisquam excepturi quae laborum nam accusamus unde sunt?</textarea
+            >
+          </div>
+          <div class="flex flex-row items-center m-10">
+            <p class="mr-5 mb-1">Coworker</p>
+            <progress
+              class="progress progress-primary w-50 mr-20"
+              :value="fetchData[employeeId]?.Rating.coworker"
+              max="10"
+            ></progress>
+            <p class="mr-5 mb-1">Environment</p>
+            <progress
+              class="progress progress-primary w-50 mr-20"
+              :value="fetchData[employeeId]?.Rating.environment"
+              max="10"
+            ></progress>
+            <p class="mr-5 mb-1">Responsibility</p>
+            <progress
+              class="progress progress-primary w-50 mr-20"
+              :value="fetchData[employeeId]?.Rating.responsibility"
+              max="10"
+            ></progress>
+            <router-link
+              to="/"
+              class="btn btn-ghost text-xl mr-2"
+              @click="editJsonData()"
+              >UPDATE</router-link
+            >
+            <router-link
+              to="/"
+              class="btn btn-ghost text-xl ml-2"
+              @click="deleteJsonData()"
+              >DELETE</router-link
             >
           </div>
         </div>
