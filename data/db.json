@@ -8,13 +8,13 @@
       "Age": "1000",
       "PainPoint": "ass",
       "GoalAndNeed": "oil",
-      "Personality": [
+      "Comment": [
         ""
       ],
       "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
+        "coworker": 1,
+        "environment": 2,
+        "responsibility": 3
       }
     },
     {
@@ -25,7 +25,7 @@
       "Age": "999999",
       "PainPoint": "ass",
       "GoalAndNeed": "oil",
-      "Personality": [
+      "Comment": [
         ""
       ],
       "Rating": {
@@ -42,7 +42,7 @@
       "Age": "999999",
       "PainPoint": "ass",
       "GoalAndNeed": "oil",
-      "Personality": [
+      "Comment": [
         ""
       ],
       "Rating": {
@@ -59,7 +59,7 @@
       "Age": "999999",
       "PainPoint": "ass",
       "GoalAndNeed": "oil",
-      "Personality": [
+      "Comment": [
         ""
       ],
       "Rating": {
@@ -76,7 +76,7 @@
       "Age": "999999",
       "PainPoint": "ass",
       "GoalAndNeed": "oil",
-      "Personality": [
+      "Comment": [
         ""
       ],
       "Rating": {
