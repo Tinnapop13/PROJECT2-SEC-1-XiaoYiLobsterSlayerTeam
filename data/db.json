@@ -8,9 +8,7 @@
       "Age": "1000",
       "PainPoint": "ass",
       "GoalAndNeed": "oil",
-      "Comment": [
-        ""
-      ],
+      "Comment": [""],
       "Rating": {
         "coworker": 1,
         "environment": 2,
@@ -25,9 +23,7 @@
       "Age": "999999",
       "PainPoint": "ass",
       "GoalAndNeed": "oil",
-      "Comment": [
-        ""
-      ],
+      "Comment": [""],
       "Rating": {
         "coworker": 0,
         "environment": 0,
@@ -42,9 +38,7 @@
       "Age": "999999",
       "PainPoint": "ass",
       "GoalAndNeed": "oil",
-      "Comment": [
-        ""
-      ],
+      "Comment": [""],
       "Rating": {
         "coworker": 0,
         "environment": 0,
@@ -59,9 +53,7 @@
       "Age": "999999",
       "PainPoint": "ass",
       "GoalAndNeed": "oil",
-      "Comment": [
-        ""
-      ],
+      "Comment": [""],
       "Rating": {
         "coworker": 0,
         "environment": 0,
@@ -76,9 +68,7 @@
       "Age": "999999",
       "PainPoint": "ass",
       "GoalAndNeed": "oil",
-      "Comment": [
-        ""
-      ],
+      "Comment": [""],
       "Rating": {
         "coworker": 0,
         "environment": 0,
@@ -88,53 +78,17 @@
     {
       "id": 5,
       "LinkImage": "https://media1.tenor.com/m/-fpilwqik0IAAAAd/wft-xdd.gif",
-      "FakeName": "Min Chong Yiaw",
+      "FakeName": "Min Chong YiawMin",
       "PositionRank": "God",
       "Age": "999999",
       "PainPoint": "ass",
       "GoalAndNeed": "oil",
-      "Comment": [
-        ""
-      ],
+      "Comment": [""],
       "Rating": {
         "coworker": 0,
         "environment": 0,
         "responsibility": 0
       }
-    },
-    {
-      "id": 6,
-      "LinkImage": "",
-      "FakeName": "poom",
-      "PositionRank": "",
-      "Age": "",
-      "PainPoint": "",
-      "GoalAndNeed": "",
-      "Personality": "asdf",
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      },
-      "DateAdded": "Sat Mar 16 2024"
-    },
-    {
-      "id": "7",
-      "LinkImage": "",
-      "FakeName": "",
-      "PositionRank": "",
-      "Age": "",
-      "PainPoint": "asdfasdfasdasdfasdfasdasdfasdfasdasdfasdfasdasdfasdfasdasdfasdfasd",
-      "GoalAndNeed": "",
-      "Personality": [
-        ""
-      ],
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      },
-      "DateAdded": "Sat Mar 16 2024"
     }
   ]
 }
