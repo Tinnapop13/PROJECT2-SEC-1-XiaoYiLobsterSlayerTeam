@@ -1,35 +1,35 @@
 <script setup>
-import {ref, onBeforeMount} from "vue"
-import {useRoute} from "vue-router"
+import { ref, onBeforeMount } from "vue";
+import { useRoute } from "vue-router";
 
-const route = useRoute()
-const employeeId = ref(0)
-const loading = ref(false)
-const fetchData = ref(null)
+const route = useRoute();
+const employeeId = ref(0);
+const loading = ref(false);
+const fetchData = ref(null);
 const editTemplate = ref({
   Age: "",
   PositionRank: "",
   PainPoint: "",
   GoalAndNeed: "",
-})
+});
 
-employeeId.value = route.params.id
+employeeId.value = route.params.id;
 
 const readJsonData = async () => {
   await fetch("http://localhost:5000/employees")
     .then((respJson) => respJson.json())
     .then((data) => {
-      fetchData.value = data
-      loading.value = true
-    })
-  console.log(fetchData.value)
-}
+      fetchData.value = data;
+      loading.value = true;
+    });
+  console.log(fetchData.value);
+};
 
 const deleteJsonData = () => {
   fetch(`http://localhost:5000/employees/${employeeId.value}`, {
     method: "DELETE",
-  })
-}
+  });
+};
 
 const editJsonData = () => {
   fetch(`http://localhost:5000/employees/${employeeId.value}`, {
@@ -56,13 +56,14 @@ const editJsonData = () => {
           : editTemplate.value.GoalAndNeed,
     }),
   }).then((respJson) => {
-    respJson.json()
-  })
-}
+    respJson.json();
+  });
+};
 
 onBeforeMount(() => {
-  readJsonData()
-})
+  readJsonData();
+});
+
 </script>
 
 <template v-if="loading">
@@ -213,6 +214,18 @@ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto libero dolorem p
               >DELETE</router-link
             >
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="carousel m-5 w-60 h-40 flex flex-row justify-center">
+      <div class="carousel-item relative w-60 h-40">
+        <img :src="fetchData[employeeId]?.LinkImage" class="w-50" />
+        <div
+          class="absolute flex justify-between transform -translate-y-1/2 right-1 left-1 top-1/2"
+        >
+          <a :href="fetchData[employeeId]?.id - 1" v-if="fetchData[employeeId]?.id > 0" class="btn btn-circle">❮</a>
+          <a :href="fetchData[employeeId]?.id + 1" v-if="fetchData[employeeId]?.id === fetchData[employeeId]?.id" class="btn btn-circle">❯</a>
         </div>
       </div>
     </div>
