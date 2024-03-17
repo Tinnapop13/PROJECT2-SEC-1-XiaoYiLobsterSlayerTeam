@@ -20,7 +20,7 @@ const newCard = reactive({
   Age: "",
   PainPoint: "",
   GoalAndNeed: "",
-  Personality: [""],
+  Comment: [""],
   Rating: {
     coworker: 0,
     environment: 0,
@@ -83,7 +83,7 @@ const addJsonData = () => {
       Age: newCard.Age,
       PainPoint: newCard.PainPoint,
       GoalAndNeed: newCard.GoalAndNeed,
-      Personality: newCard.Personality,
+      Personality: newCard.Comment,
       Rating: newCard.Rating,
       DateAdded: currentDate.toDateString(),
     }),
@@ -99,140 +99,115 @@ onBeforeMount(() => {
 })
 </script>
 
-<!-- <router-link to="/statistics"><button>statistics</button></router-link>
-<router-link to="/details"><button>details</button></router-link>
-<button
-  class="btn btn-primary"
-  @click="plusCard"
->
-  Add Button
-</button> -->
-
 <template v-if="loading">
-  <div class=" w-full h-[13vh] bg-[#3F72AF] flex items-center px-5">
-    <h1 class="text-2xl text-[#DBE2EF] font-bold">Logo</h1>
+  <div class="h-screen w-screen">
+    <!-- NavBar-->
+    <div class="w-full h-28 bg-[#3F72AF] flex items-center px-5">
+      <h1 class="text-2xl text-[#DBE2EF] font-bold">Logo</h1>
 
-    <div class="w-full flex justify-end gap-5">
-    <router-link to="/statistics"><button class="btn btn-success">statistics</button></router-link>
-    <button class="btn btn-primary" @click="plusCard">Add Button</button>
-   </div>
-  
+      <div class="w-full flex justify-end gap-5">
+        <router-link to="/statistics"
+          ><button class="btn btn-success">statistics</button></router-link
+        >
+        <button class="btn btn-primary" @click="plusCard">Add Button</button>
+      </div>
+    </div>
+
+    <!-- display card -->
+    <div class="flex justify-center overflow-x-scroll ">
+      <div class="flex items-center gap-x-5">
+        <Card
+          v-for="(employee, index) in employeesData"
+          :key="index"
+          @click="clicking"
+          :deleteCard="deleteJsonData"
+          class="pointer"
+        >
+          <template #fullname>{{ employee.FakeName }}</template>
+          <template #age>{{ employee.Age }}</template>
+          <template #position>{{ employee.PositionRank }}</template>
+          <template #comment>{{ employee.Comment }}</template>
+          <template #PainPoints>{{ employee.PainPoint }}</template>
+          <template #GoalAndNeeds>{{ employee.GoalAndNeed }}</template>
+        </Card>
+      </div>
+    </div>
   </div>
 
-  
-
-  <!-- display -->
-  <main
-    class="fixed min-h-screen w-full flex flex-col justify-center items-center"
+  <!-- insert pop-up -->
+  <section
+    v-show="addMode === true"
+    v-if="addMode"
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
   >
-    <section class="flex overflow-x-scroll gap-x-10">
-      <Card
-        v-for="(employee, index) in employeesData"
-        :key="index"
-        @click="clicking"
-      >
-        <template #fullname>{{ employee.FakeName }}</template>
-        <template #age>{{ employee.Age }}</template>
-        <template #position>{{ employee.PositionRank }}</template>
-        <template #comment>{{ employee.Comment }}</template>
-        <template #PainPoints>{{ employee.PainPoint }}</template>
-        <template #GoalAndNeeds>{{ employee.GoalAndNeed }}</template>
-      </Card>
-    </section>
-
-    <!-- insert pop-up -->
-    <section
-      v-show="addMode === true"
-      v-if="addMode"
-      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+    <div
+      class="max-sm:h-4/5 max-sm:overflow-y-scroll text-center bg-white p-8 rounded-lg"
     >
-      <div
-        class="max-sm:h-4/5 max-sm:overflow-y-scroll text-center bg-white p-8 rounded-lg"
-      >
-        <h1 class="text-2xl font-bold mb-4 text-black">Insert Data</h1>
-        <div class="text-left">
-          <p>
-            Name :
-            <input
-              type="text"
-              class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
-              v-model="newCard.FakeName"
-            />
-          </p>
-          <p>
-            PositionRank :
-            <input
-              type="text"
-              class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
-              v-model="newCard.PositionRank"
-            />
-          </p>
-          <p>
-            Age :
-            <input
-              type="text"
-              class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
-              v-model="newCard.Age"
-            />
-          </p>
-          <p>
-            PainPoint :
-            <input
-              type="text"
-              class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
-              v-model="newCard.PainPoint"
-            />
-          </p>
-          <p>
-            GoalAndNeed :
-            <input
-              type="text"
-              class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
-              v-model="newCard.GoalAndNeed"
-            />
-          </p>
-          <p>
-            Personality :
-            <input
-              type="text"
-              class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
-            />
-          </p>
-          <p>
-            Rating :
-            <input
-              type="text"
-              class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
-            />
-          </p>
-        </div>
-        <button
-          @click="addJsonData"
-          class="btn btn-warning text-white px-4 py-2 mt-5 text-right"
-        >
-          Close
-        </button>
+      <h1 class="text-2xl font-bold mb-4 text-black">Insert Data</h1>
+      <div class="text-left">
+        <p>
+          Name :
+          <input
+            type="text"
+            class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
+            v-model="newCard.FakeName"
+          />
+        </p>
+        <p>
+          PositionRank :
+          <input
+            type="text"
+            class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
+            v-model="newCard.PositionRank"
+          />
+        </p>
+        <p>
+          Age :
+          <input
+            type="text"
+            class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
+            v-model="newCard.Age"
+          />
+        </p>
+        <p>
+          PainPoint :
+          <input
+            type="text"
+            class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
+            v-model="newCard.PainPoint"
+          />
+        </p>
+        <p>
+          GoalAndNeed :
+          <input
+            type="text"
+            class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
+            v-model="newCard.GoalAndNeed"
+          />
+        </p>
+        <p>
+          Comment :
+          <input
+            type="text"
+            class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
+          />
+        </p>
+        <p>
+          Rating :
+          <input
+            type="text"
+            class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
+          />
+        </p>
       </div>
-    </section>
-  </main>
-
-  <footer class="absolute bottom-0 w-full">
-    <!-- <div class="flex flex-col items-center bg-black">
-            <h1 class="text-yellow-300">This is HOME !!!</h1>
-            <router-link to="/statistics"><button>statistics</button></router-link>
-            <router-link to="/details"><button>details</button></router-link>
-        </div> -->
-  </footer>
-
-  <!-- <template>
-    <div class="flex flex-col">
-      <h1>This is HOME !!!</h1>
-      <router-link to="/statistics"><button>statistics</button></router-link>
-      <router-link :to="{name: 'Details', params: {id: 0}}"
-        ><button>details</button></router-link
+      <button
+        @click="addJsonData"
+        class="btn btn-warning text-white px-4 py-2 mt-5 text-right"
       >
-      <router-link to="/card"><button>card</button></router-link>
-    </div> -->
+        Close
+      </button>
+    </div>
+  </section>
 </template>
 
 <style scoped></style>
