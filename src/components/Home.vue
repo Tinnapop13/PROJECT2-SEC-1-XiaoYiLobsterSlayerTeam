@@ -40,13 +40,14 @@ const clicking = (e) => {
   console.log("Card Clicked : ", itemClick)
 }
 
-const readJsonData = async () => {
-  await fetch("http://localhost:5000/employees")
+const fetchUserData = async () => {
+  fetch("http://localhost:5000/employees")
     .then((respJson) => respJson.json())
     .then((data) => {
       employeesData.value = data
       loading.value = true
     })
+
   // console.log(employeesData.value);
 
   currentID.value = employeesData.value.length
@@ -58,7 +59,7 @@ const deleteJsonData = (e) => {
   fetch(`http://localhost:5000/employees/${delID}`, {
     method: "DELETE",
   }).then(() => {
-    readJsonData()
+    fetchUserData()
   })
 }
 
@@ -90,12 +91,12 @@ const addJsonData = () => {
   }).then((respJson) => {
     respJson.json()
     console.log("add....")
-    readJsonData()
+    fetchUserData()
   })
 }
 
 onBeforeMount(() => {
-  readJsonData()
+  fetchUserData()
 })
 </script>
 
@@ -114,7 +115,7 @@ onBeforeMount(() => {
     </div>
 
     <!-- display card -->
-    <div class="flex justify-center overflow-x-scroll ">
+    <div class="flex justify-center overflow-x-scroll">
       <div class="flex items-center gap-x-5">
         <Card
           v-for="(employee, index) in employeesData"
