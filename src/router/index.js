@@ -3,6 +3,7 @@ import  Home  from "../components/Home.vue";
 import  Details  from "../components/Details.vue";
 import  Statistics  from "../components/Statistics.vue";
 import Card from "../components/Card.vue";
+import CardSkeletonLoading from "../components/CardSkeletonLoading.vue";
 
 const router = createRouter({
     history: createWebHistory(),

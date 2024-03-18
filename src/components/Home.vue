@@ -1,5 +1,5 @@
 <script setup>
-import {ref, reactive, watch, onBeforeMount} from "vue"
+import {ref, reactive, watch, onBeforeMount, Suspense} from "vue"
 
 import Card from "./Card.vue"
 
@@ -45,13 +45,7 @@ const fetchUserData = async () => {
     .then((respJson) => respJson.json())
     .then((data) => {
       employeesData.value = data
-      loading.value = true
     })
-
-  // console.log(employeesData.value);
-
-  currentID.value = employeesData.value.length
-  console.log(currentID.value)
 }
 
 const deleteJsonData = (e) => {
