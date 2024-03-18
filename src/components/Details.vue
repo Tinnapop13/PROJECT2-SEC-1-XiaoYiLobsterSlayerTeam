@@ -2,10 +2,11 @@
 import {ref, onBeforeMount} from "vue"
 import {useRoute} from "vue-router"
 
-const route = useRoute()
-const employeeId = ref(0)
-const loading = ref(false)
-const fetchData = ref(null)
+
+const route = useRoute();
+const employeeIndex = ref(0);
+const loading = ref(false);
+const fetchData = ref(null);
 const editTemplate = ref({
   Age: "",
   PositionRank: "",
@@ -13,26 +14,28 @@ const editTemplate = ref({
   GoalAndNeed: "",
 })
 
-employeeId.value = route.params.id
+employeeIndex.value = route.params.id;
 
 const readJsonData = async () => {
   await fetch("http://localhost:5000/employees")
     .then((respJson) => respJson.json())
     .then((data) => {
-      fetchData.value = data
-      loading.value = true
-    })
-  console.log(fetchData.value)
-}
+      fetchData.value = data;
+      loading.value = true;
+    });
+    employeeIndex.value = fetchData.value.findIndex((employee)=> employee.id === route.params.id)
+  console.log(fetchData.value[employeeIndex]);
+};
 
-const deleteJsonData = () => {
-  fetch(`http://localhost:5000/employees/${employeeId.value}`, {
+
+const deleteJsonData = async () => {
+  await fetch(`http://localhost:5000/employees/${fetchData.value[employeeIndex.value].id}`, {
     method: "DELETE",
   })
 }
 
 const editJsonData = () => {
-  fetch(`http://localhost:5000/employees/${employeeId.value}`, {
+  fetch(`http://localhost:5000/employees/${fetchData.value[employeeIndex.value].id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -66,54 +69,33 @@ onBeforeMount(() => {
 </script>
 
 <template v-if="loading">
-  <div class="border border-base-300 h-screen w-screen">
-    <div class="navbar bg-base-100">
-      <div class="flex-1">
-        <router-link to="/">
-          <a class="btn btn-ghost text-xl ml-2 mr-2">HOME</a></router-link
-        >
-        <router-link to="/statistics"
-          ><a class="btn btn-ghost text-xl ml-2">STATISTIC</a></router-link
-        >
-      </div>
-      <div class="flex-none gap-2">
-        <div class="form-control">
-          <input
-            type="text"
-            placeholder="Search"
-            class="input input-bordered w-24 md:w-auto"
-          />
-        </div>
-        <div class="dropdown dropdown-end">
-          <div
-            tabindex="0"
-            role="button"
-            class="btn btn-ghost btn-circle avatar"
-          >
-            <div class="w-10 rounded-full">
-              <img
-                :src="
-                  fetchData === null ? '' : fetchData[employeeId]?.LinkImage
-                "
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="border border-base-300 h-screen w-screen ">
 
-    <div class="flex px-4 py-5 border-t border-base-300">
-      <div class="border border-base-300 flex w-screen h-[25vw]">
+    <header class="flex items-center justify-between bg-gray-800 p-8 ">
+            <router-link class="text-white font-bold text-xl" to="/">
+              Employee Insight
+            </router-link>
+            <ul class="space-x-14">
+              <router-link class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue hover:bg-blue-700 "
+                  :to="{path: '/addcard'}">
+                      ADD EMPLOYEE
+              </router-link>
+            </ul>
+    </header>
+
+
+    <div class="flex px-4 py-5 border-t border-base-300 h-[50vh]">
+      <div class="border border-base-300 flex ">
         <div class="avatar indicator">
           <span
             class="border-black bg-white text-black indicator-item badge badge-secondary m-6"
             >{{
-              fetchData === null ? "" : fetchData[employeeId]?.FakeName
+              fetchData === null ? "" : fetchData[employeeIndex]?.FakeName
             }}</span
           >
-          <div class="rounded-sm overflow-hidden m-6">
+          <div class="rounded-sm overflow-hidden m-6 size">
             <img
-              :src="fetchData === null ? '' : fetchData[employeeId]?.LinkImage"
+              :src="fetchData === null ? '' : fetchData[employeeIndex]?.LinkImage"
             />
           </div>
         </div>
@@ -126,7 +108,7 @@ onBeforeMount(() => {
                 <input
                   type="text"
                   :placeholder="
-                    fetchData === null ? '' : fetchData[employeeId]?.Age
+                    fetchData === null ? '' : fetchData[employeeIndex]?.Age
                   "
                   v-model="editTemplate.Age"
                   class="input input-bordered input-xs w-full max-w-xs"
@@ -141,7 +123,7 @@ onBeforeMount(() => {
                   :placeholder="
                     fetchData === null
                       ? ''
-                      : fetchData[employeeId]?.PositionRank
+                      : fetchData[employeeIndex]?.PositionRank
                   "
                   v-model="editTemplate.PositionRank"
                   class="input input-bordered input-xs w-full max-w-xs"
@@ -154,7 +136,7 @@ onBeforeMount(() => {
                 <input
                   type="text"
                   :placeholder="
-                    fetchData === null ? '' : fetchData[employeeId]?.PainPoint
+                    fetchData === null ? '' : fetchData[employeeIndex]?.PainPoint
                   "
                   v-model="editTemplate.PainPoint"
                   class="input input-bordered input-xs w-full max-w-xs"
@@ -167,7 +149,7 @@ onBeforeMount(() => {
                 <input
                   type="text"
                   :placeholder="
-                    fetchData === null ? '' : fetchData[employeeId]?.GoalAndNeed
+                    fetchData === null ? '' : fetchData[employeeIndex]?.GoalAndNeed
                   "
                   v-model="editTemplate.GoalAndNeed"
                   class="input input-bordered input-xs w-full max-w-xs"
@@ -178,28 +160,29 @@ onBeforeMount(() => {
           <div class="divider"></div>
           <div class="flex flex-row justify-evenly">
             <textarea class="textarea textarea-bordered w-full">
-Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto libero dolorem placeat, incidunt, provident aut, corrupti beatae quam voluptatum repellendus dolorum velit quisquam excepturi quae laborum nam accusamus unde sunt?</textarea
-            >
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto libero dolorem placeat, incidunt, provident aut, corrupti beatae quam voluptatum repellendus dolorum velit quisquam excepturi quae laborum nam accusamus unde sunt?</textarea
+             >
           </div>
           <div class="flex flex-row items-center m-10">
             <p class="mr-5 mb-1">Coworker</p>
             <progress
               class="progress progress-primary w-50 mr-20"
-              :value="fetchData[employeeId]?.Rating.coworker"
-              max="10"
+              :value="fetchData?.[employeeIndex]?.Rating.coworker"
+              max="100"
             ></progress>
             <p class="mr-5 mb-1">Environment</p>
             <progress
               class="progress progress-primary w-50 mr-20"
-              :value="fetchData[employeeId]?.Rating.environment"
-              max="10"
+              :value="fetchData?.[employeeIndex]?.Rating.environment"
+              max="100"
             ></progress>
             <p class="mr-5 mb-1">Responsibility</p>
             <progress
               class="progress progress-primary w-50 mr-20"
-              :value="fetchData[employeeId]?.Rating.responsibility"
-              max="10"
+              :value="fetchData?.[employeeIndex]?.Rating.responsibility"
+              max="100"
             ></progress>
+           
             <router-link
               to="/"
               class="btn btn-ghost text-xl mr-2"
@@ -213,30 +196,20 @@ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto libero dolorem p
               >DELETE</router-link
             >
           </div>
+          
         </div>
       </div>
     </div>
 
-    <div class="carousel m-5 w-60 h-40 flex flex-row justify-center">
-      <div class="carousel-item relative w-60 h-40">
-        <img :src="fetchData[employeeId]?.LinkImage" class="w-50" />
-        <div
-          class="absolute flex justify-between transform -translate-y-1/2 right-1 left-1 top-1/2"
-        >
-          <a
-            :href="fetchData[employeeId]?.id - 1"
-            v-if="fetchData[employeeId]?.id > 0"
-            class="btn btn-circle"
-            >❮</a
-          >
-          <a
-            :href="fetchData[employeeId]?.id + 1"
-            v-if="fetchData[employeeId]?.id === fetchData[employeeId]?.id"
-            class="btn btn-circle"
-            >❯</a
-          >
+
+    <div class=" m-5 flex flex-row justify-center h-[30vh]">
+      <div class=" flex gap-4  items-center">
+        <a :href="parseInt(fetchData?.[employeeIndex - 1]?.id)" v-if="parseInt(employeeIndex) > 0" class="btn btn-circle">❮</a>
+        <img :src="fetchData?.[employeeIndex]?.LinkImage" class="size-40" />
+          <a :href="parseInt(fetchData?.[employeeIndex + 1]?.id)" v-if="parseInt(employeeIndex) < parseInt(fetchData?.length - 1)" class="btn btn-circle">❯</a>
+
         </div>
       </div>
     </div>
-  </div>
+  
 </template>
