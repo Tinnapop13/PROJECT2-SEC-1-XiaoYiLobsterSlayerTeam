@@ -1,50 +1,63 @@
 {
+  "profile": {
+    "angry": "/src/assets/profile/angry.png",
+    "happy": "/src/assets/profile/happy.png"
+  },
   "employees": [
     {
-      "id": "1",
-      "LinkImage": "https://cdn.discordapp.com/attachments/1196805209381404682/1207662079541256282/blinking_guy_meme_1569407297.gif?ex=65fc2575&is=65e9b075&hm=657c376d135bedb70bfb54cbe1834bdea2e1dfc71a8f0f403f0ec500be9ef90b&",
+      "id": "111",
+      "LinkImage": "/src/assets/profile/angry.png",
       "FakeName": "Xi Jingyo",
       "PositionRank": "God",
-      "Age": "999999",
+      "Age": "57",
       "PainPoint": "ass",
-      "GoalAndNeed": "oil",
-      "Comment": [
-        ""
-      ],
+      "GoalAndNeed": "",
+      "Comment": "",
       "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
+        "coworker": 10,
+        "environment": 6,
+        "responsibility": 4
       }
     },
     {
-      "id": "2",
-      "LinkImage": "https://media.discordapp.net/attachments/1196805209381404682/1206957684490899476/image.png?ex=65f99570&is=65e72070&hm=fbaf6b8de3eeba698e095b7836ececa2295fc3e77ccaadcc9dcd3e584efe160d&=&format=webp&quality=lossless&width=728&height=700",
+      "id": "222",
+      "LinkImage": "/src/assets/profile/happy.png",
+      "FakeName": "Xi Jingyo",
+      "PositionRank": "God",
+      "Age": "456",
+      "PainPoint": "ass",
+      "GoalAndNeed": "oil",
+      "Comment": "Lorem, iligendi provident fugiat unde dicta. Voluptates iusto officia, molestias non natus laboriosam quam sint aspernatur assumenda aliquid? Fugit natus corrupti qui animi dignissimos similique earum rem totam iusto inventore. Itaque maiores dignissimos cumque iusto reiciendis quas neque corrupti.",
+      "Rating": {
+        "coworker": 3,
+        "environment": 6,
+        "responsibility": 7
+      }
+    },
+    {
+      "id": "333",
+      "LinkImage": "/src/assets/profile/happy.png",
       "FakeName": "Xi Qwee",
       "PositionRank": "God",
-      "Age": "999999",
+      "Age": "46",
       "PainPoint": "ass",
       "GoalAndNeed": "oil",
-      "Comment": [
-        ""
-      ],
+      "Comment": "",
       "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
+        "coworker": 4,
+        "environment": 6,
+        "responsibility": 7
       }
     },
     {
-      "id": "3",
-      "LinkImage": "https://media.discordapp.net/attachments/1196805209381404682/1206281849438208030/black.png?ex=65f72004&is=65e4ab04&hm=412d2cc7c9857258270f8f653781257c36f013461f648b9e052b21ec1ea0d205&=&format=webp&quality=lossless&width=964&height=1074",
+      "id": "444",
+      "LinkImage": "/src/assets/profile/happy.png",
       "FakeName": "Xi Xeeee",
       "PositionRank": "God",
-      "Age": "999999",
+      "Age": "12",
       "PainPoint": "ass",
-      "GoalAndNeed": "oil",
-      "Comment": [
-        ""
-      ],
+      "GoalAndNeed": "",
+      "Comment": "",
       "Rating": {
         "coworker": 0,
         "environment": 0,
@@ -52,186 +65,29 @@
       }
     },
     {
-      "id": "4",
-      "LinkImage": "https://media.discordapp.net/attachments/1196805209381404682/1204054048882557029/Bard_Generated_Image.jpg?ex=65f83fb7&is=65e5cab7&hm=a61f2b9f5eab6567601062a6bbb8e8ad31234527180401e06bd8e08a1c4f1d76&=&format=webp&width=700&height=700",
+      "id": "555",
+      "LinkImage": "/src/assets/profile/happy.png",
       "FakeName": "Xi Mhaoti",
       "PositionRank": "God",
-      "Age": "999999",
-      "PainPoint": "ass",
+      "Age": "43",
+      "PainPoint": "",
       "GoalAndNeed": "oil",
-      "Comment": [
-        ""
-      ],
+      "Comment": "",
       "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
+        "coworker": 3,
+        "environment": 6,
+        "responsibility": 8
       }
     },
     {
-      "id": "5",
-      "LinkImage": "https://media1.tenor.com/m/-fpilwqik0IAAAAd/wft-xdd.gif",
+      "id": "666",
+      "LinkImage": "/src/assets/profile/angry.png",
       "FakeName": "Min Chong YiawMin",
       "PositionRank": "God",
-      "Age": "999999",
+      "Age": "56",
       "PainPoint": "ass",
-      "GoalAndNeed": "oil",
-      "Comment": [
-        ""
-      ],
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      }
-    },
-    {
-      "id": "6",
-      "LinkImage": "",
-      "FakeName": "",
-      "PositionRank": "",
-      "Age": "",
-      "PainPoint": "",
       "GoalAndNeed": "",
-      "Personality": [
-        ""
-      ],
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      }
-    },
-    {
-      "id": "7",
-      "LinkImage": "",
-      "FakeName": "",
-      "PositionRank": "",
-      "Age": "",
-      "PainPoint": "",
-      "GoalAndNeed": "",
-      "Personality": [
-        ""
-      ],
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      }
-    },
-    {
-      "id": "8",
-      "LinkImage": "",
-      "FakeName": "",
-      "PositionRank": "",
-      "Age": "",
-      "PainPoint": "",
-      "GoalAndNeed": "",
-      "Personality": [
-        ""
-      ],
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      }
-    },
-    {
-      "id": "9",
-      "LinkImage": "",
-      "FakeName": "",
-      "PositionRank": "",
-      "Age": "",
-      "PainPoint": "",
-      "GoalAndNeed": "",
-      "Personality": [
-        ""
-      ],
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      }
-    },
-    {
-      "id": "10",
-      "LinkImage": "",
-      "FakeName": "",
-      "PositionRank": "",
-      "Age": "",
-      "PainPoint": "",
-      "GoalAndNeed": "",
-      "Personality": [
-        ""
-      ],
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      }
-    },
-    {
-      "id": "11",
-      "LinkImage": "",
-      "FakeName": "",
-      "PositionRank": "",
-      "Age": "",
-      "PainPoint": "",
-      "GoalAndNeed": "",
-      "Personality": [
-        ""
-      ],
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      }
-    },
-    {
-      "id": "12",
-      "LinkImage": "",
-      "FakeName": "",
-      "PositionRank": "",
-      "Age": "",
-      "PainPoint": "",
-      "GoalAndNeed": "",
-      "Personality": [
-        ""
-      ],
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      }
-    },
-    {
-      "id": "13",
-      "LinkImage": "",
-      "FakeName": "",
-      "PositionRank": "",
-      "Age": "",
-      "PainPoint": "",
-      "GoalAndNeed": "",
-      "Personality": [
-        ""
-      ],
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      }
-    },
-    {
-      "id": "14",
-      "LinkImage": "",
-      "FakeName": "",
-      "PositionRank": "",
-      "Age": "",
-      "PainPoint": "",
-      "GoalAndNeed": "",
-      "Personality": [
-        ""
-      ],
+      "Comment": "",
       "Rating": {
         "coworker": 0,
         "environment": 0,
