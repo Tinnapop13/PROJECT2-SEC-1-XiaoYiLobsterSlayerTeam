@@ -1,10 +1,21 @@
 <script setup>
-const props = defineProps(["deleteCard"])
-console.log(props.deleteCard)
+import {ref, onMounted} from "vue"
+import CardSkeletonLoading from "./CardSkeletonLoading.vue"
 
+const showSkeleton = ref(true)
+const showCardDetails = ref(false)
+
+onMounted(() => {
+  setTimeout(() => {
+    showSkeleton.value = false
+    showCardDetails.value = true
+  }, 2000)
+})
 </script>
 
 <template>
+  <CardSkeletonLoading v-if="showSkeleton" />
+
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
@@ -19,7 +30,10 @@ console.log(props.deleteCard)
   />
 
   <!-- User Card -->
-  <div class="w-[20rem] h-[35rem] bg-[#F9F7F7] rounded-xl max-sm:w-full  ">
+  <div
+    v-if="showCardDetails"
+    class="w-[20rem] h-[35rem] bg-[#F9F7F7] rounded-xl max-sm:w-full"
+  >
     <!-- image and details -->
     <div
       class="flex items-center justify-center mx-auto h-[10rem] gap-x-5 bg-blue-300 rounded-b-xl"
