@@ -1,6 +1,7 @@
 <script setup>
-import { ref, onBeforeMount } from "vue";
-import { useRoute } from "vue-router";
+import {ref, onBeforeMount} from "vue"
+import {useRoute} from "vue-router"
+
 
 const route = useRoute();
 const employeeIndex = ref(0);
@@ -11,7 +12,7 @@ const editTemplate = ref({
   PositionRank: "",
   PainPoint: "",
   GoalAndNeed: "",
-});
+})
 
 employeeIndex.value = route.params.id;
 
@@ -26,11 +27,12 @@ const readJsonData = async () => {
   console.log(fetchData.value[employeeIndex]);
 };
 
+
 const deleteJsonData = async () => {
   await fetch(`http://localhost:5000/employees/${fetchData.value[employeeIndex.value].id}`, {
     method: "DELETE",
-  });
-};
+  })
+}
 
 const editJsonData = () => {
   fetch(`http://localhost:5000/employees/${fetchData.value[employeeIndex.value].id}`, {
@@ -57,14 +59,13 @@ const editJsonData = () => {
           : editTemplate.value.GoalAndNeed,
     }),
   }).then((respJson) => {
-    respJson.json();
-  });
-};
+    respJson.json()
+  })
+}
 
 onBeforeMount(() => {
-  readJsonData();
-});
-
+  readJsonData()
+})
 </script>
 
 <template v-if="loading">
@@ -200,11 +201,13 @@ onBeforeMount(() => {
       </div>
     </div>
 
+
     <div class=" m-5 flex flex-row justify-center h-[30vh]">
       <div class=" flex gap-4  items-center">
         <a :href="parseInt(fetchData?.[employeeIndex - 1]?.id)" v-if="parseInt(employeeIndex) > 0" class="btn btn-circle">❮</a>
         <img :src="fetchData?.[employeeIndex]?.LinkImage" class="size-40" />
           <a :href="parseInt(fetchData?.[employeeIndex + 1]?.id)" v-if="parseInt(employeeIndex) < parseInt(fetchData?.length - 1)" class="btn btn-circle">❯</a>
+
         </div>
       </div>
     </div>

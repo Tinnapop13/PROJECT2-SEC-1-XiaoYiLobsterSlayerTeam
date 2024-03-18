@@ -1,4 +1,5 @@
 <script setup>
+import CardSkeletonLoading from "./CardSkeletonLoading.vue"
 const props = defineProps({
   employeeId : String ,
   Rating : Object,
@@ -7,10 +8,20 @@ const props = defineProps({
 defineEmits(["deleteEmployee"])
 console.log(props.deleteCard)
 
+
+const showSkeleton = ref(true)
+const showCardDetails = ref(false)
+
+onMounted(() => {
+  setTimeout(() => {
+    showSkeleton.value = false
+    showCardDetails.value = true
+  }, 2000)
+})
 </script>
 
 <template>
-  <!-- IMPORT LOGO -->
+  <CardSkeletonLoading v-if="showSkeleton" />
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
@@ -25,10 +36,11 @@ console.log(props.deleteCard)
   />
 
   <!-- User Card -->
- 
-                    
-            
-  <div class="w-[15vw] h-[50vh] bg-[#F9F7F7]  rounded-xl overflow-hidden" >
+  <div
+    v-if="showCardDetails"
+    class="w-[20rem] h-[35rem] bg-[#F9F7F7] rounded-xl max-sm:w-full"
+  >
+
     <!-- image and details -->
     <router-link  :to="{ path: '/details/' + employeeId }  ">
     <div
