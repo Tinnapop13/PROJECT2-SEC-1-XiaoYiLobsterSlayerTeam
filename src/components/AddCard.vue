@@ -62,11 +62,11 @@ const addJsonData = () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      id: fetchData.value.length + 96 + "",
+      id: parseInt(fetchData.value[fetchData.value.length - 1].id) + 1 + "",
       LinkImage: newCard.LinkImage,
       FakeName: newCard.FakeName,
       PositionRank: newCard.PositionRank,
-      Age: newCard.Age,
+      Age: String(newCard.Age),
       PainPoint: newCard.PainPoint,
       GoalAndNeed: newCard.GoalAndNeed,
       Comment: newCard.Comment,
@@ -88,7 +88,7 @@ onBeforeMount(() => {
   <section v-if="loading" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
    
     <div class=" max-sm:overflow-y-scroll  bg-slate-100 p-8 rounded-lg h-fit w-fit ">
-      <h1 class="text-2xl font-bold mb-4 text-black self-start">ADD EMPLOYEE</h1>
+      <h1 class="text-4xl font-bold mb-4 text-black self-start">ADD EMPLOYEE</h1>
       <div class="flex flex-col justify-center h-[60vh] w-[80vw]  ">
       <div class="flex justify-evenly items-center">
         <div @click="selectingProfile = !selectingProfile" class="h-fit w-fit flex justify-center items-center overflow-hidden shadow-xl rounded-full p-4 m-4">
@@ -98,46 +98,46 @@ onBeforeMount(() => {
         <div class="flex flex-col items-center">
           <div class="flex flex-wrap w-[50vw] gap-4">
             <div>
-              <p>Name : </p><input type="text"
+              <p class="text-xl text-blue-950">Name : </p><input type="text"
                 class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
                 v-model="newCard.FakeName" />
             </div>
             <div>
-              <p>PositionRank : </p><input type="text"
+              <p class="text-xl text-blue-950">PositionRank : </p><input type="text"
                 class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
                 v-model="newCard.PositionRank" />
             </div>
             <div>
-              <p>Age : </p><input type="number"
+              <p class="text-xl text-blue-950">Age : </p><input type="number"
               min="20"
               max="60"
                 class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg" v-model="newCard.Age" />
             </div>
             <div>
-              <p>PainPoint : </p><input type="text"
+              <p class="text-xl text-blue-950">PainPoint : </p><input type="text"
                 class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
                 v-model="newCard.PainPoint" />
             </div>
             <div>
-              <p>GoalAndNeed : </p><input type="text"
+              <p class="text-xl text-blue-950">GoalAndNeed : </p><input type="text"
                 class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
                 v-model="newCard.GoalAndNeed" />
             </div>
             <div>
-              <p>Comment : </p><textarea style="resize: none;" v-model="newCard.Comment"
-                class="  bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg" />
+              <p class="text-xl text-blue-950">Comment : </p><textarea style="resize: none;" v-model="newCard.Comment"
+                class="  bg-white border border-gray-300 p-0.5 outline-none rounded-lg w-[20vw]"  />
             </div>
           </div>
 
 
           <div>
             <div class="flex flex-col w-[30vw]">
-              <p>Rating : </p>
-              <p>Co-worker : {{ newCard.Rating.coworker }}</p>
+              <p class="text-xl text-blue-950">Rating : </p>
+              <p class="text-blue-950">Co-worker : {{ newCard.Rating.coworker }}</p>
               <input type="range" min="1" max="10" v-model="newCard.Rating.coworker" class="slider" id="myRange">
-              <p>Environment : {{ newCard.Rating.environment }}</p>
+              <p class="text-blue-950">Environment : {{ newCard.Rating.environment }}</p>
               <input type="range" min="1" max="10" v-model="newCard.Rating.environment" class="slider" id="myRange">
-              <p>Responsibility : {{ newCard.Rating.responsibility }}</p>
+              <p class="text-blue-950">Responsibility : {{ newCard.Rating.responsibility }}</p>
               <input type="range" min="1" max="10" v-model="newCard.Rating.responsibility" class="slider" id="myRange">
             </div>
           </div>
@@ -179,7 +179,7 @@ onBeforeMount(() => {
       <div v-if=" newCard.FakeName.trim().length !== 0 &&
                   newCard.PositionRank.trim().length !== 0 &&
                   newCard.Comment.trim().length !== 0 &&
-                  (newCard.Age <= 60 || newCard.Age >= 20)
+                  (newCard.Age <= 60 && newCard.Age >= 20)
       " class="text-5xl text-green-500" >ADD EMPLOYEE SUCCESS</div>
         <button class="btn-primary btn" @click="addResult = !addResult">Close</button>
     </innerModal>

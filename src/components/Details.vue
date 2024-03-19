@@ -14,17 +14,15 @@ const editTemplate = ref({
   GoalAndNeed: "",
 })
 
-employeeIndex.value = route.params.id;
 
 const readJsonData = async () => {
   await fetch("http://localhost:5000/employees")
-    .then((respJson) => respJson.json())
-    .then((data) => {
-      fetchData.value = data;
-      loading.value = true;
-    });
-    employeeIndex.value = fetchData.value.findIndex((employee)=> employee.id === route.params.id)
-  console.log(fetchData.value[employeeIndex]);
+  .then((respJson) => respJson.json())
+  .then((data) => {
+    fetchData.value = data;
+    loading.value = true;
+  });
+  employeeIndex.value = fetchData.value.findIndex((employee)=> employee.id === route.params.id)
 };
 
 
@@ -159,9 +157,7 @@ onBeforeMount(() => {
           </div>
           <div class="divider"></div>
           <div class="flex flex-row justify-evenly">
-            <textarea class="textarea textarea-bordered w-full">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto libero dolorem placeat, incidunt, provident aut, corrupti beatae quam voluptatum repellendus dolorum velit quisquam excepturi quae laborum nam accusamus unde sunt?</textarea
-             >
+            <textarea class="textarea textarea-bordered w-full">{{ fetchData[employeeIndex]?.Comment }}</textarea>
           </div>
           <div class="flex flex-row items-center m-10">
             <p class="mr-5 mb-1">Coworker</p>
