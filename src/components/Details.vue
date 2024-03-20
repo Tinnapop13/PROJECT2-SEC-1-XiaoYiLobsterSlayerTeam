@@ -84,6 +84,7 @@ onBeforeMount(() => {
 
     <div class="flex px-4 py-5 border-t border-base-300 h-[50vh]">
       <div class="border border-base-300 flex ">
+        
         <div class="avatar indicator">
           <span
             class="border-black bg-white text-black indicator-item badge badge-secondary m-6"
@@ -91,7 +92,7 @@ onBeforeMount(() => {
               fetchData === null ? "" : fetchData[employeeIndex]?.FakeName
             }}</span
           >
-          <div class="rounded-sm overflow-hidden m-6 size">
+          <div class="rounded-sm overflow-hidden m-6 size ">
             <img
               :src="fetchData === null ? '' : fetchData[employeeIndex]?.LinkImage"
             />

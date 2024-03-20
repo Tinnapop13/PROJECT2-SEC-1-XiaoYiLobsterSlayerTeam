@@ -96,6 +96,7 @@ onMounted(() => {
 <!-- ============================================
      === Comment, PainPoints, GoalsAndNeeds  ====
      ============================================ -->
+     
     <div class="flex flex-col mx-5 my-2 max-h-[30rem] gap-1">
       <!-- ======= Comment =======-->
       <h2 class="text-lg font-extrabold text-[#3F72AF] underline">Comment</h2>
