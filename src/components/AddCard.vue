@@ -2,7 +2,6 @@
 import { ref, reactive, onBeforeMount } from 'vue'
 const fetchData = ref(null)
 const profileData = ref(null)
-const loading = ref(false)
 const currentDate = new Date()
 const selectingProfile = ref(false)
 const addResult = ref(false)
@@ -29,31 +28,29 @@ const readJsonData = async () => {
     .then((respJson) => respJson.json())
     .then((data) => {
       fetchData.value = data;
-      loading.value = true;
     });
 };
 
 const getPofileData = async () => {
   await fetch("http://localhost:5000/profile")
-  .then((response) => response.json())
-  .then((data) => {
-    profileData.value = data;
-  })
+    .then((response) => response.json())
+    .then((data) => {
+      profileData.value = data;
+    })
 }
-const addValidate = () =>{
-  if(newCard.Age > 60 ||newCard.Age < 20 ){
+const addValidate = () => {
+  if (newCard.Age > 60 || newCard.Age < 20) {
     addResult.value = !addResult.value
-    console.log(addResult.value);
-    return 
+    return
   }
-  if(newCard.FakeName.trim().length === 0 || newCard.PositionRank.trim().length === 0 || newCard.Comment.trim().length === 0){
+  if (newCard.FakeName.trim().length === 0 || newCard.PositionRank.trim().length === 0 || newCard.Comment.trim().length === 0) {
     addResult.value = !addResult.value
-    return 
+    return
   }
-    addJsonData()
-    addResult.value = !addResult.value
-  
-} 
+  addJsonData()
+  addResult.value = !addResult.value
+
+}
 
 const addJsonData = () => {
   fetch("http://localhost:5000/employees", {
@@ -62,11 +59,11 @@ const addJsonData = () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      id: fetchData.value.length + 96 + "",
+      id: parseInt(fetchData.value[fetchData.value.length - 1].id) + 1 + "",
       LinkImage: newCard.LinkImage,
       FakeName: newCard.FakeName,
       PositionRank: newCard.PositionRank,
-      Age: newCard.Age,
+      Age: String(newCard.Age),
       PainPoint: newCard.PainPoint,
       GoalAndNeed: newCard.GoalAndNeed,
       Comment: newCard.Comment,
@@ -83,105 +80,152 @@ onBeforeMount(() => {
   getPofileData();
   readJsonData();
 });
+
 </script>
 <template>
-  <section v-if="loading" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
-   
-    <div class=" max-sm:overflow-y-scroll  bg-slate-100 p-8 rounded-lg h-fit w-fit ">
-      <h1 class="text-2xl font-bold mb-4 text-black self-start">ADD EMPLOYEE</h1>
-      <div class="flex flex-col justify-center h-[60vh] w-[80vw]  ">
-      <div class="flex justify-evenly items-center">
-        <div @click="selectingProfile = !selectingProfile" class="h-fit w-fit flex justify-center items-center overflow-hidden shadow-xl rounded-full p-4 m-4">
-          <img :src="newCard.LinkImage" class=" w-[10vw] h-[20vh]">
+  <section class="inset-0 flex flex-col items-center justify-center m-auto my-4 rounded-xl p-4  bg-slate-200 w-[50vw]">
+      <div class="flex h-[10vhpx]">
+        <h1 class="text-4xl font-bold  mb-4 text-blue-950">ADD EMPLOYEE</h1>
+        <img :src="'/src/assets/profile/user_black.png'" class="size-10 mx-4">
+      </div>
+
+      <div class="flex flex-col justify-evenly items-center">
+        <div @click="selectingProfile = !selectingProfile"
+          class="h-fit w-fit flex justify-center items-center shadow-xl rounded-full p-4 m-4 relative bg-[#f1f1f1]">
+          <span class=" bg-white text-black absolute right-0 bottom-0  p-2 rounded-full shadow-2xl"
+            >
+            <img :src="'/src/assets/profile/change.png'" class="size-[20px]">
+            </span
+          >
+          <img :src="newCard.LinkImage" class=" w-[100px]  h-[100px]">
         </div>
-        
-        <div class="flex flex-col items-center">
-          <div class="flex flex-wrap w-[50vw] gap-4">
-            <div>
-              <p>Name : </p><input type="text"
-                class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
+
+        <div class="flex flex-col  bg-[#a6bbc8] p-4 rounded-2xl w-full">
+
+            <div >
+              <p class="text-base font-bold text-blue-950">Name : </p>
+              <input type="text"
+                class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg"
                 v-model="newCard.FakeName" />
             </div>
-            <div>
-              <p>PositionRank : </p><input type="text"
-                class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
+          <div class="flex gap-4">
+            <div class="w-[50%]">
+              <p class="text-base font-bold text-blue-950">PositionRank : </p><input type="text"
+                class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg"
                 v-model="newCard.PositionRank" />
             </div>
-            <div>
-              <p>Age : </p><input type="number"
-              min="20"
-              max="60"
-                class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg" v-model="newCard.Age" />
+            <div class="w-[50%]">
+              <p class="text-base font-bold text-blue-950">Age : </p><input type="number" min="20" max="60"
+                class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg" v-model="newCard.Age" />
             </div>
+          </div>
             <div>
-              <p>PainPoint : </p><input type="text"
-                class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
+              <p class="text-base font-bold text-blue-950">PainPoint : </p><input type="text"
+                class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg"
                 v-model="newCard.PainPoint" />
             </div>
             <div>
-              <p>GoalAndNeed : </p><input type="text"
-                class="bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg"
+              <p class="text-base font-bold text-blue-950">GoalAndNeed : </p><input type="text"
+                class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg"
                 v-model="newCard.GoalAndNeed" />
             </div>
             <div>
-              <p>Comment : </p><textarea style="resize: none;" v-model="newCard.Comment"
-                class="  bg-white w-auto border border-gray-300 p-0.5 outline-none rounded-lg" />
+              <p class="text-base font-bold text-blue-950">Comment : </p>
+              <textarea style="resize: none;" v-model="newCard.Comment"
+                class="bg-white border w-full border-gray-300 p-0.5 outline-none rounded-lg" />
             </div>
-          </div>
-
-
-          <div>
+         
             <div class="flex flex-col w-[30vw]">
-              <p>Rating : </p>
-              <p>Co-worker : {{ newCard.Rating.coworker }}</p>
-              <input type="range" min="1" max="10" v-model="newCard.Rating.coworker" class="slider" id="myRange">
-              <p>Environment : {{ newCard.Rating.environment }}</p>
-              <input type="range" min="1" max="10" v-model="newCard.Rating.environment" class="slider" id="myRange">
-              <p>Responsibility : {{ newCard.Rating.responsibility }}</p>
-              <input type="range" min="1" max="10" v-model="newCard.Rating.responsibility" class="slider" id="myRange">
+              <p class="text-xl font-bold text-blue-950">Rating : </p>
+              <p class="text-blue-950 font-semibold">Co-worker : {{ newCard.Rating.coworker }}</p>
+              <input type="range" min="1" max="10" v-model="newCard.Rating.coworker" class="slider my-1" id="myRange">
+              <p class="text-blue-950 font-semibold">Environment : {{ newCard.Rating.environment }}</p>
+              <input type="range" min="1" max="10" v-model="newCard.Rating.environment" class="slider my-1"
+                id="myRange">
+              <p class="text-blue-950 font-semibold">Responsibility : {{ newCard.Rating.responsibility }}</p>
+              <input type="range" min="1" max="10" v-model="newCard.Rating.responsibility" class="slider my-1"
+                id="myRange">
             </div>
+
           </div>
           <div class="flex  items-center gap-4 m-4">
-            <div @click="addValidate()"  class="btn btn-warning text-white ">
-              {{ newCard.Age }}
+            <div @click="addValidate()" class="btn btn-success text-white ">
               Submit
             </div>
             <router-link to="/" class="btn btn-error text-white">
-              Cancel              
+              Cancel
             </router-link>
-      </div>
+          </div>
         </div>
-      </div>
-</div>
-</div>
+      
+   
   </section>
 
-  <modal v-if="selectingProfile" class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
+  <modal v-if="selectingProfile"
+    class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
     <innerModal class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">
       <topic class="text-4xl">What do you feel?</topic>
       <div class="flex ">
-       <div v-for="profile in profileData" @click="newCard.LinkImage = profile" class="h-fit w-fit flex justify-center items-center overflow-hidden shadow-xl rounded-full p-4 m-4"  :class="{ 'bg-slate-300' : newCard.LinkImage === profile  }">
+        <div v-for="profile in profileData" @click="newCard.LinkImage = profile"
+          class="h-fit w-fit flex justify-center items-center overflow-hidden shadow-xl rounded-full p-4 m-4"
+          :class="{ 'bg-slate-300': newCard.LinkImage === profile }">
           <img :src="profile" class="size-24">
         </div>
       </div>
-        <button class="btn-primary btn" @click="selectingProfile = !selectingProfile">Close</button>
+      <button class="btn-primary btn" @click="selectingProfile = !selectingProfile">Close</button>
     </innerModal>
-    </modal>
+  </modal>
 
-    
+
   <modal v-if="addResult" class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
     <innerModal class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">
       <div class="text-5xl"> Result</div>
       <div v-if="newCard.FakeName.trim().length === 0" class="text-red-500">Please Insert Name</div>
       <div v-if="newCard.PositionRank.trim().length === 0" class="text-red-500">Please Insert Rank</div>
       <div v-if="newCard.Comment.trim().length === 0" class="text-red-500">Please Insert Comment</div>
-      <div v-if="newCard.Age> 60 || newCard.Age < 20 " class="text-red-500">Age must be value between 20 - 60</div>
-      <div v-if=" newCard.FakeName.trim().length !== 0 &&
-                  newCard.PositionRank.trim().length !== 0 &&
-                  newCard.Comment.trim().length !== 0 &&
-                  (newCard.Age <= 60 || newCard.Age >= 20)
-      " class="text-5xl text-green-500" >ADD EMPLOYEE SUCCESS</div>
-        <button class="btn-primary btn" @click="addResult = !addResult">Close</button>
+      <div v-if="newCard.Age > 60 || newCard.Age < 20" class="text-red-500">Age must be value between 20 - 60</div>
+      <div v-if="newCard.FakeName.trim().length !== 0 &&
+          newCard.PositionRank.trim().length !== 0 &&
+          newCard.Comment.trim().length !== 0 &&
+          (newCard.Age <= 60 && newCard.Age >= 20)
+          " class="text-5xl text-green-500">ADD EMPLOYEE SUCCESS</div>
+      <button class="btn-primary btn" @click="addResult = !addResult">Close</button>
     </innerModal>
-    </modal>
+  </modal>
 </template>
+
+<style scoped>
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #052c51;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #052c51;
+  cursor: pointer;
+}
+</style>

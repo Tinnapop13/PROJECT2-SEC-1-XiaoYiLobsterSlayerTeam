@@ -14,17 +14,15 @@ const editTemplate = ref({
   GoalAndNeed: "",
 })
 
-employeeIndex.value = route.params.id;
 
 const readJsonData = async () => {
   await fetch("http://localhost:5000/employees")
-    .then((respJson) => respJson.json())
-    .then((data) => {
-      fetchData.value = data;
-      loading.value = true;
-    });
-    employeeIndex.value = fetchData.value.findIndex((employee)=> employee.id === route.params.id)
-  console.log(fetchData.value[employeeIndex]);
+  .then((respJson) => respJson.json())
+  .then((data) => {
+    fetchData.value = data;
+    loading.value = true;
+  });
+  employeeIndex.value = fetchData.value.findIndex((employee)=> employee.id === route.params.id)
 };
 
 
@@ -86,6 +84,7 @@ onBeforeMount(() => {
 
     <div class="flex px-4 py-5 border-t border-base-300 h-[50vh]">
       <div class="border border-base-300 flex ">
+        
         <div class="avatar indicator">
           <span
             class="border-black bg-white text-black indicator-item badge badge-secondary m-6"
@@ -93,7 +92,7 @@ onBeforeMount(() => {
               fetchData === null ? "" : fetchData[employeeIndex]?.FakeName
             }}</span
           >
-          <div class="rounded-sm overflow-hidden m-6 size">
+          <div class="rounded-sm overflow-hidden m-6 size ">
             <img
               :src="fetchData === null ? '' : fetchData[employeeIndex]?.LinkImage"
             />
@@ -159,9 +158,7 @@ onBeforeMount(() => {
           </div>
           <div class="divider"></div>
           <div class="flex flex-row justify-evenly">
-            <textarea class="textarea textarea-bordered w-full">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto libero dolorem placeat, incidunt, provident aut, corrupti beatae quam voluptatum repellendus dolorum velit quisquam excepturi quae laborum nam accusamus unde sunt?</textarea
-             >
+            <textarea class="textarea textarea-bordered w-full">{{ fetchData[employeeIndex]?.Comment }}</textarea>
           </div>
           <div class="flex flex-row items-center m-10">
             <p class="mr-5 mb-1">Coworker</p>
