@@ -1,12 +1,13 @@
 <script setup>
 import {ref, onBeforeMount} from "vue"
 import {useRoute} from "vue-router"
+import { readJsonData } from '/src/libs/crud.js'
+import { EmployeeManagement } from '/src/libs/EmployeeManagement.js'
 
 
 const route = useRoute();
 const employeeIndex = ref(0);
-const loading = ref(false);
-const fetchData = ref(null);
+const fetchData = ref(new EmployeeManagement());
 const editTemplate = ref({
   Age: "",
   PositionRank: "",
@@ -14,59 +15,58 @@ const editTemplate = ref({
   GoalAndNeed: "",
 })
 
-
-const readJsonData = async () => {
-  await fetch("http://localhost:5000/employees")
-  .then((respJson) => respJson.json())
-  .then((data) => {
-    fetchData.value = data;
-    loading.value = true;
-  });
-  employeeIndex.value = fetchData.value.findIndex((employee)=> employee.id === route.params.id)
-};
-
-
-const deleteJsonData = async () => {
-  await fetch(`http://localhost:5000/employees/${fetchData.value[employeeIndex.value].id}`, {
-    method: "DELETE",
-  })
+const deleteEmployee = async () => {
+  const deleteId = fetchData.value.getEmployees()[employeeIndex.value].id
+  try{
+    await deleteJsonData(deleteId)
+    fetchData.value.deleteEmployee(deleteId)
+  }catch(error){
+    console.log(error);
+  }
 }
 
-const editJsonData = () => {
-  fetch(`http://localhost:5000/employees/${fetchData.value[employeeIndex.value].id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      Age:
-        editTemplate.value.Age.trim().length === 0
-          ? fetchData.value.Age
-          : editTemplate.value.Age,
-      PositionRank:
-        editTemplate.value.PositionRank.trim().length === 0
-          ? fetchData.value.PositionRank
-          : editTemplate.value.PositionRank,
-      PainPoint:
-        editTemplate.value.PainPoint.trim().length === 0
-          ? fetchData.value.PainPoint
-          : editTemplate.value.PainPoint,
-      GoalAndNeed:
-        editTemplate.value.GoalAndNeed.trim().length === 0
-          ? fetchData.value.GoalAndNeed
-          : editTemplate.value.GoalAndNeed,
-    }),
-  }).then((respJson) => {
-    respJson.json()
-  })
-}
+// const editJsonData = () => {
+//   fetch(`http://localhost:5000/employees/${fetchData.value[employeeIndex.value].id}`, {
+//     method: "PATCH",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       Age:
+//         editTemplate.value.Age.trim().length === 0
+//           ? fetchData.value.Age
+//           : editTemplate.value.Age,
+//       PositionRank:
+//         editTemplate.value.PositionRank.trim().length === 0
+//           ? fetchData.value.PositionRank
+//           : editTemplate.value.PositionRank,
+//       PainPoint:
+//         editTemplate.value.PainPoint.trim().length === 0
+//           ? fetchData.value.PainPoint
+//           : editTemplate.value.PainPoint,
+//       GoalAndNeed:
+//         editTemplate.value.GoalAndNeed.trim().length === 0
+//           ? fetchData.value.GoalAndNeed
+//           : editTemplate.value.GoalAndNeed,
+//     }),
+//   }).then((respJson) => {
+//     respJson.json()
+//   })
+// }
 
-onBeforeMount(() => {
-  readJsonData()
-})
+onBeforeMount(async () => {
+  try {
+    const employees = await readJsonData()
+    fetchData.value.addEmployees(employees)
+    employeeIndex.value = fetchData.value.getEmployees().findIndex((employee)=> employee.id === route.params.id)
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 </script>
 
-<template v-if="loading">
+<template>
   <div class="border border-base-300 h-screen w-screen ">
 
     <header class="flex items-center justify-between bg-gray-800 p-8 ">
@@ -84,17 +84,17 @@ onBeforeMount(() => {
 
     <div class="flex px-4 py-5 border-t border-base-300 h-[50vh]">
       <div class="border border-base-300 flex ">
-        
+
         <div class="avatar indicator">
           <span
             class="border-black bg-white text-black indicator-item badge badge-secondary m-6"
             >{{
-              fetchData === null ? "" : fetchData[employeeIndex]?.FakeName
+              fetchData.getEmployees()[employeeIndex]?.FakeName
             }}</span
           >
           <div class="rounded-sm overflow-hidden m-6 size ">
             <img
-              :src="fetchData === null ? '' : fetchData[employeeIndex]?.LinkImage"
+              :src="fetchData.getEmployees()[employeeIndex]?.LinkImage"
             />
           </div>
         </div>
@@ -107,7 +107,7 @@ onBeforeMount(() => {
                 <input
                   type="text"
                   :placeholder="
-                    fetchData === null ? '' : fetchData[employeeIndex]?.Age
+                    fetchData.getEmployees()[employeeIndex]?.Age
                   "
                   v-model="editTemplate.Age"
                   class="input input-bordered input-xs w-full max-w-xs"
@@ -120,9 +120,7 @@ onBeforeMount(() => {
                 <input
                   type="text"
                   :placeholder="
-                    fetchData === null
-                      ? ''
-                      : fetchData[employeeIndex]?.PositionRank
+                    fetchData.getEmployees()[employeeIndex]?.PositionRank
                   "
                   v-model="editTemplate.PositionRank"
                   class="input input-bordered input-xs w-full max-w-xs"
@@ -135,7 +133,7 @@ onBeforeMount(() => {
                 <input
                   type="text"
                   :placeholder="
-                    fetchData === null ? '' : fetchData[employeeIndex]?.PainPoint
+                    fetchData.getEmployees()[employeeIndex]?.PainPoint
                   "
                   v-model="editTemplate.PainPoint"
                   class="input input-bordered input-xs w-full max-w-xs"
@@ -148,7 +146,7 @@ onBeforeMount(() => {
                 <input
                   type="text"
                   :placeholder="
-                    fetchData === null ? '' : fetchData[employeeIndex]?.GoalAndNeed
+                    fetchData.getEmployees()[employeeIndex]?.GoalAndNeed
                   "
                   v-model="editTemplate.GoalAndNeed"
                   class="input input-bordered input-xs w-full max-w-xs"
@@ -158,38 +156,38 @@ onBeforeMount(() => {
           </div>
           <div class="divider"></div>
           <div class="flex flex-row justify-evenly">
-            <textarea class="textarea textarea-bordered w-full">{{ fetchData[employeeIndex]?.Comment }}</textarea>
+            <textarea class="textarea textarea-bordered w-full">{{ fetchData.getEmployees()[employeeIndex]?.Comment }}</textarea>
           </div>
           <div class="flex flex-row items-center m-10">
             <p class="mr-5 mb-1">Coworker</p>
             <progress
               class="progress progress-primary w-50 mr-20"
-              :value="fetchData?.[employeeIndex]?.Rating.coworker"
+              :value="fetchData.getEmployees()[employeeIndex]?.Rating.coworker"
               max="100"
             ></progress>
             <p class="mr-5 mb-1">Environment</p>
             <progress
               class="progress progress-primary w-50 mr-20"
-              :value="fetchData?.[employeeIndex]?.Rating.environment"
+              :value="fetchData.getEmployees()[employeeIndex]?.Rating.environment"
               max="100"
             ></progress>
             <p class="mr-5 mb-1">Responsibility</p>
             <progress
               class="progress progress-primary w-50 mr-20"
-              :value="fetchData?.[employeeIndex]?.Rating.responsibility"
+              :value="fetchData.getEmployees()[employeeIndex]?.Rating.responsibility"
               max="100"
             ></progress>
            
             <router-link
               to="/"
               class="btn btn-ghost text-xl mr-2"
-              @click="editJsonData()"
+              @click="deleteEmployee()"
               >UPDATE</router-link
             >
             <router-link
               to="/"
               class="btn btn-ghost text-xl ml-2"
-              @click="deleteJsonData()"
+              @click="deleteEmployee()"
               >DELETE</router-link
             >
           </div>
@@ -201,9 +199,9 @@ onBeforeMount(() => {
 
     <div class=" m-5 flex flex-row justify-center h-[30vh]">
       <div class=" flex gap-4  items-center">
-        <a :href="parseInt(fetchData?.[employeeIndex - 1]?.id)" v-if="parseInt(employeeIndex) > 0" class="btn btn-circle">❮</a>
+        <a :href="parseInt(fetchData.getEmployees()[employeeIndex - 1]?.id)" v-if="parseInt(employeeIndex) > 0" class="btn btn-circle">❮</a>
         <img :src="fetchData?.[employeeIndex]?.LinkImage" class="size-40" />
-          <a :href="parseInt(fetchData?.[employeeIndex + 1]?.id)" v-if="parseInt(employeeIndex) < parseInt(fetchData?.length - 1)" class="btn btn-circle">❯</a>
+          <a :href="parseInt(fetchData.getEmployees()[employeeIndex + 1]?.id)" v-if="parseInt(employeeIndex) < parseInt(fetchData.getEmployees().length - 1)" class="btn btn-circle">❯</a>
 
         </div>
       </div>

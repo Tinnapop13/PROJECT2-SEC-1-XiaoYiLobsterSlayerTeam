@@ -1,9 +1,10 @@
 <script setup>
-import { ref, reactive, watch, onBeforeMount, computed } from "vue"
+import { ref, reactive, watch, onBeforeMount, computed ,onMounted} from "vue"
 import Card from "./Card.vue";
 import { readJsonData, deleteJsonData } from "/src/libs/crud.js";
+import { EmployeeManagement } from "/src/libs/EmployeeManagement.js"
 
-const fetchData = ref(null);
+const fetchData = ref(new EmployeeManagement());
 const searchKey = ref("")
 const card_slider = ref(null)
 const card_slider_container = ref(null)
@@ -28,13 +29,15 @@ const slide = (direction) => {
 ============================================
 */
 
-const getEmployee = async () => {
-  fetchData.value = await readJsonData()
-}
 
 const deleteEmployee = async (el) => {
-  await deleteJsonData(el)
-  getEmployee()
+  const deleteId = el.target.id
+  try{
+    await deleteJsonData(deleteId)
+    fetchData.value.deleteEmployee(deleteId)
+  }catch(error){
+    console.log(error);
+  }
 }
 
 /*
@@ -44,7 +47,7 @@ const deleteEmployee = async (el) => {
 */
 
 const filteredData = computed(() => {
-  return fetchData.value.filter((employee) => {
+  return fetchData.value.employees.filter((employee) => {
     return Object.entries(employee)
       .filter(([key, value]) => key === "FakeName" || key === "PositionRank" || key === "Age")
       .some(([key, value]) => {
@@ -59,7 +62,14 @@ const filteredData = computed(() => {
 ============================================
 */
 
-onBeforeMount(() => getEmployee());
+onMounted(async () => {
+  try {
+    const employees = await readJsonData()
+    fetchData.value.addEmployees(employees)
+  } catch (error) {
+    console.log("cannot fetch");
+  }
+});
 
 </script>
 
@@ -108,14 +118,14 @@ onBeforeMount(() => getEmployee());
       <!-- =========== Slider Container ============ -->
       <div class="card-slider" :ref="'card_slider'">
         <section class="flex flex-row mb-4 mx-16 gap-10 items-center ">
-          <Card v-for="employee in searchKey.trim().length === 0 ? fetchData : filteredData" :key="employee.id"
+          <Card v-for="employee in searchKey.trim().length === 0 ? fetchData.getEmployees() : filteredData" :key="employee.id"
             :employeeId=employee.id :Rating=employee.Rating :imgUrl=employee.LinkImage @deleteEmployee="deleteEmployee">
             <template #fullname>{{ employee.FakeName }}</template>
             <template #age>{{ employee.Age }}</template>
             <template #position>{{ employee.PositionRank }}</template>
-            <template v-if="employee.Comment.trim()?.length != 0" #comment>{{ employee.Comment }}</template>
-            <template v-if="employee.PainPoint.trim()?.length != 0" #PainPoints>{{ employee.PainPoint }}</template>
-            <template v-if="employee.GoalAndNeed.trim()?.length != 0" #GoalAndNeeds>{{ employee.GoalAndNeed
+            <template v-if="employee.Comment?.trim()?.length != 0" #comment>{{ employee.Comment }}</template>
+            <template v-if="employee.PainPoint?.trim()?.length != 0" #PainPoints>{{ employee.PainPoint }}</template>
+            <template v-if="employee.GoalAndNeed?.trim()?.length != 0" #GoalAndNeeds>{{ employee.GoalAndNeed
               }}</template>
           </Card>
         </section>

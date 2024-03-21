@@ -1,4 +1,8 @@
 {
+  "user": {
+    "username": "admin",
+    "password": "admin123"
+  },
   "profile": {
     "angry": "/src/assets/profile/angry.png",
     "happy": "/src/assets/profile/happy.png"
@@ -88,6 +92,22 @@
       "PainPoint": "",
       "GoalAndNeed": "",
       "Comment": "asfafasfas",
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "DateAdded": "Thu Mar 21 2024"
+    },
+    {
+      "id": "668",
+      "LinkImage": "/src/assets/profile/angry.png",
+      "FakeName": "tinnapop tienbang",
+      "PositionRank": "efsdf",
+      "Age": 25,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "testadd",
       "Rating": {
         "coworker": 0,
         "environment": 0,
