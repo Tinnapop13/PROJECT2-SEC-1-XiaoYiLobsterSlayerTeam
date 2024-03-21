@@ -1,9 +1,8 @@
 <script setup>
-import {ref, onBeforeMount} from "vue"
-import {useRoute} from "vue-router"
-import { readJsonData } from '/src/libs/crud.js'
-import { EmployeeManagement } from '/src/libs/EmployeeManagement.js'
-
+import { ref, onBeforeMount } from "vue";
+import { useRoute } from "vue-router";
+import { readJsonData } from "/src/libs/crud.js";
+import { EmployeeManagement } from "/src/libs/EmployeeManagement.js";
 
 const route = useRoute();
 const employeeIndex = ref(0);
@@ -13,17 +12,17 @@ const editTemplate = ref({
   PositionRank: "",
   PainPoint: "",
   GoalAndNeed: "",
-})
+});
 
 const deleteEmployee = async () => {
-  const deleteId = fetchData.value.getEmployees()[employeeIndex.value].id
-  try{
-    await deleteJsonData(deleteId)
-    fetchData.value.deleteEmployee(deleteId)
-  }catch(error){
+  const deleteId = fetchData.value.getEmployees()[employeeIndex.value].id;
+  try {
+    await deleteJsonData(deleteId);
+    fetchData.value.deleteEmployee(deleteId);
+  } catch (error) {
     console.log(error);
   }
-}
+};
 
 // const editJsonData = () => {
 //   fetch(`http://localhost:5000/employees/${fetchData.value[employeeIndex.value].id}`, {
@@ -56,46 +55,42 @@ const deleteEmployee = async () => {
 
 onBeforeMount(async () => {
   try {
-    const employees = await readJsonData()
-    fetchData.value.addEmployees(employees)
-    employeeIndex.value = fetchData.value.getEmployees().findIndex((employee)=> employee.id === route.params.id)
+    const employees = await readJsonData();
+    fetchData.value.addEmployees(employees);
+    employeeIndex.value = fetchData.value
+      .getEmployees()
+      .findIndex((employee) => employee.id === route.params.id);
   } catch (error) {
     console.log(error);
   }
 });
-
 </script>
 
 <template>
-  <div class="border border-base-300 h-screen w-screen ">
-
-    <header class="flex items-center justify-between bg-gray-800 p-8 ">
-            <router-link class="text-white font-bold text-xl" to="/">
-              Employee Insight
-            </router-link>
-            <ul class="space-x-14">
-              <router-link class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue hover:bg-blue-700 "
-                  :to="{path: '/addcard'}">
-                      ADD EMPLOYEE
-              </router-link>
-            </ul>
+  <div class="border border-base-300 h-screen w-screen">
+    <header class="flex items-center justify-between bg-gray-800 p-8">
+      <router-link class="text-white font-bold text-xl" to="/">
+        Employee Insight
+      </router-link>
+      <ul class="space-x-14">
+        <router-link
+          class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue hover:bg-blue-700"
+          :to="{ path: '/addcard' }"
+        >
+          ADD EMPLOYEE
+        </router-link>
+      </ul>
     </header>
 
-
-    <div class="flex px-4 py-5 border-t border-base-300 h-[50vh]">
-      <div class="border border-base-300 flex ">
-
+    <div class="flex px-4 py-5 h-[50vh]">
+      <div class="border border-base-300 flex">
         <div class="avatar indicator">
           <span
             class="border-black bg-white text-black indicator-item badge badge-secondary m-6"
-            >{{
-              fetchData.getEmployees()[employeeIndex]?.FakeName
-            }}</span
+            >{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}</span
           >
-          <div class="rounded-sm overflow-hidden m-6 size ">
-            <img
-              :src="fetchData.getEmployees()[employeeIndex]?.LinkImage"
-            />
+          <div class="rounded-sm overflow-hidden m-6 size">
+            <img :src="fetchData.getEmployees()[employeeIndex]?.LinkImage" />
           </div>
         </div>
 
@@ -106,9 +101,7 @@ onBeforeMount(async () => {
               <p class="m-2 text-xs font-[10]">
                 <input
                   type="text"
-                  :placeholder="
-                    fetchData.getEmployees()[employeeIndex]?.Age
-                  "
+                  :placeholder="fetchData.getEmployees()[employeeIndex]?.Age"
                   v-model="editTemplate.Age"
                   class="input input-bordered input-xs w-full max-w-xs"
                 />
@@ -156,7 +149,9 @@ onBeforeMount(async () => {
           </div>
           <div class="divider"></div>
           <div class="flex flex-row justify-evenly">
-            <textarea class="textarea textarea-bordered w-full">{{ fetchData.getEmployees()[employeeIndex]?.Comment }}</textarea>
+            <textarea class="textarea textarea-bordered w-full">{{
+              fetchData.getEmployees()[employeeIndex]?.Comment
+            }}</textarea>
           </div>
           <div class="flex flex-row items-center m-10">
             <p class="mr-5 mb-1">Coworker</p>
@@ -168,16 +163,26 @@ onBeforeMount(async () => {
             <p class="mr-5 mb-1">Environment</p>
             <progress
               class="progress progress-primary w-50 mr-20"
-              :value="fetchData.getEmployees()[employeeIndex]?.Rating.environment"
+              :value="
+                fetchData.getEmployees()[employeeIndex]?.Rating.environment
+              "
               max="100"
             ></progress>
             <p class="mr-5 mb-1">Responsibility</p>
             <progress
               class="progress progress-primary w-50 mr-20"
-              :value="fetchData.getEmployees()[employeeIndex]?.Rating.responsibility"
+              :value="
+                fetchData.getEmployees()[employeeIndex]?.Rating.responsibility
+              "
               max="100"
             ></progress>
-           
+
+            <a
+              :href="parseInt(fetchData.getEmployees()[employeeIndex - 1]?.id)"
+              v-if="parseInt(employeeIndex) > 0"
+              class="btn btn-circle"
+              >❮</a
+            >
             <router-link
               to="/"
               class="btn btn-ghost text-xl mr-2"
@@ -190,21 +195,18 @@ onBeforeMount(async () => {
               @click="deleteEmployee()"
               >DELETE</router-link
             >
+            <a
+              :href="parseInt(fetchData.getEmployees()[employeeIndex + 1]?.id)"
+              v-if="
+                parseInt(employeeIndex) <
+                parseInt(fetchData.getEmployees().length - 1)
+              "
+              class="btn btn-circle"
+              >❯</a
+            >
           </div>
-          
         </div>
       </div>
     </div>
-
-
-    <div class=" m-5 flex flex-row justify-center h-[30vh]">
-      <div class=" flex gap-4  items-center">
-        <a :href="parseInt(fetchData.getEmployees()[employeeIndex - 1]?.id)" v-if="parseInt(employeeIndex) > 0" class="btn btn-circle">❮</a>
-        <img :src="fetchData?.[employeeIndex]?.LinkImage" class="size-40" />
-          <a :href="parseInt(fetchData.getEmployees()[employeeIndex + 1]?.id)" v-if="parseInt(employeeIndex) < parseInt(fetchData.getEmployees().length - 1)" class="btn btn-circle">❯</a>
-
-        </div>
-      </div>
-    </div>
-  
+  </div>
 </template>
