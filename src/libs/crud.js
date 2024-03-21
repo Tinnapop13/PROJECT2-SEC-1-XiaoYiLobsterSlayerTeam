@@ -4,11 +4,29 @@ const readJsonData = async () => {
       
   };
 
-const deleteJsonData = async (e) => {
-      return fetch(`http://localhost:5000/employees/${Number(e.target.id)}`, {
+  const readProfileData = async  () => {
+    return await fetch("http://localhost:5000/profile")
+      .then((response) => response.json())
+  }
+
+const deleteJsonData = async (id) => {
+      return await fetch(`http://localhost:5000/employees/${Number(id)}`, {
       method: "DELETE",
     }).then((respJson) => respJson.json())
   };
 
+const addJsonData = (employee , id ) => {
+    return fetch("http://localhost:5000/employees", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id , ...employee , DateAdded: new Date().toDateString() }),
+    }).then((respJson) => {
+      respJson.json()
+    });
+  };
 
-  export { deleteJsonData , readJsonData}
+
+
+  export { deleteJsonData , readJsonData ,  addJsonData , readProfileData}

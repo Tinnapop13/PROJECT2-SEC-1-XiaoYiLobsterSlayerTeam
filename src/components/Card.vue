@@ -19,7 +19,7 @@ const showSkeleton = ref(true)
 const showCardDetails = ref(false)
 
 /* ============================================
-   ======= Skeletion Loader Mechanic ==========
+   ======= Skeleton Loader Mechanic ==========
    ============================================ */
 
 onMounted(() => {
@@ -96,7 +96,7 @@ onMounted(() => {
 <!-- ============================================
      === Comment, PainPoints, GoalsAndNeeds  ====
      ============================================ -->
-     
+
     <div class="flex flex-col mx-5 my-2 max-h-[30rem] gap-1">
       <!-- ======= Comment =======-->
       <h2 class="text-lg font-extrabold text-[#3F72AF] underline">Comment</h2>
@@ -122,22 +122,21 @@ onMounted(() => {
       <div class="flex mt-5 justify-evenly">
         <div
           class="radial-progress text-[#9fb4dd]"
-          :style="`--value:${Rating.coworker*10}`"
-          :value="Rating.coworker"
+          :style="`--value:${Rating?.coworker*10}`"
           role="progressbar"
         >
           <span class="material-symbols-outlined"> groups </span>
         </div>
         <div
           class="radial-progress text-[#9fb4dd]"
-          :style="`--value:${Rating.environment*10}`"
+          :style="`--value:${Rating?.environment*10}`"
          
         >
           <span class="material-symbols-outlined"> source_environment </span>
         </div>
         <div
           class="radial-progress text-[#9fb4dd]"
-          :style="`--value:${Rating.responsibility*10}`"
+          :style="`--value:${Rating?.responsibility*10}`"
         >
           <span class="material-symbols-outlined"> work </span>
         </div>
