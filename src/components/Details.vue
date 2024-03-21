@@ -25,34 +25,18 @@ const deleteEmployee = async () => {
   }
 }
 
-// const editJsonData = () => {
-//   fetch(`http://localhost:5000/employees/${fetchData.value[employeeIndex.value].id}`, {
-//     method: "PATCH",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       Age:
-//         editTemplate.value.Age.trim().length === 0
-//           ? fetchData.value.Age
-//           : editTemplate.value.Age,
-//       PositionRank:
-//         editTemplate.value.PositionRank.trim().length === 0
-//           ? fetchData.value.PositionRank
-//           : editTemplate.value.PositionRank,
-//       PainPoint:
-//         editTemplate.value.PainPoint.trim().length === 0
-//           ? fetchData.value.PainPoint
-//           : editTemplate.value.PainPoint,
-//       GoalAndNeed:
-//         editTemplate.value.GoalAndNeed.trim().length === 0
-//           ? fetchData.value.GoalAndNeed
-//           : editTemplate.value.GoalAndNeed,
-//     }),
-//   }).then((respJson) => {
-//     respJson.json()
-//   })
-// }
+const updateEmployee = async () => {
+  // editTemplate.value vlidation
+  const classEmployeeUpdate = {}
+  const jsonEmployeeUpdate  = {}
+  try {
+    await editJsonData(route.params.id,jsonEmployeeUpdate)
+    updateEmployee(employeeIndex.value,classEmployeeUpdate)
+  } catch (error) {
+    console.log(error);
+  }
+
+}
 
 onBeforeMount(async () => {
   try {
@@ -181,7 +165,7 @@ onBeforeMount(async () => {
             <router-link
               to="/"
               class="btn btn-ghost text-xl mr-2"
-              @click="deleteEmployee()"
+              @click="updateEmployee()"
               >UPDATE</router-link
             >
             <router-link

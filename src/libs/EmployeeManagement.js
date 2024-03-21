@@ -19,6 +19,10 @@ class EmployeeManagement {
         }
     }
 
+    updateEmployee(index , updatedEmployee){
+        this.employees.splice(index,1,updatedEmployee)
+    }
+
     getEmployees() {
         return this.employees
     }

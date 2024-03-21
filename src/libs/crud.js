@@ -27,6 +27,18 @@ const addJsonData = (employee , id ) => {
     });
   };
 
+  const editJsonData = (id,updatedEmployee) => {
+      fetch(`http://localhost:5000/employees/${Number(id)}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedEmployee),
+      }).then((respJson) => {
+        respJson.json()
+      })
+    }
 
 
-  export { deleteJsonData , readJsonData ,  addJsonData , readProfileData}
+
+  export { deleteJsonData , readJsonData ,  addJsonData , readProfileData , editJsonData}
