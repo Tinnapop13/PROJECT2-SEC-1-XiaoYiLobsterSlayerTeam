@@ -9,33 +9,18 @@
   },
   "employees": [
     {
-      "id": "111",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "Xi Jingyo",
-      "PositionRank": "God",
-      "Age": "57",
-      "PainPoint": "ass",
-      "GoalAndNeed": "",
-      "Comment": "",
-      "Rating": {
-        "coworker": 10,
-        "environment": 6,
-        "responsibility": 4
-      }
-    },
-    {
       "id": "222",
       "LinkImage": "/src/assets/profile/happy.png",
       "FakeName": "Xi Jingyo",
-      "PositionRank": "God",
-      "Age": "456",
-      "PainPoint": "ass",
-      "GoalAndNeed": "oil",
-      "Comment": "Lorem, iligendi provident fugiat unde dicta. Voluptates iusto officia, molestias non natus laboriosam quam sint aspernatur assumenda aliquid? Fugit natus corrupti qui animi dignissimos similique earum rem totam iusto inventore. Itaque maiores dignissimos cumque iusto reiciendis quas neque corrupti.",
+      "PositionRank": "Noob",
+      "Age": "32",
+      "PainPoint": "pain",
+      "GoalAndNeed": "Money",
+      "Comment": "qweqwieqweiqwieuy1231iu2y3iu12y3 Vietnam!",
       "Rating": {
-        "coworker": 3,
-        "environment": 6,
-        "responsibility": 7
+        "coworker": "6",
+        "environment": "4",
+        "responsibility": "10"
       }
     },
     {
@@ -87,10 +72,10 @@
       "id": "667",
       "LinkImage": "/src/assets/profile/angry.png",
       "FakeName": "tinnapop tienbang",
-      "PositionRank": "efsdf",
-      "Age": "22",
-      "PainPoint": "",
-      "GoalAndNeed": "",
+      "PositionRank": "hjkhkj",
+      "Age": "24",
+      "PainPoint": "hjjkh",
+      "GoalAndNeed": "uihiuhu",
       "Comment": "asfafasfas",
       "Rating": {
         "coworker": 0,
