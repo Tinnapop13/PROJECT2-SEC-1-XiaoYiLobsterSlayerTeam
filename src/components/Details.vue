@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
 import { useRoute } from "vue-router";
-import { readJsonData, editJsonData } from "/src/libs/crud.js";
+import { readJsonData, editJsonData, deleteJsonData } from "/src/libs/crud.js";
 import { EmployeeManagement } from "/src/libs/EmployeeManagement.js";
 
 const route = useRoute();
@@ -87,12 +87,22 @@ const errorMessage = ref("");
 </script>
 
 <template>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+  />
+
   <!-- ============================================
   ================== NAV BAR ======================
   ============================================ -->
   <header class="flex items-center justify-between bg-gray-800 p-8">
-    <router-link class="text-white font-bold text-xl" to="/">
+    <router-link class="text-white font-bold text-xl flex items-center" to="/">
       Employee Insight
+      <img :src="'/src/assets/profile/user.png'" class="size-12 mx-4">
     </router-link>
     <ul class="space-x-14">
       <router-link
@@ -107,19 +117,28 @@ const errorMessage = ref("");
   ================== END NAV BAR ======================
   ================================================= -->
 
-  <div class="flex px-4 py-5 h-[50vh]">
+  <div
+    class="flex justify-center items-center px-4 py-5 max-w-screen h-[50vw] overflow-y-hidden"
+  >
+    <!-- ================================================
+  ===================== IMAGE =========================
+  ================================================= -->
     <div class="avatar indicator">
-      <span
+      <span v-if="!updateResult"
         class="border-black bg-white text-black indicator-item badge badge-secondary m-6"
         >{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}</span
       >
       <div class="rounded-sm overflow-hidden m-6 size">
-        <img :src="fetchData.getEmployees()[employeeIndex]?.LinkImage" />
+        <img
+          width="10px"
+          height="10px"
+          :src="fetchData.getEmployees()[employeeIndex]?.LinkImage"
+        />
       </div>
     </div>
 
-    <div class="flex w-[70vw] flex-col">
-      <div class="flex flex-row justify-evenly">
+    <div class="flex w-full h-[30vw] flex-col gap-y-5">
+      <div class="flex justify-evenly">
         <div class="flex flex-col m-5">
           <p class="m-2">Age</p>
           <p class="m-2 text-xs font-[10]">
@@ -152,7 +171,7 @@ const errorMessage = ref("");
           </p>
         </div>
         <div class="flex flex-col m-5">
-          <p class="m-2">PainPoint</p>
+          <p class="m-2">Pain Point</p>
           <p class="m-2 text-xs font-[10]">
             <input
               type="text"
@@ -177,7 +196,7 @@ const errorMessage = ref("");
         </div>
       </div>
       <div class="divider"></div>
-      <div class="flex flex-row justify-evenly">
+      <div class="flex justify-evenly">
         <textarea
           class="textarea textarea-bordered w-full"
           :placeholder="fetchData.getEmployees()[employeeIndex]?.Comment"
@@ -186,105 +205,94 @@ const errorMessage = ref("");
         </textarea>
       </div>
 
-      <div class="flex flex-row items-center m-10">
-        <!-- ============================================
-        ================ Rating Details  ================
-        ============================================= -->
-        <div class="flex flex-col w-[30vw]">
-          <p class="text-blue-950 font-semibold">
-            Current Co-worker : {{ fetchData.getEmployees()[employeeIndex]?.Rating.coworker }}
-          </p>
-          <input
-            type="range"
-            min="1"
-            max="10"
-            class="slider my-1"
-            v-model="editTemplate.Rating.coworker"
-          />
-          <p class="text-blue-950 font-semibold">
-            Current Environment :
-            {{ fetchData.getEmployees()[employeeIndex]?.Rating.environment }}
-          </p>
-          <input
-            type="range"
-            min="1"
-            max="10"
-            class="slider my-1"
-            v-model="editTemplate.Rating.environment"
-          />
-          <p class="text-blue-950 font-semibold">
-            Current Responsibility :
-            {{ fetchData.getEmployees()[employeeIndex]?.Rating.responsibility }}
-          </p>
-          <input
-            type="range"
-            min="1"
-            max="10"
-            class="slider my-1"
-            v-model="editTemplate.Rating.responsibility"
-          />
-        </div>
-        <!-- ============================================
+      <!-- ============================================
+      ================ Rating Details  ================
+      ============================================= -->
+      <div class="flex w-full justify-evenly mt-10">
+        <p class="text-blue-950 font-semibold">
+          Co-worker :
+          {{ fetchData.getEmployees()[employeeIndex]?.Rating.coworker }}
+        </p>
+        <input
+          type="range"
+          min="1"
+          max="10"
+          class="slider my-1"
+          v-model="editTemplate.Rating.coworker"
+        />
+        <p class="text-blue-950 font-semibold">
+          Environment :
+          {{ fetchData.getEmployees()[employeeIndex]?.Rating.environment }}
+        </p>
+        <input
+          type="range"
+          min="1"
+          max="10"
+          class="slider my-1"
+          v-model="editTemplate.Rating.environment"
+        />
+        <p class="text-blue-950 font-semibold">
+          Responsibility :
+          {{ fetchData.getEmployees()[employeeIndex]?.Rating.responsibility }}
+        </p>
+        <input
+          type="range"
+          min="1"
+          max="10"
+          class="slider my-1"
+          v-model="editTemplate.Rating.responsibility"
+        />
+      </div>
+      <!-- ============================================
         ================ End Rating Details  ============
         ============================================= -->
 
+      <div class="flex justify-end gap-5 mt-5">
         <!-- ============================================
         ================ Button Details  ================
         ============================================= -->
-        <a
-          :href="parseInt(fetchData.getEmployees()[employeeIndex - 1]?.id)"
-          v-if="parseInt(employeeIndex) > 0"
-          class="btn btn-circle"
-          >❮</a
-        >
-
-        <button class="btn btn-ghost text-xl mr-2" @click="updateResult = true">
-          UPDATE
+        <button class="btn btn-ghost text-xl bg-yellow-400 text-white" @click="updateResult = true">
+          <span class="material-symbols-outlined"> edit_note </span>
         </button>
 
         <router-link
           to="/"
-          class="btn btn-ghost text-xl ml-2"
+          class="btn btn-ghost text-xl bg-red-500 text-white"
           @click="deleteEmployee()"
-          >DELETE</router-link
-        >
-
-        <a
-          :href="parseInt(fetchData.getEmployees()[employeeIndex + 1]?.id)"
-          v-if="
-            parseInt(employeeIndex) <
-            parseInt(fetchData.getEmployees().length - 1)
-          "
-          class="btn btn-circle"
-          >❯</a
+          ><span class="material-symbols-outlined"> delete </span></router-link
         >
         <!-- ============================================
         ================ End Button Details  ============
         ============================================= -->
-
-        <!-- ============================================
-        ================ Details Modal ==================
-        ============================================= -->
-        <modal
-          v-if="updateResult"
-          class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center"
-        >
-          <innerModal
-            class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4"
-          >
-            UPDATE SUCCESS!!!
-            <router-link
-              to="/"
-              class="btn-primary btn btn-ghost text-xl mr-2"
-              @click="updateEmployee()"
-              >CLOSE</router-link
-            >
-          </innerModal>
-        </modal>
-        <!-- =================================================
-        =============== End of Details Modal =================
-        ================================================== -->
       </div>
     </div>
   </div>
+
+  <!-- ============================================
+  ================ Details Modal ==================
+  ============================================= -->
+  <modal
+    v-if="updateResult"
+    class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center"
+  >
+    <innerModal
+      class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4"
+    >
+      <p class="text-green-500">UPDATE SUCCESS!!!</p>
+      Employee {{ fetchData.getEmployees()[employeeIndex]?.FakeName }} Updated. <br><br>
+      New Age: {{ editTemplate.Age }}. <br>
+      New Rank: {{ editTemplate.PositionRank }}. <br>
+      New Pain Point: {{ editTemplate.PainPoint }}. <br>
+      New Goal and Need: {{ editTemplate.GoalAndNeed }}. <br>
+      <router-link
+        to="/"
+        class="btn-primary btn btn-ghost text-xl mr-2 bg-blue-500 text-white"
+        @click="updateEmployee()"
+        >CLOSE</router-link
+      >
+    </innerModal>
+  </modal>
+  <!-- =================================================
+  =============== End of Details Modal =================
+  ================================================== -->
 </template>
