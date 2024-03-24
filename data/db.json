@@ -33,9 +33,9 @@
       "GoalAndNeed": "oil",
       "Comment": "",
       "Rating": {
-        "coworker": 4,
-        "environment": 6,
-        "responsibility": 7
+        "coworker": "4",
+        "environment": 0,
+        "responsibility": 0
       }
     },
     {
@@ -78,9 +78,9 @@
       "GoalAndNeed": "uihiuhu",
       "Comment": "asfafasfas",
       "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
+        "coworker": "4",
+        "environment": "8",
+        "responsibility": "10"
       },
       "DateAdded": "Thu Mar 21 2024"
     },
