@@ -1,11 +1,16 @@
 <script setup>
-import { ref, reactive, watch, onBeforeMount, computed ,onMounted} from "vue"
+import { ref, reactive, watch, onBeforeMount, computed, onMounted } from "vue"
 import Card from "./Card.vue";
 import { readJsonData, deleteJsonData } from "/src/libs/crud.js";
 import { EmployeeManagement } from "/src/libs/EmployeeManagement.js"
+import { authenticationStore } from "@/stores/authenticationStore";
+import Modal from "@/components/Modal.vue"
 
 const fetchData = ref(new EmployeeManagement());
+const authenStore = authenticationStore()
 const searchKey = ref("")
+const deleteName = ref("")
+const deleteId = ref("")
 const card_slider = ref(null)
 const card_slider_container = ref(null)
 
@@ -30,14 +35,24 @@ const slide = (direction) => {
 */
 
 
-const deleteEmployee = async (el) => {
-  const deleteId = el.target.id
-  try{
+const deleteEmployee = async (deleteId) => {
+  try {
     await deleteJsonData(deleteId)
     fetchData.value.deleteEmployee(deleteId)
-  }catch(error){
+  } catch (error) {
     console.log(error);
   }
+  closeModal()
+}
+
+const deleteConfirm = (el) => {
+  deleteName.value = el.target.dataset.value
+  deleteId.value = el.target.id
+}
+
+const closeModal = () => {
+  deleteName.value = ''
+  deleteId.value = ''
 }
 
 /*
@@ -46,13 +61,21 @@ const deleteEmployee = async (el) => {
 ============================================
 */
 
+const filteredSearchData = computed(() => {
+  return fetchData.value.employees.filter((employee) => {
+    return employee.OwnedBy === authenStore.currentUser
+  }).filter((employee) => {
+    return Object.entries(employee)
+      .filter(([key, value]) => (key === "FakeName" || key === "PositionRank" || key === "Age"))
+      .some(([key, value]) => {
+        return String(value).toLowerCase().includes(searchKey.value.toLowerCase())
+      })
+  })
+})
+
 const filteredData = computed(() => {
   return fetchData.value.employees.filter((employee) => {
-    return Object.entries(employee)
-      .filter(([key, value]) => key === "FakeName" || key === "PositionRank" || key === "Age")
-      .some(([key, value]) => {
-        return value.toLowerCase().includes(searchKey.value.toLowerCase())
-      })
+    return employee.OwnedBy === authenStore.currentUser
   })
 })
 
@@ -66,25 +89,29 @@ onMounted(async () => {
   try {
     const employees = await readJsonData()
     fetchData.value.addEmployees(employees)
+
   } catch (error) {
     console.log("cannot fetch");
   }
 });
 
+
 </script>
 
 <template>
 
-<!-- ============================================
+  <!-- ============================================
      ============= Navigation Bar ===============
      ============================================ -->
 
+
   <header class="flex items-center justify-between bg-gray-800 h-[8rem] px-8 w-full">
+
     <div class="text-white font-bold text-xl flex items-center">
       Employee Insight
-      <img :src="'/src/assets/profile/user.png'" class="size-12 mx-4">
+      <img :src="'/src/assets/profile/employee_white.png'" class="size-12 mx-4">
     </div>
-    <ul class="space-x-14 flex">
+    <ul class="space-x-14 flex items-center">
       <label class="input input-bordered flex items-center gap-2">
         <input type="text" class="grow" placeholder="Search" v-model="searchKey" />
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70">
@@ -94,23 +121,29 @@ onMounted(async () => {
         </svg>
       </label>
       <router-link
-        class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue hover:bg-blue-700 flex justify-center items-center"
+        class="bg-blue-500 text-white font-bold py-2 px-4 rounded-badge focus:outline-none focus:shadow-outline-blue hover:bg-blue-700 flex justify-center items-center w-[200px] h-[60px] text-[20px]"
         :to="{ path: '/addcard' }">
         ADD EMPLOYEE
       </router-link>
+      <div
+        class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue  flex justify-evenly items-center gap-4  h-[60px]">
+        <img :src="'/src/assets/profile/user.png'" class="size-full">
+        <div class="">{{ authenStore.currentUser }}</div>
+      </div>
+
     </ul>
   </header>
 
-<!-- ============================================
+  <!-- ============================================
      ============= Card Container ===============
      ============================================ -->
 
-  <main class="mt-16 overflow-x-scroll scrollable-content ">
+  <main class="mt-16 overflow-x-scroll scrollable-content "
+    v-if="filteredData.length !== 0 && filteredSearchData.length !== 0">
     <div class="card-slider-container" :ref="'card_slider_container'">
 
       <!-- =========== Slider to left arrow ============ -->
-      <div
-        class="bg-white p-3 text-black rounded-full ml-5 mt-0.5 text-2xs  btn-circle size-fit scale-x-[-1] "
+      <div class="bg-white p-3 text-black rounded-full ml-5 mt-0.5 text-2xs  btn-circle size-fit scale-x-[-1] "
         @click="slide('left')">
         <img src="/src/assets/profile/arrow.png" class="w-[50px]">
       </div>
@@ -118,8 +151,9 @@ onMounted(async () => {
       <!-- =========== Slider Container ============ -->
       <div class="card-slider" :ref="'card_slider'">
         <section class="flex flex-row mb-4 mx-16 gap-10 items-center ">
-          <Card v-for="employee in searchKey.trim().length === 0 ? fetchData.getEmployees() : filteredData" :key="employee.id"
-            :employeeId=employee.id :Rating=employee.Rating :imgUrl=employee.LinkImage @deleteEmployee="deleteEmployee">
+          <Card v-for="employee in searchKey.trim().length === 0 ? filteredData : filteredSearchData" :key="employee.id"
+            :employeeId=employee.id :Rating=employee.Rating :imgUrl=employee.LinkImage :Name="employee.FakeName"
+            @deleteEmployee="deleteConfirm">
             <template #fullname>{{ employee.FakeName }}</template>
             <template #age>{{ employee.Age }}</template>
             <template #position>{{ employee.PositionRank }}</template>
@@ -138,6 +172,19 @@ onMounted(async () => {
       </div>
     </div>
   </main>
+
+  <div v-else class="w-screen  flex justify-center items-center flex-col h-[85vh] gap-4">
+    <img :src="'/src/assets/profile/sad_emoji.png'" class="size-[150px]">
+    <div v-if="filteredSearchData.length === 0 && filteredData.length !== 0" class="font-bold w-[40%] text-center">
+      Oops! It seems we couldn't find any employees matching your search. Make sure you've entered the correct name or keyword.
+    </div>
+    <div v-if="filteredData.length === 0" class="font-bold w-[40%] text-center">
+      It looks like you haven't added any employees yet. Managing your team is easy! Simply tap the "Add Employee"
+    </div>
+  </div>
+
+  <Modal v-if="deleteName.length != 0" :modalType="'DeleteConfirmation'" :deleteEmployeeName="deleteName"
+    :deleteEmployeeId="deleteId" @deleteEmployee="deleteEmployee" @closeModal="closeModal" />
 </template>
 
 <style scoped></style>
