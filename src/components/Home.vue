@@ -104,7 +104,9 @@ onMounted(async () => {
      ============= Navigation Bar ===============
      ============================================ -->
 
-  <header class="flex items-center justify-between bg-gray-800 p-8 w-full h-[15vh]">
+
+  <header class="flex items-center justify-between bg-gray-800 h-[8rem] px-8 w-full">
+
     <div class="text-white font-bold text-xl flex items-center">
       Employee Insight
       <img :src="'/src/assets/profile/employee_white.png'" class="size-12 mx-4">
