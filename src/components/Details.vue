@@ -95,7 +95,7 @@ const errorMessage = ref("");
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
   />
-
+<div class="w-screen h-screen relative ">
   <!-- ============================================
   ================== NAV BAR ======================
   ============================================ -->
@@ -117,7 +117,7 @@ const errorMessage = ref("");
   ================== END NAV BAR ======================
   ================================================= -->
 
-  <div class="w-screen h-screen relative">
+  
   <div class="avatar indicator float-left mt-40 ">
       <span v-if="!updateResult"
         class="border-black bg-white text-black indicator-item badge badge-secondary m-6"
@@ -133,7 +133,7 @@ const errorMessage = ref("");
     </div>
 
   <div
-    class="flex justify-center items-center px-4 py-5 max-w-screen h-[50vw] overflow-y-hidden bg-slate-600"
+    class="flex justify-center items-center px-4 py-5 mt-20 bg-slate-600"
   >
     <!-- ================================================
   ===================== IMAGE =========================
