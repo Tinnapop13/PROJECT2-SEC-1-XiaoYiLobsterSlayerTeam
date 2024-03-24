@@ -32,8 +32,6 @@
   },
   "employees": [
     {
-
-
       "id": "333",
       "LinkImage": "/src/assets/profile/happy.png",
       "FakeName": "Xi Qwee",
@@ -46,8 +44,6 @@
         "coworker": 4,
         "environment": 6,
         "responsibility": 7
-
-
       },
       "OwnedBy": "gg"
     },
@@ -66,6 +62,22 @@
         "responsibility": "4"
       },
       "OwnedBy": "boomgayza2546"
+    },
+    {
+      "id": "557",
+      "LinkImage": "/src/assets/profile/angry.png",
+      "FakeName": "adminDol",
+      "PositionRank": "admin",
+      "Age": 24,
+      "PainPoint": "pain",
+      "GoalAndNeed": "goal",
+      "Comment": "ment",
+      "Rating": {
+        "coworker": "7",
+        "environment": "5",
+        "responsibility": "8"
+      },
+      "OwnedBy": "admin"
     }
   ]
 }

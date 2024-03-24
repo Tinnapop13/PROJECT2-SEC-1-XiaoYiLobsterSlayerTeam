@@ -99,7 +99,7 @@ const errorMessage = ref("");
   <!-- ============================================
   ================== NAV BAR ======================
   ============================================ -->
-  <header class="flex items-center justify-between bg-gray-800 p-8">
+  <header class="flex items-center justify-between bg-gray-800 p-8 z-1">
     <router-link class="text-white font-bold text-xl flex items-center" to="/">
       Employee Insight
       <img :src="'/src/assets/profile/user.png'" class="size-12 mx-4">
@@ -117,18 +117,13 @@ const errorMessage = ref("");
   ================== END NAV BAR ======================
   ================================================= -->
 
-  <div
-    class="flex justify-center items-center px-4 py-5 max-w-screen h-[50vw] overflow-y-hidden"
-  >
-    <!-- ================================================
-  ===================== IMAGE =========================
-  ================================================= -->
-    <div class="avatar indicator">
+  <div class="w-screen h-screen relative">
+  <div class="avatar indicator float-left mt-40 ">
       <span v-if="!updateResult"
         class="border-black bg-white text-black indicator-item badge badge-secondary m-6"
         >{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}</span
       >
-      <div class="rounded-sm overflow-hidden m-6 size">
+      <div class="rounded-sm overflow-hidden m-6 border-white border size-64">
         <img
           width="10px"
           height="10px"
@@ -137,6 +132,13 @@ const errorMessage = ref("");
       </div>
     </div>
 
+  <div
+    class="flex justify-center items-center px-4 py-5 max-w-screen h-[50vw] overflow-y-hidden bg-slate-600"
+  >
+    <!-- ================================================
+  ===================== IMAGE =========================
+  ================================================= -->
+  
     <div class="flex w-full h-[30vw] flex-col gap-y-5">
       <div class="flex justify-evenly">
         <div class="flex flex-col m-5">
@@ -269,7 +271,7 @@ const errorMessage = ref("");
       </div>
     </div>
   </div>
-
+</div>
   <!-- ============================================
   ================ Details Modal ==================
   ============================================= -->
