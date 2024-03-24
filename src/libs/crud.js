@@ -1,5 +1,5 @@
 const readJsonData = async () => {
-      return fetch("http://localhost:5000/employees")
+      return await fetch("http://localhost:5000/employees")
       .then((respJson) => respJson.json())
       
   };
@@ -21,7 +21,7 @@ const addJsonData = (employee , id ) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id , ...employee , DateAdded: new Date().toDateString() }),
+      body: JSON.stringify({ id , ...employee }),
     }).then((respJson) => {
       respJson.json()
     });
@@ -39,6 +39,18 @@ const addJsonData = (employee , id ) => {
       })
     }
 
+  const getUsersData = async () => {
+    return await fetch('http://localhost:5000/users').then((respJson) => respJson.json())
+  }
+
+  const addUserData = async (username , password) => {
+    return await fetch('http://localhost:5000/users' ,
+    {method : "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username : username , password : password  }),}).then((respJson) => respJson.json())
+  }
 
 
-  export { deleteJsonData , readJsonData ,  addJsonData , readProfileData , editJsonData}
+  export { deleteJsonData , readJsonData ,  addJsonData , readProfileData , editJsonData ,getUsersData , addUserData}
