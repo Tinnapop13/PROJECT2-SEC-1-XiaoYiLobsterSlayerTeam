@@ -2,10 +2,14 @@
 import { ref, reactive, onBeforeMount } from 'vue'
 import { addJsonData, readJsonData, readProfileData } from '/src/libs/crud.js';
 import { EmployeeManagement } from '/src/libs/EmployeeManagement.js'
+import Modal from '@/components/Modal.vue'
+import { authenticationStore } from '@/stores/authenticationStore';
+
+const authenStore = authenticationStore()
 const fetchData = ref(new EmployeeManagement());
 const profileData = ref(null)
 const selectingProfile = ref(false)
-const addResult = ref(false)
+const addResult = ref("")
 
 const newCard = reactive({
   LinkImage: "/src/assets/profile/angry.png",
@@ -19,7 +23,8 @@ const newCard = reactive({
     "coworker": 0,
     "environment": 0,
     "responsibility": 0
-  }
+  },
+  OwnedBy : authenStore.currentUser
 }
 )
 
@@ -35,12 +40,14 @@ const getPofileData = async () => {
 }
 
 const addValidate = () => {
+  
   if (newCard.Age > 60 || newCard.Age < 20) {
-    addResult.value = !addResult.value
+    addResult.value = "AddEmployeeFailed"
+    console.log(newCard.Age);
     return
   }
   if (newCard.FakeName.trim().length === 0 || newCard.PositionRank.trim().length === 0 || newCard.Comment.trim().length === 0) {
-    addResult.value = !addResult.value
+    addResult.value = "AddEmployeeFailed"
     return
   }
   addEmployee()
@@ -49,7 +56,16 @@ const addValidate = () => {
 const addEmployee = async ()=>{
   await addJsonData(newCard , parseInt(fetchData.value.getEmployees()[fetchData.value.getEmployees().length - 1].id) + 1 + "")
   fetchData.value.addEmployee(newCard)
-  addResult.value = !addResult.value
+  addResult.value = "AddEmployeeSuccess"
+}
+
+const closeModal = ()=>{
+  addResult.value = ""
+  selectingProfile.value = false
+}
+
+const changeProfileImage = (profileUrl)=> {
+  newCard.LinkImage = profileUrl
 }
 
 onBeforeMount(async () => {
@@ -65,7 +81,7 @@ onBeforeMount(async () => {
 </script>
 <template>
 
-  <!-- ============================================
+<!-- ============================================
      ================ Form Input ================
      ============================================ -->
 
@@ -73,7 +89,7 @@ onBeforeMount(async () => {
     <!-- ====== Form Header ======= -->
     <div class="flex h-[10vhpx]">
       <h1 class="text-4xl font-bold  mb-4 text-blue-950">ADD EMPLOYEE</h1>
-      <img :src="'/src/assets/profile/user_black.png'" class="size-10 mx-4">
+      <img :src="'/src/assets/profile/employee_black.png'" class="size-10 mx-4">
     </div>
 
     <div class="flex flex-col justify-evenly items-center">
@@ -137,7 +153,7 @@ onBeforeMount(async () => {
         <div @click="addValidate()" class="btn btn-success text-white ">
           Submit
         </div>
-        <router-link to="/" class="btn btn-error text-white">
+        <router-link to="/home" class="btn btn-error text-white">
           Cancel
         </router-link>
       </div>
@@ -146,45 +162,29 @@ onBeforeMount(async () => {
 
   </section>
 
-  <!-- ============================================
+<!-- ============================================
      ========= Select Profile Modal =============
      ============================================ -->
 
-  <modal v-if="selectingProfile"
-    class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
-    <innerModal class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">
-      <topic class="text-4xl">What do you feel?</topic>
-      <div class="flex ">
-        <div v-for="profile in profileData" @click="newCard.LinkImage = profile"
-          class="h-fit w-fit flex justify-center items-center overflow-hidden shadow-xl rounded-full p-4 m-4"
-          :class="{ 'bg-slate-300': newCard.LinkImage === profile }">
-          <img :src="profile" class="size-24">
-        </div>
-      </div>
-      <button class="btn-primary btn" @click="selectingProfile = !selectingProfile">Close</button>
-    </innerModal>
-  </modal>
+  <Modal 
+    v-if="selectingProfile"
+    :modalType="'SelectingProfile'"
+    :newEmployee="newCard"
+    :newEmployeeProfile="profileData"
+    @changeImage="changeProfileImage"
+    @closeModal="closeModal"/>
 
   <!-- ============================================
      ============= Result Modal =================
      ============================================ -->
+  <Modal 
+    v-if="addResult.length !== 0" 
+    :newEmployee="newCard" 
+    :modalType="addResult" 
+    @closeModal="closeModal"
+  />
 
 
-  <modal v-if="addResult" class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
-    <innerModal class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">
-      <div class="text-5xl"> Result</div>
-      <div v-if="newCard.FakeName.trim().length === 0" class="text-red-500">Please Insert Name</div>
-      <div v-if="newCard.PositionRank.trim().length === 0" class="text-red-500">Please Insert Rank</div>
-      <div v-if="newCard.Comment.trim().length === 0" class="text-red-500">Please Insert Comment</div>
-      <div v-if="newCard.Age > 60 || newCard.Age < 20" class="text-red-500">Age must be value between 20 - 60</div>
-      <div v-if="newCard.FakeName.trim().length !== 0 &&
-        newCard.PositionRank.trim().length !== 0 &&
-        newCard.Comment.trim().length !== 0 &&
-        (newCard.Age <= 60 && newCard.Age >= 20)
-        " class="text-5xl text-green-500">ADD EMPLOYEE SUCCESS</div>
-      <button class="btn-primary btn" @click="addResult = !addResult">Close</button>
-    </innerModal>
-  </modal>
 </template>
 
 <style scoped>

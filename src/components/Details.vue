@@ -186,7 +186,6 @@ onBeforeMount(async () => {
         <a :href="parseInt(fetchData.getEmployees()[employeeIndex - 1]?.id)" v-if="parseInt(employeeIndex) > 0" class="btn btn-circle">❮</a>
         <img :src="fetchData?.[employeeIndex]?.LinkImage" class="size-40" />
           <a :href="parseInt(fetchData.getEmployees()[employeeIndex + 1]?.id)" v-if="parseInt(employeeIndex) < parseInt(fetchData.getEmployees().length - 1)" class="btn btn-circle">❯</a>
-
         </div>
       </div>
     </div>

@@ -1,43 +1,36 @@
 {
-  "user": {
-    "username": "admin",
-    "password": "admin123"
-  },
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin123",
+      "id": "5ca6"
+    },
+    {
+      "username": "tako",
+      "password": "boomgae",
+      "id": "fb14"
+    },
+    {
+      "id": "d111",
+      "username": "",
+      "password": ""
+    },
+    {
+      "id": "366d",
+      "username": "gg",
+      "password": "gg"
+    },
+    {
+      "id": "c64c",
+      "username": "boomgayza2546",
+      "password": "gg"
+    }
+  ],
   "profile": {
     "angry": "/src/assets/profile/angry.png",
     "happy": "/src/assets/profile/happy.png"
   },
   "employees": [
-    {
-      "id": "111",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "Xi Jingyo",
-      "PositionRank": "God",
-      "Age": "57",
-      "PainPoint": "ass",
-      "GoalAndNeed": "",
-      "Comment": "",
-      "Rating": {
-        "coworker": 10,
-        "environment": 6,
-        "responsibility": 4
-      }
-    },
-    {
-      "id": "222",
-      "LinkImage": "/src/assets/profile/happy.png",
-      "FakeName": "Xi Jingyo",
-      "PositionRank": "God",
-      "Age": "456",
-      "PainPoint": "ass",
-      "GoalAndNeed": "oil",
-      "Comment": "Lorem, iligendi provident fugiat unde dicta. Voluptates iusto officia, molestias non natus laboriosam quam sint aspernatur assumenda aliquid? Fugit natus corrupti qui animi dignissimos similique earum rem totam iusto inventore. Itaque maiores dignissimos cumque iusto reiciendis quas neque corrupti.",
-      "Rating": {
-        "coworker": 3,
-        "environment": 6,
-        "responsibility": 7
-      }
-    },
     {
       "id": "333",
       "LinkImage": "/src/assets/profile/happy.png",
@@ -51,69 +44,24 @@
         "coworker": 4,
         "environment": 6,
         "responsibility": 7
-      }
-    },
-    {
-      "id": "555",
-      "LinkImage": "/src/assets/profile/happy.png",
-      "FakeName": "Xi Mhaoti",
-      "PositionRank": "God",
-      "Age": "43",
-      "PainPoint": "",
-      "GoalAndNeed": "oil",
-      "Comment": "",
-      "Rating": {
-        "coworker": 3,
-        "environment": 6,
-        "responsibility": 8
-      }
-    },
-    {
-      "id": "666",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "Min Chong YiawMin",
-      "PositionRank": "God",
-      "Age": "56",
-      "PainPoint": "ass",
-      "GoalAndNeed": "",
-      "Comment": "",
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      }
-    },
-    {
-      "id": "667",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "tinnapop tienbang",
-      "PositionRank": "efsdf",
-      "Age": "22",
-      "PainPoint": "",
-      "GoalAndNeed": "",
-      "Comment": "asfafasfas",
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
       },
-      "DateAdded": "Thu Mar 21 2024"
+      "OwnedBy": "gg"
     },
     {
-      "id": "668",
+      "id": "556",
       "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "tinnapop tienbang",
-      "PositionRank": "efsdf",
-      "Age": 25,
+      "FakeName": "Phatcharadol ",
+      "PositionRank": "newbie",
+      "Age": 20,
       "PainPoint": "",
       "GoalAndNeed": "",
-      "Comment": "testadd",
+      "Comment": "saf",
       "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
+        "coworker": "2",
+        "environment": "8",
+        "responsibility": "4"
       },
-      "DateAdded": "Thu Mar 21 2024"
+      "OwnedBy": "boomgayza2546"
     }
   ]
 }
