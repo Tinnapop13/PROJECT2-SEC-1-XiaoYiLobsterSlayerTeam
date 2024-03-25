@@ -101,38 +101,6 @@
       "OwnedBy": "gg"
     },
     {
-      "id": "560",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "asdf asdf",
-      "PositionRank": "asdfasdf",
-      "Age": 20,
-      "PainPoint": "asdfasdfasdf",
-      "GoalAndNeed": "asdfasdfa",
-      "Comment": "zxcvzx",
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      },
-      "OwnedBy": "gg"
-    },
-    {
-      "id": "561",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "asdf asdf",
-      "PositionRank": "asdfasdf",
-      "Age": 20,
-      "PainPoint": "asdfasdfasdf",
-      "GoalAndNeed": "asdfasdfa",
-      "Comment": "asdf",
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      },
-      "OwnedBy": "gg"
-    },
-    {
       "id": "562",
       "LinkImage": "/src/assets/profile/angry.png",
       "FakeName": "asdf asdf",
@@ -141,6 +109,22 @@
       "PainPoint": "asdfasdfasdf",
       "GoalAndNeed": "asdfasdfa",
       "Comment": "asfdasdf",
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "gg"
+    },
+    {
+      "id": "563",
+      "LinkImage": "/src/assets/profile/angry.png",
+      "FakeName": "asdf asdf",
+      "PositionRank": "asdfasdf",
+      "Age": 20,
+      "PainPoint": "asdfasdfasdf",
+      "GoalAndNeed": "asdfasdfa",
+      "Comment": "asdfasdf",
       "Rating": {
         "coworker": 0,
         "environment": 0,
