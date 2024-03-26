@@ -1,13 +1,15 @@
 <script setup>
 import {ref, onBeforeMount} from "vue"
 import {useRoute} from "vue-router"
-import {readJsonData, editJsonData, deleteJsonData} from "/src/libs/crud.js"
-import {EmployeeManagement} from "/src/libs/EmployeeManagement.js"
+import {readJsonData, editJsonData, deleteJsonData} from "@/libs/crud"
+import {EmployeeManagement} from "../libs/EmployeeManagement.js"
+import {useUserStore} from "@/stores/useUserStore.js"
 
 const route = useRoute()
 const employeeIndex = ref(0)
 const fetchData = ref(new EmployeeManagement())
 const updateResult = ref(false)
+const userStore = useUserStore()
 
 const editTemplate = ref({
   FakeName: "",
@@ -95,32 +97,54 @@ const errorMessage = ref("")
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
   />
-  <div class="w-screen h-[70vh] relative">
+
+  <div class="w-screen h-screen relative">
     <!-- ============================================
      ============= Navigation Bar ===============
      ============================================ -->
     <header
       class="flex items-center justify-between bg-gray-800 h-[8rem] px-8 w-full absolute top-0"
     >
-      <router-link
-        class="text-white font-bold text-xl flex items-center"
-        to="/home"
-      >
-        Employee Insight
-        <img :src="'/src/assets/images/user.png'" class="size-12 mx-4" />
+      <router-link to="/home">
+        <div
+          class="text-white font-bold text-4xl flex items-center font-basblue"
+        >
+          Employee Insight
+          <img
+            :src="'/src/assets/images/employee_white.png'"
+            class="size-12 mx-4"
+          />
+        </div>
       </router-link>
       <ul class="space-x-14">
-        <router-link
-          class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue hover:bg-blue-700"
-          :to="{path: '/addcard'}"
-        >
-          ADD EMPLOYEE
-        </router-link>
+        <div class="relative">
+          <div class="dropdown dropdown-bottom">
+            <div
+              class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue flex justify-between items-center gap-4 h-[60px]"
+              tabindex="0"
+              role="button"
+            >
+              <img
+                tabindex="0"
+                role="button"
+                src="/src/assets/images/user.png"
+                class="size-full"
+              />
+              <div tabindex="0" role="button">{{ userStore.currentUser }}</div>
+              <ul
+                tabindex="0"
+                class="dropdown-content z-[1] menu shadow mt-2 bg-gray-400 text-slate-500-800 rounded-box"
+              >
+                <button @click="logout()">LOG OUT</button>
+              </ul>
+            </div>
+          </div>
+        </div>
       </ul>
     </header>
 
     <div
-      class="flex justify-center items-center w-full h-full absolute top-48 gap-x-10"
+      class="flex justify-center w-full h-full items-center gap-x-10 bg-slate-900"
     >
       <!-- ================================================
   ===================== IMAGE =========================
@@ -128,13 +152,17 @@ const errorMessage = ref("")
       <div class="avatar indicator">
         <span
           v-if="!updateResult"
-          class="border-black bg-white text-black indicator-item badge badge-secondary m-6"
+          class="bg-white text-black indicator-item badge badge-secondary text-lg"
           >{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}</span
         >
         <div class="rounded-sm overflow-hidden m-6 border-white border size-64">
           <img :src="fetchData.getEmployees()[employeeIndex]?.LinkImage" />
         </div>
       </div>
+
+      <!-- ================================================
+  ===================== Edit detail =========================
+  ================================================= -->
 
       <div class="flex flex-col gap-y-5">
         <div class="flex justify-evenly">
@@ -211,7 +239,7 @@ const errorMessage = ref("")
       ================ Rating Details  ================
       ============================================= -->
         <div class="flex w-full justify-evenly mt-10">
-          <p class="text-blue-700 font-semibold">
+          <p class="text-slate-200 font-semibold">
             Co-worker :
             {{ fetchData.getEmployees()[employeeIndex]?.Rating.coworker }}
           </p>
@@ -222,7 +250,7 @@ const errorMessage = ref("")
             class="slider my-1"
             v-model="editTemplate.Rating.coworker"
           />
-          <p class="text-blue-700 font-semibold">
+          <p class="text-slate-200 font-semibold">
             Environment :
             {{ fetchData.getEmployees()[employeeIndex]?.Rating.environment }}
           </p>
@@ -233,7 +261,7 @@ const errorMessage = ref("")
             class="slider my-1"
             v-model="editTemplate.Rating.environment"
           />
-          <p class="text-blue-700 font-semibold">
+          <p class="text-slate-200 font-semibold">
             Responsibility :
             {{ fetchData.getEmployees()[employeeIndex]?.Rating.responsibility }}
           </p>
@@ -280,7 +308,10 @@ const errorMessage = ref("")
       class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4"
     >
       <p class="text-green-500">UPDATE SUCCESS!!!</p>
-      <p class="text-blue-500">Employee "{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}" Updated.</p>
+      <p class="text-blue-500">
+        Employee "{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}"
+        Updated.
+      </p>
       <router-link
         to="/home"
         class="btn-primary btn btn-ghost text-xl mr-2 bg-blue-500 text-white"

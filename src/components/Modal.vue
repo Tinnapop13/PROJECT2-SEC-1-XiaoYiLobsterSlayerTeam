@@ -24,6 +24,10 @@
     </div>
   </div>
 
+<!-- ============================================
+     ===== Add Employee Success Modal ===========
+     ============================================ -->
+
   <div v-if="modalType === 'AddEmployeeSuccess'"  class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
     <div class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">
       <div class="text-5xl text-slate-900 font-basblue"> Result</div>
@@ -31,6 +35,10 @@
       <button class="btn-primary btn" @click="$emit('closeModal')">Back to Home page</button>
     </div>
   </div>
+
+<!-- ============================================
+     =====  Select Employeee Profile Modal ======
+     ============================================ -->
 
   <div v-if="modalType === 'SelectingProfile'"
     class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
@@ -47,6 +55,10 @@
     </div>
   </div>
 
+<!-- ============================================
+     ==========  Confirm Delete Modal ===========
+     ============================================ -->
+
   <div v-if="modalType === 'DeleteConfirmation'"  class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
     <div class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">
       <div class="text-5xl text-red-500 font-basblue"> Warning !</div>
@@ -59,6 +71,9 @@
     </div>
   </div>
 
+<!-- ============================================
+     ====== Regristration Success Modal =========
+     ============================================ -->
 
   <div v-if="modalType === 'RegistrationSuccess'"  class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
     <div class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">

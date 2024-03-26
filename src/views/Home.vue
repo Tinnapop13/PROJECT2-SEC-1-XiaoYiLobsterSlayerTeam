@@ -57,8 +57,7 @@ const closeModal = () => {
 const logout = () => {
   localStorage.removeItem("login")
   router.push("/")
-};
-
+}
 
 /*
 ============================================
@@ -80,7 +79,6 @@ onMounted(async () => {
   <!-- ============================================
      ============= Navigation Bar ===============
      ============================================ -->
-  <!-- <div class="w-screen"></div> -->
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -118,23 +116,28 @@ onMounted(async () => {
         </svg>
       </label>
       <router-link
-        class="bg-blue-500 text-white font-bold  py-2 px-4 rounded-badge focus:outline-none focus:shadow-outline-blue hover:bg-blue-700 flex justify-center items-center w-[200px] h-[60px] text-[20px]"
-        :to="{ path: '/addcard' }"
+        class="bg-blue-500 text-white font-bold py-2 px-4 rounded-badge focus:outline-none focus:shadow-outline-blue hover:bg-blue-700 flex justify-center items-center w-[200px] h-[60px] text-[20px]"
+        :to="{path: '/addcard'}"
       >
         ADD EMPLOYEE
       </router-link>
+
       <div class="relative">
-        <div
-          class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue flex justify-between items-center gap-4 h-[60px]"
-        >
-          <img src="/src/assets/images/user.png" class="size-full" />
-          <div>{{ userStore.currentUser }}</div>
-          <div class="dropdown">
-            <button class="btn btn-ghost">
-              <span class="material-symbols-outlined"> menu </span>
-            </button>
+        <div class="dropdown dropdown-bottom">
+          <div
+            class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue flex justify-between items-center gap-4 h-[60px]"
+            tabindex="0" role="button"
+          >
+            <img
+              tabindex="0"
+              role="button"
+              src="/src/assets/images/user.png"
+              class="size-full"
+            />
+            <div tabindex="0" role="button">{{ userStore.currentUser }}</div>
             <ul
-              class="bg-gray-400 m-2 shadow menu dropdown-content rounded-box w-52 absolute right-0 top-full"
+              tabindex="0"
+              class="dropdown-content z-[1] menu shadow bg-gray-400 mt-2 text-slate-500-800 rounded-box "
             >
               <button @click="logout()">LOG OUT</button>
             </ul>
@@ -150,7 +153,10 @@ onMounted(async () => {
 
   <main
     class="overflow-x-scroll scrollable-content h-[85vh] bg-slate-900"
-    v-if="userStore.filteredData.length !== 0 && userStore.filteredSearchData.length !== 0"
+    v-if="
+      userStore.filteredData.length !== 0 &&
+      userStore.filteredSearchData.length !== 0
+    "
   >
     <div class="card-slider-container mt-16" :ref="'card_slider_container'">
       <!-- =========== Slider to left arrow ============ -->
@@ -211,13 +217,19 @@ onMounted(async () => {
   >
     <img :src="'/src/assets/images/sad_emoji.png'" class="size-[150px]" />
     <div
-      v-if="userStore.filteredSearchData.length === 0 && userStore.filteredData.length !== 0"
+      v-if="
+        userStore.filteredSearchData.length === 0 &&
+        userStore.filteredData.length !== 0
+      "
       class="font-bold w-[40%] text-center"
     >
       Oops! It seems we couldn't find any employees matching your search. Make
       sure you've entered the correct name or keyword.
     </div>
-    <div v-if="userStore.filteredData.length === 0" class="font-bold w-[40%] text-center">
+    <div
+      v-if="userStore.filteredData.length === 0"
+      class="font-bold w-[40%] text-center"
+    >
       It looks like you haven't added any employees yet. Managing your team is
       easy! Simply tap the "Add Employee"
     </div>
