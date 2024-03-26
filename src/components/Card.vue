@@ -154,7 +154,7 @@ onMounted(() => {
     :data-value="Name"
       :id="employeeId"
     >  
-      <img :src="'/src/assets/profile/delete.png'" class="size-10" 
+      <img :src="'/src/assets/images/delete.png'" class="size-10" 
       :data-value="Name"
       :id="employeeId">
     </button>  

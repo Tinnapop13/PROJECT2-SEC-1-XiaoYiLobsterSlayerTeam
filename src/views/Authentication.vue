@@ -83,7 +83,7 @@ onMounted(async () => {
 <template>
     <div class="w-screen h-screen flex justify-center items-center bg-slate-800">
         <div class="w-1/2  h-[60vh] rounded-3xl flex flex-col items-center justify-center ">
-            <img :src="'/src/assets/profile/employee_white.png'" class="size-24">
+            <img :src="'/src/assets/images/employee_white.png'" class="size-24">
             <div  class="font-bold text-4xl font-basblue">{{ registerMode ?  'SIGN UP' : 'LOGIN'  }}</div>
             <form class="w-1/3 flex flex-col gap-4">
                 <label class=" font-semibold divider divider-neutral divider-start font-basblue mb-0">Username</label>

@@ -1,9 +1,8 @@
 import {createRouter, createWebHistory} from "vue-router"
-import Home from "../components/Home.vue"
-import Details from "../components/Details.vue"
-import Card from "../components/Card.vue"
-import AddCard from "@/components/AddCard.vue"
-import Authentication from "@/components/Authentication.vue"
+import Home from "@/views/Home.vue"
+import Details from "@/views/Details.vue"
+import AddCard from "@/views/AddCard.vue"
+import Authentication from "@/views/Authentication.vue"
 import {authenticationStore} from "@/stores/authenticationStore.js"
 
 const router = createRouter({
@@ -11,7 +10,6 @@ const router = createRouter({
   routes: [
     {path: "/home", name: "Home", component: Home},
     {path: "/details/:id", name: "Details", component: Details},
-    {path: "/card", name: "card", component: Card},
     {path: "/addcard", name: "addcard", component: AddCard},
     {path: "/", name: "auth", component: Authentication},
   ],

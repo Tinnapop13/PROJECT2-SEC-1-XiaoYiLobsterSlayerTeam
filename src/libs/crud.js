@@ -1,23 +1,23 @@
 const readJsonData = async () => {
-  return await fetch("http://localhost:5000/employees").then((respJson) =>
+  return await fetch(`${import.meta.env.VITE_DB_URL}/employees`).then((respJson) =>
     respJson.json()
   )
 }
 
 const readProfileData = async () => {
-  return await fetch("http://localhost:5000/profile").then((response) =>
+  return await fetch(`${import.meta.env.VITE_DB_URL}/profile`).then((response) =>
     response.json()
   )
 }
 
 const deleteJsonData = async (id) => {
-  return await fetch(`http://localhost:5000/employees/${Number(id)}`, {
+  return await fetch(`${import.meta.env.VITE_DB_URL}/employees/${Number(id)}`, {
     method: "DELETE",
   }).then((respJson) => respJson.json())
 }
 
 const addJsonData = async (employee, id) => {
-  return fetch("http://localhost:5000/employees", {
+  return fetch(`${import.meta.env.VITE_DB_URL}/employees`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const addJsonData = async (employee, id) => {
 }
 
 const editJsonData = (id, updatedEmployee) => {
-  fetch(`http://localhost:5000/employees/${Number(id)}`, {
+  fetch(`${import.meta.env.VITE_DB_URL}/employees/${Number(id)}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -39,13 +39,13 @@ const editJsonData = (id, updatedEmployee) => {
 }
 
 const getUsersData = async () => {
-  return await fetch("http://localhost:5000/users").then((respJson) =>
+  return await fetch(`${import.meta.env.VITE_DB_URL}/users`).then((respJson) =>
     respJson.json()
   )
 }
 
 const addUserData = async (username, password) => {
-  return await fetch("http://localhost:5000/users", {
+  return await fetch(`${import.meta.env.VITE_DB_URL}/users`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",

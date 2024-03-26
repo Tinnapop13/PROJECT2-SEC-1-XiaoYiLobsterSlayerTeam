@@ -14,7 +14,7 @@ import {useRouter} from "vue-router"
 const router = useRouter()
 
 const newCard = reactive({
-  LinkImage: "/src/assets/profile/angry.png",
+  LinkImage: "/src/assets/images/angry.png",
   FakeName: "",
   PositionRank: "",
   Age: 0,
@@ -104,7 +104,7 @@ onBeforeMount(async () => {
       <div class="flex h-[10vhpx]">
         <h1 class="text-4xl font-bold mb-4 text-blue-950">ADD EMPLOYEE</h1>
         <img
-          :src="'/src/assets/profile/employee_black.png'"
+          :src="'/src/assets/images/employee_black.png'"
           class="size-10 mx-4"
         />
       </div>
@@ -120,7 +120,7 @@ onBeforeMount(async () => {
         <span
           class="bg-white text-black absolute right-0 bottom-0 p-2 rounded-full shadow-2xl"
         >
-          <img :src="'/src/assets/profile/change.png'" class="size-[20px]" />
+          <img :src="'/src/assets/images/change.png'" class="size-[20px]" />
         </span>
         <img :src="newCard.LinkImage" class="w-[100px] h-[100px]" />
       </div>

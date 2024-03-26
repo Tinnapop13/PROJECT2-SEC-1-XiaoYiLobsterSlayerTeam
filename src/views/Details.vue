@@ -107,7 +107,7 @@ const errorMessage = ref("")
         to="/home"
       >
         Employee Insight
-        <img :src="'/src/assets/profile/user.png'" class="size-12 mx-4" />
+        <img :src="'/src/assets/images/user.png'" class="size-12 mx-4" />
       </router-link>
       <ul class="space-x-14">
         <router-link
