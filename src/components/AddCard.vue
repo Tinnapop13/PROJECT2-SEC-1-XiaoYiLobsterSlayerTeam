@@ -67,12 +67,13 @@ const addEmployee = async () => {
       1 +
       ""
   )
-  router.push("/home")
-  fetchData.value.addEmployee(newCard)
   addResult.value = "AddEmployeeSuccess"
 }
 
 const closeModal = () => {
+  addResult.value === "AddEmployeeSuccess"
+    ? router.push("/home") && fetchData.value.addEmployee(newCard)
+    : ""
   addResult.value = ""
   selectingProfile.value = false
 }
