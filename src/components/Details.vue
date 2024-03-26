@@ -211,7 +211,7 @@ const errorMessage = ref("")
       ================ Rating Details  ================
       ============================================= -->
         <div class="flex w-full justify-evenly mt-10">
-          <p class="text-blue-950 font-semibold">
+          <p class="text-blue-700 font-semibold">
             Co-worker :
             {{ fetchData.getEmployees()[employeeIndex]?.Rating.coworker }}
           </p>
@@ -222,7 +222,7 @@ const errorMessage = ref("")
             class="slider my-1"
             v-model="editTemplate.Rating.coworker"
           />
-          <p class="text-blue-950 font-semibold">
+          <p class="text-blue-700 font-semibold">
             Environment :
             {{ fetchData.getEmployees()[employeeIndex]?.Rating.environment }}
           </p>
@@ -233,7 +233,7 @@ const errorMessage = ref("")
             class="slider my-1"
             v-model="editTemplate.Rating.environment"
           />
-          <p class="text-blue-950 font-semibold">
+          <p class="text-blue-700 font-semibold">
             Responsibility :
             {{ fetchData.getEmployees()[employeeIndex]?.Rating.responsibility }}
           </p>
