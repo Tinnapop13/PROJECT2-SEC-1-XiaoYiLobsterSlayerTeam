@@ -117,6 +117,7 @@ onBeforeMount(async () => {
         @click="selectingProfile = !selectingProfile"
         class="h-fit w-fit flex justify-center items-center shadow-xl rounded-full p-4 m-4 relative bg-[#f1f1f1]"
       >
+        
         <span
           class="bg-white text-black absolute right-0 bottom-0 p-2 rounded-full shadow-2xl"
         >
