@@ -104,16 +104,16 @@ onMounted(async () => {
 })
 </script>
 
-<template>
+<template >
   <!-- ============================================
      ============= Navigation Bar ===============
      ============================================ -->
      <!-- <div class="w-screen"></div> -->
 
   <header
-    class="flex items-center justify-between bg-gray-800 h-[8rem] px-8 w-full"
+    class="flex items-center justify-between bg-gray-800  px-8 w-full h-[15vh]"
   >
-    <div class="text-white font-bold text-xl flex items-center">
+    <div class="text-white font-bold text-4xl flex items-center font-basblue ">
       Employee Insight
       <img
         :src="'/src/assets/profile/employee_white.png'"
@@ -161,10 +161,10 @@ onMounted(async () => {
      ============================================ -->
 
   <main
-    class="mt-16 overflow-x-scroll scrollable-content"
+    class=" overflow-x-scroll scrollable-content h-[85vh] bg-slate-900 "
     v-if="filteredData.length !== 0 && filteredSearchData.length !== 0"
   >
-    <div class="card-slider-container" :ref="'card_slider_container'">
+    <div class="card-slider-container mt-16" :ref="'card_slider_container'">
       <!-- =========== Slider to left arrow ============ -->
       <div
         class="bg-white p-3 text-black rounded-full ml-5 mt-0.5 text-2xs btn-circle size-fit scale-x-[-1]"
@@ -219,7 +219,7 @@ onMounted(async () => {
 
   <div
     v-else
-    class="w-screen flex justify-center items-center flex-col h-[85vh] gap-4"
+    class="w-screen flex justify-center items-center flex-col h-[85vh] gap-4 bg-slate-900"
   >
     <img :src="'/src/assets/profile/sad_emoji.png'" class="size-[150px]" />
     <div
@@ -246,6 +246,9 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+html{
+ background-color: white;
+}
 .scrollable-content::-webkit-scrollbar {
   display: none;
 }
