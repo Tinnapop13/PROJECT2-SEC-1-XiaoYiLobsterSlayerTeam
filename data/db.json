@@ -34,16 +34,21 @@
       "id": "547a",
       "username": "Tinnapop",
       "password": "Boatpass%^5"
+    },
+    {
+      "id": "7e6c",
+      "username": "GG",
+      "password": "Boatpass%^5"
     }
   ],
   "profile": {
-    "angry": "/src/assets/profile/angry.png",
-    "happy": "/src/assets/profile/happy.png"
+    "angry": "/src/assets/images/angry.png",
+    "happy": "/src/assets/images/happy.png"
   },
   "employees": [
     {
       "id": "333",
-      "LinkImage": "/src/assets/profile/happy.png",
+      "LinkImage": "/src/assets/images/happy.png",
       "FakeName": "Xi Qwee",
       "PositionRank": "God",
       "Age": "46",
@@ -51,7 +56,6 @@
       "GoalAndNeed": "oil",
       "Comment": "",
       "Rating": {
-
         "coworker": "4",
         "environment": 0,
         "responsibility": 0
@@ -100,19 +104,12 @@
         "coworker": "4",
         "environment": "8",
         "responsibility": "10"
-
-        "coworker": 4,
-        "environment": 6,
-        "responsibility": 7
-
-
-
       },
       "OwnedBy": "gg"
     },
     {
       "id": "556",
-      "LinkImage": "/src/assets/profile/angry.png",
+      "LinkImage": "/src/assets/images/angry.png",
       "FakeName": "Phatcharadol ",
       "PositionRank": "newbie",
       "Age": 20,
@@ -128,7 +125,7 @@
     },
     {
       "id": "558",
-      "LinkImage": "/src/assets/profile/angry.png",
+      "LinkImage": "/src/assets/images/angry.png",
       "FakeName": "Papangkorn Kijsakulrat",
       "PositionRank": "xcv",
       "Age": 29,
@@ -143,8 +140,40 @@
       "OwnedBy": "gg"
     },
     {
+      "id": "560",
+      "LinkImage": "/src/assets/images/angry.png",
+      "FakeName": "asdf asdf",
+      "PositionRank": "asdfasdf",
+      "Age": 20,
+      "PainPoint": "asdfasdfasdf",
+      "GoalAndNeed": "asdfasdfa",
+      "Comment": "zxcvzx",
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "gg"
+    },
+    {
+      "id": "561",
+      "LinkImage": "/src/assets/images/angry.png",
+      "FakeName": "asdf asdf",
+      "PositionRank": "asdfasdf",
+      "Age": 20,
+      "PainPoint": "asdfasdfasdf",
+      "GoalAndNeed": "asdfasdfa",
+      "Comment": "asdf",
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "gg"
+    },
+    {
       "id": "562",
-      "LinkImage": "/src/assets/profile/angry.png",
+      "LinkImage": "/src/assets/images/angry.png",
       "FakeName": "asdf asdf",
       "PositionRank": "asdfasdf",
       "Age": 20,
@@ -176,7 +205,7 @@
     },
     {
       "id": "564",
-      "LinkImage": "/src/assets/profile/happy.png",
+      "LinkImage": "/src/assets/images/happy.png",
       "FakeName": "sdgdsgds",
       "PositionRank": "sdgds",
       "Age": 22,
@@ -192,7 +221,7 @@
     },
     {
       "id": "56335",
-      "LinkImage": "/src/assets/profile/angry.png",
+      "LinkImage": "/src/assets/images/angry.png",
       "FakeName": "asfasf",
       "PositionRank": "asfasf",
       "Age": 23,
@@ -208,7 +237,7 @@
     },
     {
       "id": "5615",
-      "LinkImage": "/src/assets/profile/angry.png",
+      "LinkImage": "/src/assets/images/angry.png",
       "FakeName": "asfasf",
       "PositionRank": "asfasf",
       "Age": 23,
@@ -224,7 +253,7 @@
     },
     {
       "id": "5634",
-      "LinkImage": "/src/assets/profile/angry.png",
+      "LinkImage": "/src/assets/images/angry.png",
       "FakeName": "asfasf",
       "PositionRank": "asfasf",
       "Age": 23,
@@ -240,7 +269,7 @@
     },
     {
       "id": "5635",
-      "LinkImage": "/src/assets/profile/happy.png",
+      "LinkImage": "/src/assets/images/happy.png",
       "FakeName": "Thanos",
       "PositionRank": "Guardian of Galaxy",
       "Age": 37,
@@ -256,7 +285,7 @@
     },
     {
       "id": "5636",
-      "LinkImage": "/src/assets/profile/happy.png",
+      "LinkImage": "/src/assets/images/happy.png",
       "FakeName": "Thanos",
       "PositionRank": "Guardian of Galaxy",
       "Age": 37,
@@ -272,7 +301,7 @@
     },
     {
       "id": "5637",
-      "LinkImage": "/src/assets/profile/angry.png",
+      "LinkImage": "/src/assets/images/angry.png",
       "FakeName": "Thanos",
       "PositionRank": "Guardian of Galaxy",
       "Age": 37,
@@ -288,7 +317,7 @@
     },
     {
       "id": "5638",
-      "LinkImage": "/src/assets/profile/happy.png",
+      "LinkImage": "/src/assets/images/happy.png",
       "FakeName": "JIDJID",
       "PositionRank": "Guardian of Galaxy",
       "Age": 37,
@@ -304,7 +333,7 @@
     },
     {
       "id": "5639",
-      "LinkImage": "/src/assets/profile/happy.png",
+      "LinkImage": "/src/assets/images/happy.png",
       "FakeName": "GG",
       "PositionRank": "kdfbkasfasf",
       "Age": 21,
@@ -317,6 +346,70 @@
         "responsibility": "3"
       },
       "OwnedBy": "Tinnapop"
+    },
+    {
+      "id": "5640",
+      "LinkImage": "/src/assets/images/angry.png",
+      "FakeName": "kamekameha",
+      "PositionRank": "sadas",
+      "Age": 21,
+      "PainPoint": "sad",
+      "GoalAndNeed": "asd",
+      "Comment": "asdasdasd",
+      "Rating": {
+        "coworker": "4",
+        "environment": "6",
+        "responsibility": "3"
+      },
+      "OwnedBy": "gg"
+    },
+    {
+      "id": "5641",
+      "LinkImage": "/src/assets/images/angry.png",
+      "FakeName": "asg",
+      "PositionRank": "asg",
+      "Age": 20,
+      "PainPoint": "asg",
+      "GoalAndNeed": "asg",
+      "Comment": "asg",
+      "Rating": {
+        "coworker": "5",
+        "environment": "6",
+        "responsibility": "7"
+      },
+      "OwnedBy": "goko"
+    },
+    {
+      "id": "5642",
+      "LinkImage": "/src/assets/images/happy.png",
+      "FakeName": "asg",
+      "PositionRank": "asg",
+      "Age": 20,
+      "PainPoint": "asg",
+      "GoalAndNeed": "asg",
+      "Comment": "asffffffffffffffffffffffff",
+      "Rating": {
+        "coworker": "2",
+        "environment": "5",
+        "responsibility": "4"
+      },
+      "OwnedBy": "goko"
+    },
+    {
+      "id": "5643",
+      "LinkImage": "/src/assets/images/angry.png",
+      "FakeName": "asg",
+      "PositionRank": "asg",
+      "Age": 20,
+      "PainPoint": "asg",
+      "GoalAndNeed": "asg",
+      "Comment": "ffffffffffffff",
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "goko"
     }
   ]
 }
