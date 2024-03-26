@@ -91,7 +91,8 @@ const filteredData = computed(() => {
 });
 
 const logout = () => {
-  router.push("/") 
+  localStorage.removeItem("login")
+  router.push("/")
 };
 
 /*
