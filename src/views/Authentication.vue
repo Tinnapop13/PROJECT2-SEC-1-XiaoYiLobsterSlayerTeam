@@ -1,92 +1,62 @@
 <script setup>
-import { UserManagement } from "@/libs/UserManagement.js";
 import { getUsersData, addUserData } from "@/libs/crud.js";
 import { useRouter } from "vue-router";
 import { ref, onMounted, computed } from "vue";
 import Modal from "@/components/Modal.vue";
-import { errorStore } from "@/stores/errorStore";
-import { authenticationStore } from "@/stores/authenticationStore";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { useUserStore } from "@/stores/useUserStore";
+import { storeToRefs } from "pinia";
 
-const userManager = ref(new UserManagement());
-const authenStore = authenticationStore();
-const errStore = errorStore();
+const route = useRouter();
+const userStore = useUserStore();
+const authStore = useAuthStore();
+const { hasUpper , hasLower , hasDigit , hasSpecial , username ,password , validatePassword } = storeToRefs(authStore)
+
+const users = ref(null)
+const keepLoggedIn = ref(false)
 const registerMode = ref(false);
 const registrationSuccess = ref(false);
-const route = useRouter();
-const username = ref("");
-const password = ref("");
-const validatePassword = ref("");
-const hasUpper = ref(false);
-const hasLower = ref(false);
-const hasDigit = ref(false);
-const hasSpecial = ref(false);
-const isBoxChecked = ref(false);
 
 const login = (event) => {
-  for (const [key, value] of Object.entries(userManager.value.getUsers())) {
+  for (const [key, value] of Object.entries(users.value)) {
     if (value.username == username.value && value.password == password.value) {
-      errStore.loginErrorLog = "";
-      errStore.loginFailed = false;
-      authenStore.currentUser = username.value;
-      authenStore.loggedIn = true;
+      authStore.loginErrorLog = "";
+      authStore.loginFailed = false;
+      userStore.currentUser = username.value;
+      userStore.loggedIn = true;
       route.push("/home");
       return;
     }
-    if (isBoxChecked.value) {
+    if (keepLoggedIn.value) {
         localStorage.setItem("login", username.value)
     }
   }
   event.preventDefault();
-  errStore.loginErrorLog = "Incorrect Username or Password.";
-  errStore.loginFailed = true;
+  authStore.loginErrorLog = "Incorrect Username or Password.";
+  authStore.loginFailed = true;
 };
 
 const regist = (event) => {
-  for (const [key, value] of Object.entries(userManager.value.getUsers())) {
+  for (const [key, value] of Object.entries(users.value)) {
     if (value.username == username.value) {
-      errStore.loginErrorLog = "This username has already been used.";
-      errStore.loginFailed = true;
+      authStore.loginErrorLog = "This username has already been used.";
+      authStore.loginFailed = true;
       event.preventDefault();
       return;
     }
-  }
-  if (!/[0-9]/.test(password.value)) {
-    errStore.loginErrorLog = "Password doesn't have any digit";
-    errStore.loginFailed = true;
-    event.preventDefault();
-    return;
-  }
-  if (!/[a-z]/.test(password.value)) {
-    errStore.loginErrorLog = "Password doesn't have any lower case";
-    errStore.loginFailed = true;
-    event.preventDefault();
-    return;
-  }
-  if (!/[A-Z]/.test(password.value)) {
-    errStore.loginErrorLog = "Password doesn't have any upper case";
-    errStore.loginFailed = true;
-    event.preventDefault();
-    return;
-  }
-
-  if (!/[@#$%^&*!]/.test(password.value)) {
-    errStore.loginErrorLog = "Password doesn't have any special character";
-    errStore.loginFailed = true;
-    event.preventDefault();
-    return;
   }
   if (
     username.value.trim().length === 0 ||
     password.value.trim().length === 0
   ) {
-    errStore.loginErrorLog = "Please fulfill both username and password.";
-    errStore.loginFailed = true;
+    authStore.loginErrorLog = "Please fulfill both username and password.";
+    authStore.loginFailed = true;
     event.preventDefault();
     return;
   }
   if (password.value !== validatePassword.value) {
-    errStore.loginErrorLog = "Password doesn't match.";
-    errStore.loginFailed = true;
+    authStore.loginErrorLog = "Password doesn't match.";
+    authStore.loginFailed = true;
     event.preventDefault();
     return;
   }
@@ -96,43 +66,6 @@ const regist = (event) => {
   registrationSuccess.value = true;
 };
 
-const computedPasswordHasDigit = computed(() => {
-  if (/[0-9]/.test(password.value)) {
-    hasDigit.value = true;
-    return "Password have number";
-  } else {
-    hasDigit.value = false;
-    return "Password doesn't have any digit";
-  }
-});
-const computedPasswordHasLower = computed(() => {
-  if (/[a-z]/.test(password.value)) {
-    hasLower.value = true;
-    return "Password have lower case";
-  } else {
-    hasLower.value = false;
-    return "Password doesn't have any lower case";
-  }
-});
-const computedPasswordHasUpper = computed(() => {
-  if (/[A-Z]/.test(password.value)) {
-    hasUpper.value = true;
-    return "Password have upper case";
-  } else {
-    hasUpper.value = false;
-    return "Password doesn't have any upper case";
-  }
-});
-const computedPasswordHasspecial = computed(() => {
-  if (/[@#$%^&*!]/.test(password.value)) {
-    hasSpecial.value = true;
-    return "Password have special character";
-  } else {
-    hasSpecial.value = false;
-    return "Password doesn't have any special character";
-  }
-});
-
 const closeModal = () => {
   registrationSuccess.value = false;
   location.reload();
@@ -140,8 +73,7 @@ const closeModal = () => {
 
 onMounted(async () => {
   try {
-    const users = await getUsersData();
-    userManager.value.addUsers(users);
+    users.value = await getUsersData();
   } catch (error) {
     console.log(error);
   }
@@ -152,7 +84,7 @@ onMounted(async () => {
     <div
       class="w-1/2 h-[60vh] rounded-3xl flex flex-col items-center justify-center"
     >
-      <img :src="'/src/assets/profile/employee_white.png'" class="size-24" />
+      <img :src="'/src/assets/images/employee_white.png'" class="size-24" />
       <div class="font-bold text-4xl font-basblue">
         {{ registerMode ? "SIGN UP" : "LOGIN" }}
       </div>
@@ -181,12 +113,12 @@ onMounted(async () => {
 
         <div class="form-control">
           <label class="cursor-pointer label">
-            <span class="label-text">Remember login</span>
+            <span class="label-text">Remember Me</span>
             <input
               type="checkbox"
               checked="checked"
               class="checkbox checkbox-info"
-              v-model="isBoxChecked"
+              v-model="keepLoggedIn"
             />
           </label>
         </div>
@@ -223,8 +155,8 @@ onMounted(async () => {
             {{ computedPasswordHasspecial }}
           </div>
         </div>
-        <div v-if="errStore.loginFailed" class="text-red-500">
-          {{ errStore.loginErrorLog }}
+        <div v-if="authStore.loginFailed" class="text-red-500">
+          {{ authStore.loginErrorLog }}
         </div>
         <input
           v-if="!registerMode"
@@ -250,7 +182,7 @@ onMounted(async () => {
           class="border rounded-3xl text-blue-500 hover:text-slate-100 hover:border-slate-100 border-blue-500 py-1 px-2 transition-all"
           @click="
             registerMode = !registerMode;
-            errStore.loginFailed = false;
+            authStore.loginFailed = false;
           "
         >
           {{ registerMode ? "Sign in now !" : "Create now !" }}
