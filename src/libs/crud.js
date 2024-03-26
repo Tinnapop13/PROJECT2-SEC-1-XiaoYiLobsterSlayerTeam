@@ -1,56 +1,65 @@
 const readJsonData = async () => {
-      return await fetch("http://localhost:5000/employees")
-      .then((respJson) => respJson.json())
-      
-  };
+  return await fetch("http://localhost:5000/employees").then((respJson) =>
+    respJson.json()
+  )
+}
 
-  const readProfileData = async  () => {
-    return await fetch("http://localhost:5000/profile")
-      .then((response) => response.json())
-  }
+const readProfileData = async () => {
+  return await fetch("http://localhost:5000/profile").then((response) =>
+    response.json()
+  )
+}
 
 const deleteJsonData = async (id) => {
-      return await fetch(`http://localhost:5000/employees/${Number(id)}`, {
-      method: "DELETE",
-    }).then((respJson) => respJson.json())
-  };
+  return await fetch(`http://localhost:5000/employees/${Number(id)}`, {
+    method: "DELETE",
+  }).then((respJson) => respJson.json())
+}
 
-const addJsonData = (employee , id ) => {
-    return fetch("http://localhost:5000/employees", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id , ...employee }),
-    }).then((respJson) => {
-      respJson.json()
-    });
-  };
-
-  const editJsonData = (id,updatedEmployee) => {
-      fetch(`http://localhost:5000/employees/${Number(id)}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedEmployee),
-      }).then((respJson) => {
-        respJson.json()
-      })
-    }
-
-  const getUsersData = async () => {
-    return await fetch('http://localhost:5000/users').then((respJson) => respJson.json())
-  }
-
-  const addUserData = async (username , password) => {
-    return await fetch('http://localhost:5000/users' ,
-    {method : "post",
+const addJsonData = async (employee, id) => {
+  return fetch("http://localhost:5000/employees", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username : username , password : password  }),}).then((respJson) => respJson.json())
-  }
+    body: JSON.stringify({id, ...employee}),
+  }).then((respJson) => respJson.json())
+}
 
+const editJsonData = (id, updatedEmployee) => {
+  fetch(`http://localhost:5000/employees/${Number(id)}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedEmployee),
+  }).then((respJson) => {
+    respJson.json()
+  })
+}
 
-  export { deleteJsonData , readJsonData ,  addJsonData , readProfileData , editJsonData ,getUsersData , addUserData}
+const getUsersData = async () => {
+  return await fetch("http://localhost:5000/users").then((respJson) =>
+    respJson.json()
+  )
+}
+
+const addUserData = async (username, password) => {
+  return await fetch("http://localhost:5000/users", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({username: username, password: password}),
+  }).then((respJson) => respJson.json())
+}
+
+export {
+  deleteJsonData,
+  readJsonData,
+  addJsonData,
+  readProfileData,
+  editJsonData,
+  getUsersData,
+  addUserData,
+}

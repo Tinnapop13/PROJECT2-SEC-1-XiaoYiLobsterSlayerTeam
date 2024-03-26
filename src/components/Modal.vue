@@ -35,7 +35,7 @@
   <div v-if="modalType === 'SelectingProfile'"
     class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
     <div class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">
-      <div class="text-4xl">What do you feel?</div>
+      <div class="text-4xl text-slate-800 font-basblue">What do you feel?</div>
       <div class="flex ">
         <div v-for="profile in newEmployeeProfile" @click="$emit('changeImage',profile)"
           class="h-fit w-fit flex justify-center items-center overflow-hidden shadow-xl rounded-full p-4 m-4"
