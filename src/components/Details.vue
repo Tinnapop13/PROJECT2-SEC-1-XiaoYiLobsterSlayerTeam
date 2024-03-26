@@ -280,12 +280,7 @@ const errorMessage = ref("")
       class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4"
     >
       <p class="text-green-500">UPDATE SUCCESS!!!</p>
-      Employee {{ fetchData.getEmployees()[employeeIndex]?.FakeName }} Updated.
-      <br /><br />
-      New Age: {{ editTemplate.Age }}. <br />
-      New Rank: {{ editTemplate.PositionRank }}. <br />
-      New Pain Point: {{ editTemplate.PainPoint }}. <br />
-      New Goal and Need: {{ editTemplate.GoalAndNeed }}. <br />
+      <p class="text-blue-500">Employee "{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}" Updated.</p>
       <router-link
         to="/home"
         class="btn-primary btn btn-ghost text-xl mr-2 bg-blue-500 text-white"
