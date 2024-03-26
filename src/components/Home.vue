@@ -1,18 +1,20 @@
 <script setup>
-import {ref, reactive, watch, onBeforeMount, computed, onMounted} from "vue"
-import Card from "./Card.vue"
-import {readJsonData, deleteJsonData} from "/src/libs/crud.js"
-import {EmployeeManagement} from "/src/libs/EmployeeManagement.js"
-import {authenticationStore} from "@/stores/authenticationStore"
-import Modal from "@/components/Modal.vue"
+import { ref, reactive, watch, onBeforeMount, computed, onMounted } from "vue";
+import Card from "./Card.vue";
+import { readJsonData, deleteJsonData } from "/src/libs/crud.js";
+import { EmployeeManagement } from "/src/libs/EmployeeManagement.js";
+import { authenticationStore } from "@/stores/authenticationStore";
+import Modal from "@/components/Modal.vue";
+import { useRouter } from "vue-router";
 
-const fetchData = ref(new EmployeeManagement())
-const authenStore = authenticationStore()
-const searchKey = ref("")
-const deleteName = ref("")
-const deleteId = ref("")
-const card_slider = ref(null)
-const card_slider_container = ref(null)
+const fetchData = ref(new EmployeeManagement());
+const authenStore = authenticationStore();
+const searchKey = ref("");
+const deleteName = ref("");
+const deleteId = ref("");
+const card_slider = ref(null);
+const card_slider_container = ref(null);
+const router = useRouter()
 
 /*
 ============================================
@@ -24,12 +26,12 @@ const slide = (direction) => {
   const scrollAmount =
     direction === "left"
       ? -card_slider_container.value.offsetWidth
-      : card_slider_container.value.offsetWidth
+      : card_slider_container.value.offsetWidth;
   card_slider.value.scrollBy({
     left: scrollAmount,
     behavior: "smooth",
-  })
-}
+  });
+};
 
 /*
 ============================================
@@ -39,23 +41,23 @@ const slide = (direction) => {
 
 const deleteEmployee = async (deleteId) => {
   try {
-    await deleteJsonData(deleteId)
-    fetchData.value.deleteEmployee(deleteId)
+    await deleteJsonData(deleteId);
+    fetchData.value.deleteEmployee(deleteId);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-  closeModal()
-}
+  closeModal();
+};
 
 const deleteConfirm = (el) => {
-  deleteName.value = el.target.dataset.value
-  deleteId.value = el.target.id
-}
+  deleteName.value = el.target.dataset.value;
+  deleteId.value = el.target.id;
+};
 
 const closeModal = () => {
-  deleteName.value = ""
-  deleteId.value = ""
-}
+  deleteName.value = "";
+  deleteId.value = "";
+};
 
 /*
 ============================================
@@ -66,7 +68,7 @@ const closeModal = () => {
 const filteredSearchData = computed(() => {
   return fetchData.value.employees
     .filter((employee) => {
-      return employee.OwnedBy === authenStore.currentUser
+      return employee.OwnedBy === authenStore.currentUser;
     })
     .filter((employee) => {
       return Object.entries(employee)
@@ -77,16 +79,20 @@ const filteredSearchData = computed(() => {
         .some(([key, value]) => {
           return String(value)
             .toLowerCase()
-            .includes(searchKey.value.toLowerCase())
-        })
-    })
-})
+            .includes(searchKey.value.toLowerCase());
+        });
+    });
+});
 
 const filteredData = computed(() => {
   return fetchData.value.employees.filter((employee) => {
-    return employee.OwnedBy === authenStore.currentUser
-  })
-})
+    return employee.OwnedBy === authenStore.currentUser;
+  });
+});
+
+const logout = () => {
+  router.push("/") 
+};
 
 /*
 ============================================
@@ -96,24 +102,28 @@ const filteredData = computed(() => {
 
 onMounted(async () => {
   try {
-    const employees = await readJsonData()
-    fetchData.value.addEmployees(employees)
+    const employees = await readJsonData();
+    fetchData.value.addEmployees(employees);
   } catch (error) {
-    console.log("cannot fetch")
+    console.log("cannot fetch");
   }
-})
+});
 </script>
 
-<template >
+<template>
   <!-- ============================================
      ============= Navigation Bar ===============
      ============================================ -->
-     <!-- <div class="w-screen"></div> -->
+  <!-- <div class="w-screen"></div> -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+  />
 
   <header
-    class="flex items-center justify-between bg-gray-800  px-8 w-full h-[15vh]"
+    class="flex items-center justify-between bg-gray-800 px-8 w-full h-[15vh]"
   >
-    <div class="text-white font-bold text-4xl flex items-center font-basblue ">
+    <div class="text-white font-bold text-4xl flex items-center font-basblue">
       Employee Insight
       <img
         :src="'/src/assets/profile/employee_white.png'"
@@ -143,15 +153,27 @@ onMounted(async () => {
       </label>
       <router-link
         class="bg-blue-500 text-white font-bold py-2 px-4 rounded-badge focus:outline-none focus:shadow-outline-blue hover:bg-blue-700 flex justify-center items-center w-[200px] h-[60px] text-[20px]"
-        :to="{path: '/addcard'}"
+        :to="{ path: '/addcard' }"
       >
         ADD EMPLOYEE
       </router-link>
-      <div
-        class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue flex justify-evenly items-center gap-4 h-[60px]"
-      >
-        <img :src="'/src/assets/profile/user.png'" class="size-full" />
-        <div class="">{{ authenStore.currentUser }}</div>
+      <div class="relative">
+        <div
+          class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue flex justify-between items-center gap-4 h-[60px]"
+        >
+          <img src="/src/assets/profile/user.png" class="size-full" />
+          <div>{{ authenStore.currentUser }}</div>
+          <div class="dropdown">
+            <button class="btn btn-ghost">
+              <span class="material-symbols-outlined"> menu </span>
+            </button>
+            <ul
+              class="bg-gray-400 m-2 shadow menu dropdown-content rounded-box w-52 absolute right-0 top-full"
+            >
+              <button @click="logout()">LOG OUT</button>
+            </ul>
+          </div>
+        </div>
       </div>
     </ul>
   </header>
@@ -161,7 +183,7 @@ onMounted(async () => {
      ============================================ -->
 
   <main
-    class=" overflow-x-scroll scrollable-content h-[85vh] bg-slate-900 "
+    class="overflow-x-scroll scrollable-content h-[85vh] bg-slate-900"
     v-if="filteredData.length !== 0 && filteredSearchData.length !== 0"
   >
     <div class="card-slider-container mt-16" :ref="'card_slider_container'">
@@ -246,8 +268,8 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-html{
- background-color: white;
+html {
+  background-color: white;
 }
 .scrollable-content::-webkit-scrollbar {
   display: none;
