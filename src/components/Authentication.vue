@@ -29,7 +29,7 @@ const login = (event)=>{
         }
     } 
     event.preventDefault()
-    errStore.loginErrorLog = "Incorrect Username or Password"
+    errStore.loginErrorLog = "Incorrect Username or Password."
     errStore.loginFailed = true
     
 }
@@ -37,20 +37,20 @@ const login = (event)=>{
 const regist = (event)=>{
     for (const [key,value] of Object.entries(userManager.value.getUsers())) {
         if(value.username == username.value){
-            errStore.loginErrorLog = "This username has already been used"
+            errStore.loginErrorLog = "This username has already been used."
             errStore.loginFailed = true
             event.preventDefault();
             return
         }
     } 
     if(username.value.trim().length === 0 || password.value.trim().length === 0){
-            errStore.loginErrorLog = "Please fulfill both username and password"
+            errStore.loginErrorLog = "Please fulfill both username and password."
             errStore.loginFailed = true
             event.preventDefault();
             return
         }
     if(password.value !== validatePassword.value){
-        errStore.loginErrorLog = "Password doesn't match"
+        errStore.loginErrorLog = "Password doesn't match."
         errStore.loginFailed = true
         event.preventDefault();
         return
@@ -81,22 +81,22 @@ onMounted(async () => {
 
 </script>
 <template>
-    <div class="w-screen h-screen flex justify-center items-center">
-        <div class="bg-white w-[40vw] h-[60vh] rounded-3xl flex flex-col items-center justify-center ">
-            <div v-if="!registerMode" class="text-black font-bold text-4xl">Login</div>
-            <div v-if="registerMode" class="text-black font-bold text-4xl">Sign up</div>
-            <form class="flex flex-col gap-4 w-[50%]">
-                <label class="text-black font-semibold divider divider-neutral divider-start ">Username</label>
+    <div class="w-screen h-screen flex justify-center items-center bg-slate-800">
+        <div class="w-1/2  h-[60vh] rounded-3xl flex flex-col items-center justify-center ">
+            <img :src="'/src/assets/profile/employee_white.png'" class="size-24">
+            <div  class="font-bold text-4xl font-basblue">{{ registerMode ?  'SIGN UP' : 'LOGIN'  }}</div>
+            <form class="w-1/3 flex flex-col gap-4">
+                <label class=" font-semibold divider divider-neutral divider-start font-basblue mb-0">Username</label>
                 <input type="text" placeholder="Username" v-model="username" class="bg-slate-400 rounded-md h-10 text-black p-1">
-                <label class="text-black font-semibold divider divider-neutral divider-start ">Password</label>
+                <label class=" font-semibold divider divider-neutral divider-start font-basblue  mb-0">Password</label>
                 <input type="password" placeholder="Password" v-model="password" class="bg-slate-400 rounded-md h-10 text-black p-1" >
-                <label v-if="registerMode" class="text-black font-semibold divider divider-neutral divider-start ">Password Again</label>
+                <label v-if="registerMode" class=" font-semibold divider divider-neutral divider-start font-basblue mb-0">Password Again</label>
                 <input v-if="registerMode" type="password" placeholder="Password" v-model="validatePassword" class="bg-slate-400 rounded-md h-10 text-black p-1" >
                 <div v-if="errStore.loginFailed" class="text-red-500">{{ errStore.loginErrorLog }}</div>
-                <input v-if="!registerMode" type="submit" class="btn btn-primary" value="Login" @click="login($event)" >
-                <input v-if="registerMode" type="submit" class="btn btn-primary" value="Sign up" @click="regist($event)" > 
+                <input v-if="!registerMode" type="submit" class="btn bg-blue-500 text-slate-200 hover:bg-slate-200 hover:text-blue-500" value="Login" @click="login($event)" >
+                <input v-if="registerMode" type="submit" class="btn bg-blue-500 text-slate-200 hover:bg-slate-200 hover:text-blue-500" value="Sign up" @click="regist($event)" > 
             </form>
-            <button class="btn btn-secondary w-1/2 my-1" @click="registerMode = !registerMode ; errStore.loginFailed = false">{{ registerMode ? 'Go to Sign in' : 'Go to Sign up' }}</button>    
+           <div class="flex items-center my-4 gap-4">{{ registerMode ? "Already have an account ?" : "Don't have an account yet ?"  }}<button class="border rounded-3xl text-blue-500 hover:text-slate-100 hover:border-slate-100 border-blue-500 py-1 px-2 transition-all" @click="registerMode = !registerMode ; errStore.loginFailed = false">{{ registerMode ? 'Sign in now !' : 'Create now !' }}</button> </div>    
         </div>
     </div>
 

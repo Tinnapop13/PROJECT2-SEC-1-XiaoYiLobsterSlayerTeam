@@ -61,7 +61,7 @@ onMounted(() => {
 
   <div
     v-if="showCardDetails"
-    class="w-[20rem] h-[35rem] bg-[#F9F7F7]  max-sm:w-full overflow-hidden shadow-2xl relative rounded-2xl"
+    class="w-[20rem] h-[35rem] bg-[#F9F7F7]  max-sm:w-full overflow-hidden shadow-lg relative rounded-2xl"
   >
     <!-- =============== image and details ============== -->
     <router-link  :to="{ path: '/details/' + employeeId }  ">

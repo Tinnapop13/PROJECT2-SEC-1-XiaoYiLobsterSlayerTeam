@@ -95,22 +95,21 @@ const errorMessage = ref("")
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
   />
-
-  <div class="w-screen h-screen relative bg-purple-400">
+  <div class="w-screen h-[70vh] relative">
     <!-- ============================================
-  ================== NAV BAR ======================
-  ============================================ -->
+     ============= Navigation Bar ===============
+     ============================================ -->
     <header
-      class="absolute top-0 flex items-center justify-between bg-gray-800 h-[8rem] px-8 w-full"
+      class="flex items-center justify-between bg-gray-800 h-[8rem] px-8 w-full absolute top-0"
     >
       <router-link
         class="text-white font-bold text-xl flex items-center"
-        to="/"
+        to="/home"
       >
         Employee Insight
         <img :src="'/src/assets/profile/user.png'" class="size-12 mx-4" />
       </router-link>
-      <ul class="">
+      <ul class="space-x-14">
         <router-link
           class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue hover:bg-blue-700"
           :to="{path: '/addcard'}"
@@ -119,26 +118,25 @@ const errorMessage = ref("")
         </router-link>
       </ul>
     </header>
-    <!-- ================================================
-  ================== END NAV BAR ======================
-  ================================================= -->
 
-    <div class="flex h-full justify-center items-center">
+    <div
+      class="flex justify-center items-center w-full h-full absolute top-48 gap-x-10"
+    >
       <!-- ================================================
-      ===================== IMAGE =========================
-      ================================================= -->
-      <div class="bg-red-200">
+  ===================== IMAGE =========================
+  ================================================= -->
+      <div class="avatar indicator">
         <span
           v-if="!updateResult"
           class="border-black bg-white text-black indicator-item badge badge-secondary m-6"
           >{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}</span
         >
-        <div class="">
+        <div class="rounded-sm overflow-hidden m-6 border-white border size-64">
           <img :src="fetchData.getEmployees()[employeeIndex]?.LinkImage" />
         </div>
       </div>
 
-      <div class="flex w-full h-[30vw] flex-col gap-y-5">
+      <div class="flex flex-col gap-y-5">
         <div class="flex justify-evenly">
           <div class="flex flex-col m-5">
             <p class="m-2">Age</p>
@@ -247,17 +245,9 @@ const errorMessage = ref("")
             v-model="editTemplate.Rating.responsibility"
           />
         </div>
-        <!-- ============================================
-        ================ End Rating Details  ============
-        ============================================= -->
-
 
         <div class="flex justify-end gap-5 mt-5">
           <!-- ============================================
-
-
-      <div class="flex justify-end gap-5 mt-5">
-        <!-- ============================================
         ================ Button Details  ================
         ============================================= -->
           <button
@@ -268,22 +258,17 @@ const errorMessage = ref("")
           </button>
 
           <router-link
-            to="/"
+            to="/home"
             class="btn btn-ghost text-xl bg-red-500 text-white"
             @click="deleteEmployee()"
             ><span class="material-symbols-outlined">
               delete
             </span></router-link
           >
-          <!-- ============================================
-        ================ End Button Details  ============
-        ============================================= -->
         </div>
-
       </div>
     </div>
   </div>
-
   <!-- ============================================
   ================ Details Modal ==================
   ============================================= -->
@@ -295,21 +280,13 @@ const errorMessage = ref("")
       class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4"
     >
       <p class="text-green-500">UPDATE SUCCESS!!!</p>
-      Employee {{ fetchData.getEmployees()[employeeIndex]?.FakeName }} Updated.
-      <br /><br />
-      New Age: {{ editTemplate.Age }}. <br />
-      New Rank: {{ editTemplate.PositionRank }}. <br />
-      New Pain Point: {{ editTemplate.PainPoint }}. <br />
-      New Goal and Need: {{ editTemplate.GoalAndNeed }}. <br />
+      <p class="text-blue-500">Employee "{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}" Updated.</p>
       <router-link
-        to="/"
+        to="/home"
         class="btn-primary btn btn-ghost text-xl mr-2 bg-blue-500 text-white"
         @click="updateEmployee()"
         >CLOSE</router-link
       >
     </innerModal>
   </modal>
-  <!-- =================================================
-  =============== End of Details Modal =================
-  ================================================== -->
 </template>
