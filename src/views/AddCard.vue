@@ -1,16 +1,14 @@
 <script setup>
 import {ref, reactive, onBeforeMount} from "vue"
 import {addJsonData, readJsonData, readProfileData} from "/src/libs/crud.js"
-import {EmployeeManagement} from "/src/libs/EmployeeManagement.js"
 import Modal from "@/components/Modal.vue"
-import {authenticationStore} from "@/stores/authenticationStore"
+import {useUserStore} from "@/stores/useUserStore"
+import {useRouter} from "vue-router"
 
-const authenStore = authenticationStore()
-const fetchData = ref(new EmployeeManagement())
+const userStore = useUserStore()
 const profileData = ref(null)
 const selectingProfile = ref(false)
 const addResult = ref("")
-import {useRouter} from "vue-router"
 const router = useRouter()
 
 const newCard = reactive({
@@ -26,7 +24,7 @@ const newCard = reactive({
     environment: 0,
     responsibility: 0,
   },
-  OwnedBy: authenStore.currentUser,
+  OwnedBy: userStore.currentUser,
 })
 
 /*
@@ -61,18 +59,19 @@ const addEmployee = async () => {
   await addJsonData(
     newCard,
     parseInt(
-      fetchData.value.getEmployees()[fetchData.value.getEmployees().length - 1]
+      userStore.employeeManager.getEmployees()[userStore.employeeManager.getEmployees().length - 1]
         .id
     ) +
       1 +
       ""
   )
-  router.push("/home")
-  fetchData.value.addEmployee(newCard)
   addResult.value = "AddEmployeeSuccess"
 }
 
 const closeModal = () => {
+  addResult.value === "AddEmployeeSuccess"
+    ? router.push("/home") && userStore.employeeManager.addEmployee(newCard)
+    : ""
   addResult.value = ""
   selectingProfile.value = false
 }
@@ -84,7 +83,7 @@ const changeProfileImage = (profileUrl) => {
 onBeforeMount(async () => {
   try {
     const employees = await readJsonData()
-    fetchData.value.addEmployees(employees)
+    userStore.employeeManager.addEmployees(employees)
     getProfileData()
   } catch (error) {
     console.log(error)
@@ -131,7 +130,7 @@ onBeforeMount(async () => {
           <p class="text-base font-bold text-blue-950">Name :</p>
           <input
             type="text"
-            class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg"
+            class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg text-black"
             v-model="newCard.FakeName"
           />
         </div>
@@ -140,7 +139,7 @@ onBeforeMount(async () => {
             <p class="text-base font-bold text-blue-950">PositionRank :</p>
             <input
               type="text"
-              class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg"
+              class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg text-black"
               v-model="newCard.PositionRank"
             />
           </div>
@@ -150,7 +149,7 @@ onBeforeMount(async () => {
               type="number"
               min="20"
               max="60"
-              class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg"
+              class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg text-black"
               v-model="newCard.Age"
             />
           </div>
@@ -159,7 +158,7 @@ onBeforeMount(async () => {
           <p class="text-base font-bold text-blue-950">PainPoint :</p>
           <input
             type="text"
-            class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg"
+            class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg text-black"
             v-model="newCard.PainPoint"
           />
         </div>
@@ -167,7 +166,7 @@ onBeforeMount(async () => {
           <p class="text-base font-bold text-blue-950">GoalAndNeed :</p>
           <input
             type="text"
-            class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg"
+            class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg text-black"
             v-model="newCard.GoalAndNeed"
           />
         </div>
@@ -176,7 +175,7 @@ onBeforeMount(async () => {
           <textarea
             style="resize: none"
             v-model="newCard.Comment"
-            class="bg-white border w-full border-gray-300 p-0.5 outline-none rounded-lg"
+            class="bg-white border w-full border-gray-300 p-0.5 outline-none rounded-lg text-black"
           />
         </div>
 

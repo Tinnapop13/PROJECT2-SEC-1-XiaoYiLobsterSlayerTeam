@@ -211,7 +211,7 @@ const errorMessage = ref("")
       ================ Rating Details  ================
       ============================================= -->
         <div class="flex w-full justify-evenly mt-10">
-          <p class="text-blue-950 font-semibold">
+          <p class="text-blue-700 font-semibold">
             Co-worker :
             {{ fetchData.getEmployees()[employeeIndex]?.Rating.coworker }}
           </p>
@@ -222,7 +222,7 @@ const errorMessage = ref("")
             class="slider my-1"
             v-model="editTemplate.Rating.coworker"
           />
-          <p class="text-blue-950 font-semibold">
+          <p class="text-blue-700 font-semibold">
             Environment :
             {{ fetchData.getEmployees()[employeeIndex]?.Rating.environment }}
           </p>
@@ -233,7 +233,7 @@ const errorMessage = ref("")
             class="slider my-1"
             v-model="editTemplate.Rating.environment"
           />
-          <p class="text-blue-950 font-semibold">
+          <p class="text-blue-700 font-semibold">
             Responsibility :
             {{ fetchData.getEmployees()[employeeIndex]?.Rating.responsibility }}
           </p>
@@ -280,12 +280,7 @@ const errorMessage = ref("")
       class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4"
     >
       <p class="text-green-500">UPDATE SUCCESS!!!</p>
-      Employee {{ fetchData.getEmployees()[employeeIndex]?.FakeName }} Updated.
-      <br /><br />
-      New Age: {{ editTemplate.Age }}. <br />
-      New Rank: {{ editTemplate.PositionRank }}. <br />
-      New Pain Point: {{ editTemplate.PainPoint }}. <br />
-      New Goal and Need: {{ editTemplate.GoalAndNeed }}. <br />
+      <p class="text-blue-500">Employee "{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}" Updated.</p>
       <router-link
         to="/home"
         class="btn-primary btn btn-ghost text-xl mr-2 bg-blue-500 text-white"

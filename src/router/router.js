@@ -3,7 +3,7 @@ import Home from "@/views/Home.vue"
 import Details from "@/views/Details.vue"
 import AddCard from "@/views/AddCard.vue"
 import Authentication from "@/views/Authentication.vue"
-import {authenticationStore} from "@/stores/authenticationStore.js"
+import {useUserStore} from "@/stores/useUserStore.js"
 
 const router = createRouter({
   history: createWebHistory(),
@@ -16,8 +16,8 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-  const authStore = authenticationStore()
-  if (!authStore.loggedIn && to.name !== "auth") {
+  const userStore = useUserStore()
+  if (!userStore.loggedIn && to.name !== "auth") {
     alert("Please Login First")
     return {name: "auth"}
   }
