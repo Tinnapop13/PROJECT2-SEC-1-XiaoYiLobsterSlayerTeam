@@ -4,12 +4,14 @@ import Card from "@/components/Card.vue"
 import {readJsonData, deleteJsonData} from "/src/libs/crud.js"
 import {useUserStore} from "@/stores/useUserStore"
 import Modal from "@/components/Modal.vue"
+import {useRouter} from "vue-router"
 
 const userStore = useUserStore()
 const deleteName = ref("")
 const deleteId = ref("")
 const card_slider = ref(null)
 const card_slider_container = ref(null)
+const router = useRouter()
 
 /*
 ============================================
@@ -37,7 +39,7 @@ const slide = (direction) => {
 const deleteEmployee = async (deleteId) => {
   try {
     await deleteJsonData(deleteId)
-    userStore.employeeManageer.deleteEmployee(deleteId)
+    userStore.employeeManager.deleteEmployee(deleteId)
   } catch (error) {
     console.log(error)
   }
@@ -126,7 +128,8 @@ onMounted(async () => {
         <div class="dropdown dropdown-bottom">
           <div
             class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue flex justify-between items-center gap-4 h-[60px]"
-            tabindex="0" role="button"
+            tabindex="0"
+            role="button"
           >
             <img
               tabindex="0"
@@ -137,7 +140,7 @@ onMounted(async () => {
             <div tabindex="0" role="button">{{ userStore.currentUser }}</div>
             <ul
               tabindex="0"
-              class="dropdown-content z-[1] menu shadow bg-gray-400 mt-2 text-slate-500-800 rounded-box "
+              class="dropdown-content z-[1] menu shadow bg-gray-400 mt-2 text-slate-500-800 rounded-box"
             >
               <button @click="logout()">LOG OUT</button>
             </ul>

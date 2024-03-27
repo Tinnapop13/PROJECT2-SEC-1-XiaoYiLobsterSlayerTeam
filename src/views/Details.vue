@@ -2,7 +2,7 @@
 import {ref, onBeforeMount} from "vue"
 import {useRoute} from "vue-router"
 import {readJsonData, editJsonData, deleteJsonData} from "@/libs/crud"
-import {EmployeeManagement} from "../libs/EmployeeManagement.js"
+import {EmployeeManagement} from "@/libs/EmployeeManagement.js"
 import {useUserStore} from "@/stores/useUserStore.js"
 
 const route = useRoute()
@@ -66,7 +66,7 @@ const updateEmployee = async () => {
   const jsonEmployeeUpdate = validateInput(editTemplate.value)
 
   try {
-    await editJsonData(route.params.id, jsonEmployeeUpdate)
+    editJsonData(route.params.id, jsonEmployeeUpdate)
     updateEmployee(employeeIndex.value, classEmployeeUpdate)
   } catch (error) {
     console.log(error)
@@ -149,17 +149,19 @@ const errorMessage = ref("")
       <!-- ================================================
   ===================== IMAGE =========================
   ================================================= -->
-      <div class="avatar indicator">
-        <span
-          v-if="!updateResult"
-          class="bg-white text-black indicator-item badge badge-secondary text-lg"
-          >{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}</span
+      <div class="flex flex-col">
+        <div class="rounded-2xl overflow-hidden border-white border size-64">
+          <img
+            class="p-5"
+            :src="fetchData.getEmployees()[employeeIndex]?.LinkImage"
+          />
+        </div>
+        <div
+          class="text-white text-center mt-4 text-xl font-semibold underline"
         >
-        <div class="rounded-sm overflow-hidden m-6 border-white border size-64">
-          <img :src="fetchData.getEmployees()[employeeIndex]?.LinkImage" />
+          {{ fetchData.getEmployees()[employeeIndex]?.FakeName }}
         </div>
       </div>
-
       <!-- ================================================
   ===================== Edit detail =========================
   ================================================= -->

@@ -1,6 +1,6 @@
 <script setup>
-import {ref, reactive, onBeforeMount, computed} from "vue"
-import {addJsonData, readJsonData, readProfileData} from "/src/libs/crud.js"
+import {ref, reactive, onBeforeMount} from "vue"
+import {addJsonData, readJsonData, readProfileData} from "@/libs/crud"
 import Modal from "@/components/Modal.vue"
 import {useUserStore} from "@/stores/useUserStore"
 import {useRouter} from "vue-router"
@@ -57,21 +57,20 @@ const addValidate = () => {
 
 const addEmployee = async () => {
   await addJsonData(
-    newCard,
-    parseInt(
-      userStore.employeeManager.getEmployees()[userStore.employeeManager.getEmployees().length - 1]
-        .id
-    ) +
-      1 +
-      ""
+    newCard
+    // parseInt(
+    //   userStore.employeeManager.getEmployees()[userStore.employeeManager.getEmployees().length - 1]
+    //     .id
+    // ) +
+    //   1 +
+    //   ""
   )
+
   addResult.value = "AddEmployeeSuccess"
 }
 
 const closeModal = () => {
-  addResult.value === "AddEmployeeSuccess"
-    ? router.push("/home") && userStore.employeeManager.addEmployee(newCard)
-    : ""
+  addResult.value === "AddEmployeeSuccess" ? router.push("/home") : ""
   addResult.value = ""
   selectingProfile.value = false
 }
@@ -143,7 +142,6 @@ onBeforeMount(async () => {
         @click="selectingProfile = !selectingProfile"
         class="h-fit w-fit flex justify-center items-center shadow-xl rounded-full p-4 m-4 relative bg-[#f1f1f1]"
       >
-        
         <span
           class="bg-white text-black absolute right-0 bottom-0 p-2 rounded-full shadow-2xl"
         >
