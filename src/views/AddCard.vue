@@ -1,6 +1,6 @@
 <script setup>
-import {ref, reactive, onBeforeMount} from "vue"
-import {addJsonData, readJsonData, readProfileData} from "@/libs/crud"
+import {ref, reactive, onBeforeMount ,computed} from "vue"
+import {addEmployeesData, readEmployeesData, readProfileData} from "@/libs/crud"
 import Modal from "@/components/Modal.vue"
 import {useUserStore} from "@/stores/useUserStore"
 import {useRouter} from "vue-router"
@@ -12,7 +12,7 @@ const addResult = ref("")
 const router = useRouter()
 
 const newCard = reactive({
-  LinkImage: "/src/assets/images/angry.png",
+  LinkImage: "/src/assets/images/bored.png",
   FakeName: "",
   PositionRank: "",
   Age: 0,
@@ -33,9 +33,6 @@ const newCard = reactive({
 ============================================
 */
 
-const getProfileData = async () => {
-  profileData.value = await readProfileData()
-}
 
 const addValidate = () => {
   if (newCard.Age > 60 || newCard.Age < 20) {
@@ -56,16 +53,7 @@ const addValidate = () => {
 }
 
 const addEmployee = async () => {
-  await addJsonData(
-    newCard
-    // parseInt(
-    //   userStore.employeeManager.getEmployees()[userStore.employeeManager.getEmployees().length - 1]
-    //     .id
-    // ) +
-    //   1 +
-    //   ""
-  )
-
+  await addEmployeesData(newCard)
   addResult.value = "AddEmployeeSuccess"
 }
 
@@ -109,8 +97,9 @@ const computedAgeError = computed(() => {
 
 onBeforeMount(async () => {
   try {
-    const employees = await readJsonData()
+    const employees = await readEmployeesData()
     userStore.employeeManager.addEmployees(employees)
+    profileData.value = await readProfileData()
     getProfileData()
   } catch (error) {
     console.log(error)
@@ -319,4 +308,7 @@ onBeforeMount(async () => {
   background: #052c51;
   cursor: pointer;
 }
+
+
+
 </style>

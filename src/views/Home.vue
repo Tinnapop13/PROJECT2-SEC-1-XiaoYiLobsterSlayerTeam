@@ -1,7 +1,7 @@
 <script setup>
 import {ref, reactive, watch, onBeforeMount, computed, onMounted} from "vue"
 import Card from "@/components/Card.vue"
-import {readJsonData, deleteJsonData} from "/src/libs/crud.js"
+import {readEmployeesData, deleteEmployeesData} from "/src/libs/crud.js"
 import {useUserStore} from "@/stores/useUserStore"
 import Modal from "@/components/Modal.vue"
 import {useRouter} from "vue-router"
@@ -38,7 +38,7 @@ const slide = (direction) => {
 
 const deleteEmployee = async (deleteId) => {
   try {
-    await deleteJsonData(deleteId)
+    await deleteEmployeesData(deleteId)
     userStore.employeeManager.deleteEmployee(deleteId)
   } catch (error) {
     console.log(error)
@@ -69,7 +69,7 @@ const logout = () => {
 
 onMounted(async () => {
   try {
-    const employees = await readJsonData()
+    const employees = await readEmployeesData()
     userStore.employeeManager.addEmployees(employees)
   } catch (error) {
     console.log("cannot fetch")
@@ -290,4 +290,6 @@ html {
 .right {
   right: 26px;
 }
+
+
 </style>
