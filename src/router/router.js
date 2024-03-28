@@ -4,8 +4,6 @@ import Details from "@/views/Details.vue"
 import AddCard from "@/views/AddCard.vue"
 import Authentication from "@/views/Authentication.vue"
 import {useUserStore} from "@/stores/useUserStore.js"
-import {EmployeeManagement} from "@/libs/EmployeeManagement"
-import {readJsonData} from "@/libs/crud"
 
 const router = createRouter({
   history: createWebHistory(),
@@ -18,22 +16,23 @@ const router = createRouter({
 })
 
 
+
 router.beforeEach(async (to, from) => {
   const userStore = useUserStore()
-  const loginStatus = localStorage.getItem("login")
+  const userToken = localStorage.getItem("login")
 
   if (!userStore.loggedIn && to.name !== "auth") {
-    if (loginStatus === null) alert("Please Login First")
+    if (userToken === null) alert("Please Login First")
     return {name: "auth"}
   }
 })
 
 router.beforeEach(async (to, from) => {
   const userStore = useUserStore()
-  const loginStatus = localStorage.getItem("login")
+  const userToken = localStorage.getItem("login")
 
-  if (loginStatus !== null && !userStore.loggedIn && to.name === "auth") {
-    userStore.currentUser = loginStatus
+  if (userToken !== null && !userStore.loggedIn && to.name === "auth") {
+    userStore.currentUser = userToken
     userStore.loggedIn = true
     return {name: "Home"}
   }

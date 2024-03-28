@@ -7,10 +7,9 @@ import {useAuthStore} from "@/stores/useAuthStore"
 import {useUserStore} from "@/stores/useUserStore"
 import {storeToRefs} from "pinia"
 
+const route = useRouter()
 const userStore = useUserStore()
 const authStore = useAuthStore()
-const route = useRouter()
-
 const {
   hasUpper,
   hasLower,
@@ -28,17 +27,17 @@ const registrationSuccess = ref(false)
 
 const login = (event) => {
   for (const [key, value] of Object.entries(users.value)) {
-    let matchUserId = null
+    console.log(value.id, value.username)
 
     if (value.username == username.value && value.password == password.value) {
       authStore.loginErrorLog = ""
       authStore.loginFailed = false
-      userStore.currentUser = username.value
+      userStore.currentUser = value.id
       userStore.loggedIn = true
       route.push("/home")
-      matchUserId = value.id
       if (keepLoggedIn.value) {
-        localStorage.setItem("login", matchUserId)
+        // localStorage.setItem("login", username.value)
+        localStorage.setItem("login", value.id)
       }
       break
     }
@@ -58,6 +57,7 @@ const regist = (event) => {
       return
     }
   }
+
   if (
     username.value.trim().length === 0 ||
     password.value.trim().length === 0
@@ -74,9 +74,13 @@ const regist = (event) => {
     return
   }
 
+  // if (hasUpper && hasDigit && hasLower && hasSpecial) {
+   
+  // }
+  
   addUserData(username.value, password.value)
-  event.preventDefault()
-  registrationSuccess.value = true
+    event.preventDefault()
+    registrationSuccess.value = true
 }
 
 const closeModal = () => {
@@ -150,22 +154,28 @@ onMounted(async () => {
         />
         <div v-if="registerMode">
           <div v-if="hasDigit" class="text-green-500">
-            {{ computedPasswordHasDigit }}
-          </div>
-          <div v-else class="text-red-500">{{ computedPasswordHasDigit }}</div>
-          <div v-if="hasLower" class="text-green-500">
-            {{ computedPasswordHasLower }}
-          </div>
-          <div v-else class="text-red-500">{{ computedPasswordHasLower }}</div>
-          <div v-if="hasUpper" class="text-green-500">
-            {{ computedPasswordHasUpper }}
-          </div>
-          <div v-else class="text-red-500">{{ computedPasswordHasUpper }}</div>
-          <div v-if="hasSpecial" class="text-green-500">
-            {{ computedPasswordHasspecial }}
+            {{ authStore.computedPasswordHasDigit }}
           </div>
           <div v-else class="text-red-500">
-            {{ computedPasswordHasspecial }}
+            {{ authStore.computedPasswordHasDigit }}
+          </div>
+          <div v-if="hasLower" class="text-green-500">
+            {{ authStore.computedPasswordHasLower }}
+          </div>
+          <div v-else class="text-red-500">
+            {{ authStore.computedPasswordHasLower }}
+          </div>
+          <div v-if="hasUpper" class="text-green-500">
+            {{ authStore.computedPasswordHasUpper }}
+          </div>
+          <div v-else class="text-red-500">
+            {{ authStore.computedPasswordHasUpper }}
+          </div>
+          <div v-if="hasSpecial" class="text-green-500">
+            {{ authStore.computedPasswordHasspecial }}
+          </div>
+          <div v-else class="text-red-500">
+            {{ authStore.computedPasswordHasspecial }}
           </div>
         </div>
         <div v-if="authStore.loginFailed" class="text-red-500">
