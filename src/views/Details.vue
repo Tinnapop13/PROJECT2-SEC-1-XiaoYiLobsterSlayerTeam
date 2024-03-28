@@ -1,16 +1,24 @@
 <script setup>
 import {ref, onBeforeMount} from "vue"
-import {useRoute} from "vue-router"
-import {readEmployeesData, editEmployeesData, deleteEmployeesData} from "@/libs/crud"
+import {useRoute, useRouter} from "vue-router"
+import {
+  readEmployeesData,
+  editEmployeesData,
+  deleteEmployeesData,
+  readProfileData
+} from "@/libs/crud"
 import {EmployeeManagement} from "@/libs/EmployeeManagement.js"
 import {useUserStore} from "@/stores/useUserStore.js"
+import Modal from "@/components/Modal.vue"
 
 const userStore = useUserStore()
 const route = useRoute()
+const router = useRouter()
 const employeeIndex = ref(0)
 const fetchData = ref(new EmployeeManagement())
 const updateResult = ref(false)
-
+const profileData = ref(null)
+const selectingProfile = ref(false)
 
 const editTemplate = ref({
   FakeName: "",
@@ -19,6 +27,7 @@ const editTemplate = ref({
   PainPoint: "",
   GoalAndNeed: "",
   Comment: "",
+  LinkImage: "",
   Rating: {
     coworker: 0,
     environment: 0,
@@ -63,6 +72,14 @@ const validateInput = (toEdit) => {
   return updateObject
 }
 
+const closeModal = () => {
+  selectingProfile.value = false
+}
+
+const changeProfileImage = (profileUrl) => {
+  editTemplate.value.LinkImage = profileUrl
+}
+
 const updateEmployee = async () => {
   const jsonEmployeeUpdate = validateInput(editTemplate.value)
 
@@ -74,6 +91,11 @@ const updateEmployee = async () => {
   }
 }
 
+const logout = () => {
+  localStorage.removeItem("login")
+  router.push("/")
+}
+
 onBeforeMount(async () => {
   try {
     const employees = await readEmployeesData()
@@ -81,6 +103,7 @@ onBeforeMount(async () => {
     employeeIndex.value = fetchData.value
       .getEmployees()
       .findIndex((employee) => employee.id === route.params.id)
+      profileData.value = await readProfileData()
   } catch (error) {
     console.log(error)
   }
@@ -147,14 +170,19 @@ const errorMessage = ref("")
     <div
       class="flex justify-center w-full h-full items-center gap-x-10 bg-slate-900"
     >
+    
       <!-- ================================================
   ===================== IMAGE =========================
   ================================================= -->
       <div class="flex flex-col">
-        <div class="rounded-2xl overflow-hidden border-white border size-64">
+        <div @click="selectingProfile = !selectingProfile"  
+        class="h-fit w-fit flex justify-center items-center shadow-xl rounded-full p-4 m-4 relative bg-[#f1f1f1]">
+         <span class="bg-white text-black absolute right-0 bottom-0 p-2 rounded-full shadow-2xl">
+            <img :src="'/src/assets/images/change.png'" class="size-[40px] " />
+          </span>
           <img
-            class="p-5"
-            :src="fetchData.getEmployees()[employeeIndex]?.LinkImage"
+            class="p-5 w-[200px] h-[200px]"
+            :src="editTemplate.LinkImage.length === 0 ?  fetchData.getEmployees()[employeeIndex]?.LinkImage : editTemplate.LinkImage"
           />
         </div>
         <div
@@ -170,7 +198,7 @@ const errorMessage = ref("")
       <div class="flex flex-col gap-y-5">
         <div class="flex justify-evenly">
           <div class="flex flex-col m-5">
-            <p class="m-2">Age</p>
+            <p class="m-2 font-basblue text-3xl">Age</p>
             <p class="m-2 text-xs font-[10]">
               <input
                 @input="
@@ -189,7 +217,7 @@ const errorMessage = ref("")
             <p>{{ errorMessage }}</p>
           </div>
           <div class="flex flex-col m-5">
-            <p class="m-2">Rank</p>
+            <p class="m-2 font-basblue text-3xl">Rank</p>
             <p class="m-2 text-xs font-[10]">
               <input
                 type="text"
@@ -202,7 +230,7 @@ const errorMessage = ref("")
             </p>
           </div>
           <div class="flex flex-col m-5">
-            <p class="m-2">Pain Point</p>
+            <p class="m-2 font-basblue text-3xl">Pain Point</p>
             <p class="m-2 text-xs font-[10]">
               <input
                 type="text"
@@ -215,7 +243,7 @@ const errorMessage = ref("")
             </p>
           </div>
           <div class="flex flex-col m-5">
-            <p class="m-2">Goal And Need</p>
+            <p class="m-2 font-basblue text-3xl">Goal And Need</p>
             <p class="m-2 text-xs font-[10]">
               <input
                 type="text"
@@ -303,11 +331,11 @@ const errorMessage = ref("")
   <!-- ============================================
   ================ Details Modal ==================
   ============================================= -->
-  <modal
+  <div
     v-if="updateResult"
     class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center"
   >
-    <innerModal
+    <div
       class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4"
     >
       <p class="text-green-500">UPDATE SUCCESS!!!</p>
@@ -321,6 +349,13 @@ const errorMessage = ref("")
         @click="updateEmployee()"
         >CLOSE</router-link
       >
-    </innerModal>
-  </modal>
+    </div>
+  </div>
+
+  <!-- ============================================
+     ========= Select Profile Modal =============
+     ============================================ -->
+
+     <Modal v-if="selectingProfile" :modalType="'SelectingProfile'" :newEmployee="editTemplate"
+    :newEmployeeProfile="profileData" @changeImage="changeProfileImage" @closeModal="closeModal" />
 </template>

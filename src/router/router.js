@@ -5,7 +5,7 @@ import AddCard from "@/views/AddCard.vue"
 import Authentication from "@/views/Authentication.vue"
 import Statistics from "@/views/Statistics.vue"
 import {useUserStore} from "@/stores/useUserStore.js"
-
+import {decode} from "@/libs/cryptography"
 
 const router = createRouter({
   history: createWebHistory(),
@@ -18,22 +18,23 @@ const router = createRouter({
   ],
 })
 
+const userToken = localStorage.getItem("login")
+
 router.beforeEach(async (to, from) => {
   const userStore = useUserStore()
+
   if (!userStore.loggedIn && to.name !== "auth") {
-    if (localStorage.getItem("login") === null) alert("Please Login First")
+    if (userToken === null) alert("Please Login First")
     return {name: "auth"}
   }
 })
 
 router.beforeEach(async (to, from) => {
   const userStore = useUserStore()
-  if (
-    localStorage.getItem("login") !== null &&
-    !userStore.loggedIn &&
-    to.name === "auth"
-  ) {
-    userStore.currentUser = localStorage.getItem("login")
+ 
+  if (userToken !== null && !userStore.loggedIn && to.name === "auth") {
+    const decodeToken = decode(userToken)
+    userStore.currentUser = decodeToken
     userStore.loggedIn = true
     return {name: "Home"}
   }

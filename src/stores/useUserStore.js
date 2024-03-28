@@ -2,12 +2,12 @@ import {defineStore} from "pinia"
 import {ref, computed} from "vue"
 import {EmployeeManagement} from "@/libs/EmployeeManagement"
 
+
 export const useUserStore = defineStore("user", () => {
   const employeeManager = ref(new EmployeeManagement())
   const searchKey = ref("")
   const currentUser = ref("")
   const loggedIn = ref(false)
-
   /*
     ============================================
     ======= Filtered Data For Searching ========
