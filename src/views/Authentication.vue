@@ -27,6 +27,7 @@ const registerMode = ref(false)
 const registrationSuccess = ref(false)
 
 const login = (event) => {
+  
   for (const [key, value] of Object.entries(users.value)) {
     if (value.username == username.value && value.password == password.value) {
       authStore.loginErrorLog = ""
