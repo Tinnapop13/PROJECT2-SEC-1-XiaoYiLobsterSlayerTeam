@@ -70,6 +70,34 @@ const changeProfileImage = (profileUrl) => {
   newCard.LinkImage = profileUrl
 }
 
+const computedNameError = computed(() => {
+  if(newCard.FakeName.trim().length === 0){
+    return 'Please Insert Name'
+  } 
+  return
+})
+
+const computedRankError = computed(() => {
+  if(newCard.PositionRank.trim().length === 0){
+    return 'Please Insert Rank'
+  } 
+  return
+})
+
+const computedCommentError = computed(() => {
+  if(newCard.Comment.trim().length === 0){
+    return 'Please Insert Comment'
+  } 
+  return
+})
+
+const computedAgeError = computed(() => {
+  if(Number(newCard.Age) > 60 || Number(newCard.Age) < 20){
+    return 'Age must be value between 20 - 60'
+  } 
+  return
+})
+
 onBeforeMount(async () => {
   try {
     const employees = await readJsonData()
@@ -122,6 +150,7 @@ onBeforeMount(async () => {
             class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg text-black"
             v-model="newCard.FakeName"
           />
+          <p class="text-red-700">{{ computedNameError }}</p>
         </div>
         <div class="flex gap-4">
           <div class="w-[50%]">
@@ -131,6 +160,7 @@ onBeforeMount(async () => {
               class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg text-black"
               v-model="newCard.PositionRank"
             />
+            <p class="text-red-700">{{ computedRankError }}</p>
           </div>
           <div class="w-[50%]">
             <p class="text-base font-bold text-blue-950">Age :</p>
@@ -141,6 +171,7 @@ onBeforeMount(async () => {
               class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg text-black"
               v-model="newCard.Age"
             />
+            <p class="text-red-700">{{ computedAgeError }}</p>
           </div>
         </div>
         <div>
@@ -166,6 +197,7 @@ onBeforeMount(async () => {
             v-model="newCard.Comment"
             class="bg-white border w-full border-gray-300 p-0.5 outline-none rounded-lg text-black"
           />
+          <p class="text-red-700">{{ computedCommentError }}</p>
         </div>
 
         <!-- ====== Range Selector Form ======= -->
