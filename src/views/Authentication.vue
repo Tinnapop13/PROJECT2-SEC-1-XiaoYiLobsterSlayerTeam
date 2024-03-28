@@ -28,16 +28,19 @@ const registrationSuccess = ref(false)
 
 const login = (event) => {
   for (const [key, value] of Object.entries(users.value)) {
+    let matchUserId = null
+
     if (value.username == username.value && value.password == password.value) {
       authStore.loginErrorLog = ""
       authStore.loginFailed = false
       userStore.currentUser = username.value
       userStore.loggedIn = true
       route.push("/home")
-      return
-    }
-    if (keepLoggedIn.value) {
-      localStorage.setItem("login", username.value)
+      matchUserId = value.id
+      if (keepLoggedIn.value) {
+        localStorage.setItem("login", matchUserId)
+      }
+      break
     }
   }
 
@@ -84,7 +87,6 @@ const closeModal = () => {
 onMounted(async () => {
   try {
     users.value = await getUsersData()
-    console.log(localStorage.getItem("login"))
   } catch (error) {
     console.log(error)
   }

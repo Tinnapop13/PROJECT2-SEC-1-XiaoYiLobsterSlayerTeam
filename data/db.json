@@ -1,14 +1,14 @@
 {
   "users": [
     {
+      "id": "5ca6",
       "username": "admin",
-      "password": "admin123",
-      "id": "5ca6"
+      "password": "admin123"
     },
     {
+      "id": "fb14",
       "username": "tako",
-      "password": "boomgae",
-      "id": "fb14"
+      "password": "boomgae"
     },
     {
       "id": "d111",
@@ -193,22 +193,6 @@
       "PainPoint": "asdfasdf",
       "GoalAndNeed": "asdfasdf",
       "Comment": "asdfasdf",
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      },
-      "OwnedBy": "gg"
-    },
-    {
-      "id": "3673",
-      "LinkImage": "/src/assets/images/angry.png",
-      "FakeName": "asdfasdf",
-      "PositionRank": "asdf",
-      "Age": 25,
-      "PainPoint": "asdfasdf",
-      "GoalAndNeed": "asdfasdf",
-      "Comment": "asdfasdfasd",
       "Rating": {
         "coworker": 0,
         "environment": 0,
