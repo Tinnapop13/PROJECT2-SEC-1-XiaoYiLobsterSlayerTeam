@@ -1,15 +1,16 @@
 <script setup>
-import {getUsersData, addUserData} from "@/libs/crud.js"
-import {useRouter} from "vue-router"
-import {ref, onMounted, computed} from "vue"
-import Modal from "@/components/Modal.vue"
-import {useAuthStore} from "@/stores/useAuthStore"
-import {useUserStore} from "@/stores/useUserStore"
-import {storeToRefs} from "pinia"
+import { getUsersData, addUserData } from "@/libs/crud.js";
+import { useRouter } from "vue-router";
+import { ref, onMounted, computed } from "vue";
+import Modal from "@/components/Modal.vue";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { useUserStore } from "@/stores/useUserStore";
+import { storeToRefs } from "pinia";
+import { encode } from "@/libs/cryptography.js"
 
-const userStore = useUserStore()
-const authStore = useAuthStore()
-const route = useRouter()
+const userStore = useUserStore();
+const authStore = useAuthStore();
+const route = useRouter();
 
 const {
   hasUpper,
@@ -19,78 +20,80 @@ const {
   username,
   password,
   validatePassword,
-} = storeToRefs(authStore)
+} = storeToRefs(authStore);
 
-const users = ref(null)
-const keepLoggedIn = ref(false)
-const registerMode = ref(false)
-const registrationSuccess = ref(false)
+const users = ref(null);
+const keepLoggedIn = ref(false);
+const registerMode = ref(false);
+const registrationSuccess = ref(false);
 
 const login = (event) => {
   for (const [key, value] of Object.entries(users.value)) {
-    let matchUserId = null
+    let matchUserId = null;
 
     if (value.username == username.value && value.password == password.value) {
-      authStore.loginErrorLog = ""
-      authStore.loginFailed = false
-      userStore.currentUser = username.value
-      userStore.loggedIn = true
-      route.push("/home")
-      matchUserId = value.id
+      authStore.loginErrorLog = "";
+      authStore.loginFailed = false;
+      userStore.currentUser = username.value;
+      userStore.loggedIn = true;
+      route.push("/home");
+      matchUserId = value.id;
       if (keepLoggedIn.value) {
-        localStorage.setItem("login", matchUserId)
+        localStorage.setItem("login", encode(matchUserId));
+        //console.log(decode(localStorage.getItem("login")))
       }
-      break
+      break;
     }
   }
 
-  event.preventDefault()
-  authStore.loginErrorLog = "Incorrect Username or Password."
-  authStore.loginFailed = true
-}
+  event.preventDefault();
+  authStore.loginErrorLog = "Incorrect Username or Password.";
+  authStore.loginFailed = true;
+};
 
 const regist = (event) => {
   for (const [key, value] of Object.entries(users.value)) {
     if (value.username == username.value) {
-      authStore.loginErrorLog = "This username has already been used."
-      authStore.loginFailed = true
-      event.preventDefault()
-      return
+      authStore.loginErrorLog = "This username has already been used.";
+      authStore.loginFailed = true;
+      event.preventDefault();
+      return;
     }
   }
   if (
     username.value.trim().length === 0 ||
     password.value.trim().length === 0
   ) {
-    authStore.loginErrorLog = "Please fulfill both username and password."
-    authStore.loginFailed = true
-    event.preventDefault()
-    return
+    authStore.loginErrorLog = "Please fulfill both username and password.";
+    authStore.loginFailed = true;
+    event.preventDefault();
+    return;
   }
   if (password.value !== validatePassword.value) {
-    authStore.loginErrorLog = "Password doesn't match."
-    authStore.loginFailed = true
-    event.preventDefault()
-    return
+    authStore.loginErrorLog = "Password doesn't match.";
+    authStore.loginFailed = true;
+    event.preventDefault();
+    return;
   }
 
-  addUserData(username.value, password.value)
-  event.preventDefault()
-  registrationSuccess.value = true
-}
+  addUserData(username.value, password.value);
+  event.preventDefault();
+  registrationSuccess.value = true;
+};
 
 const closeModal = () => {
-  registrationSuccess.value = false
-  location.reload()
-}
+  registrationSuccess.value = false;
+  location.reload();
+};
 
 onMounted(async () => {
   try {
-    users.value = await getUsersData()
+    users.value = await getUsersData();
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-})
+});
+
 </script>
 <template>
   <div class="w-screen h-screen flex justify-center items-center bg-slate-800">
@@ -195,7 +198,7 @@ onMounted(async () => {
           class="border rounded-3xl text-blue-500 hover:text-slate-100 hover:border-slate-100 border-blue-500 py-1 px-2 transition-all"
           @click="
             registerMode = !registerMode;
-            authStore.loginFailed = false
+            authStore.loginFailed = false;
           "
         >
           {{ registerMode ? "Sign in now !" : "Create now !" }}
