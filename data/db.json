@@ -89,6 +89,22 @@
         "responsibility": 0
       },
       "OwnedBy": "845b"
+    },
+    {
+      "id": "f395",
+      "LinkImage": "/src/assets/images/bored.png",
+      "FakeName": "Papangkorn Kijsakulrat",
+      "PositionRank": "asdf",
+      "Age": 23,
+      "PainPoint": "as",
+      "GoalAndNeed": "asdf",
+      "Comment": "asdfasd",
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "366d"
     }
   ]
 }
