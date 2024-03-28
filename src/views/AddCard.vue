@@ -56,16 +56,7 @@ const addValidate = () => {
 }
 
 const addEmployee = async () => {
-  await addJsonData(
-    newCard
-    // parseInt(
-    //   userStore.employeeManager.getEmployees()[userStore.employeeManager.getEmployees().length - 1]
-    //     .id
-    // ) +
-    //   1 +
-    //   ""
-  )
-
+  await addJsonData(newCard)
   addResult.value = "AddEmployeeSuccess"
 }
 
