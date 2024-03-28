@@ -46,6 +46,5 @@ export const useUserStore = defineStore("user", () => {
     filteredData,
     filteredSearchData,
     searchKey,
-    // getUserById,
   }
 })

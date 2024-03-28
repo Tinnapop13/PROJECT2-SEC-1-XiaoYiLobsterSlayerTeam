@@ -6,7 +6,7 @@ import Modal from "@/components/Modal.vue";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
-import { encode } from "@/libs/cryptography.js"
+import { encode,decode} from "@/libs/cryptography.js"
 
 const route = useRouter()
 const userStore = useUserStore()
@@ -28,6 +28,7 @@ const registerMode = ref(false);
 const registrationSuccess = ref(false);
 
 const login = (event) => {
+  const matchUserId = null
   for (const [key, value] of Object.entries(users.value)) {
     if (value.username == username.value && value.password == password.value) {
       authStore.loginErrorLog = ""
