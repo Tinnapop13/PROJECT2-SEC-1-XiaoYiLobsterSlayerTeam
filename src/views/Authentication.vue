@@ -7,9 +7,10 @@ import {useAuthStore} from "@/stores/useAuthStore"
 import {useUserStore} from "@/stores/useUserStore"
 import {storeToRefs} from "pinia"
 
-const route = useRouter()
 const userStore = useUserStore()
 const authStore = useAuthStore()
+const route = useRouter()
+
 const {
   hasUpper,
   hasLower,

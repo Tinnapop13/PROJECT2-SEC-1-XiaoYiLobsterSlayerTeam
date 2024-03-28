@@ -150,7 +150,7 @@ onMounted(() => {
      ============================================ -->
     <button  
     @click="$emit('deleteEmployee',$event)" 
-    class="absolute bottom-0 right-0 bg-red-500 text-white font-bold py-1 px-2 rounded-full focus:outline-none focus:shadow-outline-blue hover:bg-blue-700 m-4 w-fit h-fit"
+    class="absolute bottom-0 right-0 bg-red-500 text-white font-bold py-1 px-2 rounded-ss-xl focus:outline-none focus:shadow-outline-blue hover:bg-blue-700  w-fit h-fit"
     :data-value="Name"
       :id="employeeId"
     >  

@@ -1,4 +1,4 @@
-const readJsonData = async () => {
+const readEmployeesData = async () => {
   return await fetch(`${import.meta.env.VITE_DB_URL}/employees`).then(
     (respJson) => respJson.json()
   )
@@ -10,13 +10,13 @@ const readProfileData = async () => {
   )
 }
 
-const deleteJsonData = async (id) => {
+const deleteEmployeesData = async (id) => {
   return await fetch(`${import.meta.env.VITE_DB_URL}/employees/${id}`, {
     method: "DELETE",
   }).then((respJson) => respJson.json())
 }
 
-const addJsonData = async (employee) => {
+const addEmployeesData = async (employee) => {
   return fetch(`${import.meta.env.VITE_DB_URL}/employees`, {
     method: "POST",
     headers: {
@@ -26,7 +26,7 @@ const addJsonData = async (employee) => {
   }).then((respJson) => respJson.json())
 }
 
-const editJsonData = (id, updatedEmployee) => {
+const editEmployeesData = (id, updatedEmployee) => {
   fetch(`${import.meta.env.VITE_DB_URL}/employees/${Number(id)}`, {
     method: "PATCH",
     headers: {
@@ -55,11 +55,11 @@ const addUserData = async (username, password) => {
 }
 
 export {
-  deleteJsonData,
-  readJsonData,
-  addJsonData,
+  deleteEmployeesData,
+  readEmployeesData,
+  addEmployeesData,
   readProfileData,
-  editJsonData,
+  editEmployeesData,
   getUsersData,
   addUserData,
 }

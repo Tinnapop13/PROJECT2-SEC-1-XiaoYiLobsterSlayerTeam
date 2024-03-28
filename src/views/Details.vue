@@ -1,15 +1,16 @@
 <script setup>
 import {ref, onBeforeMount} from "vue"
 import {useRoute} from "vue-router"
-import {readJsonData, editJsonData, deleteJsonData} from "@/libs/crud"
+import {readEmployeesData, editEmployeesData, deleteEmployeesData} from "@/libs/crud"
 import {EmployeeManagement} from "@/libs/EmployeeManagement.js"
 import {useUserStore} from "@/stores/useUserStore.js"
 
+const userStore = useUserStore()
 const route = useRoute()
 const employeeIndex = ref(0)
 const fetchData = ref(new EmployeeManagement())
 const updateResult = ref(false)
-const userStore = useUserStore()
+
 
 const editTemplate = ref({
   FakeName: "",
@@ -28,7 +29,7 @@ const editTemplate = ref({
 const deleteEmployee = async () => {
   const deleteId = fetchData.value.getEmployees()[employeeIndex.value].id
   try {
-    await deleteJsonData(deleteId)
+    await deleteEmployeesData(deleteId)
     fetchData.value.deleteEmployee(deleteId)
   } catch (error) {
     console.log(error)
@@ -66,7 +67,7 @@ const updateEmployee = async () => {
   const jsonEmployeeUpdate = validateInput(editTemplate.value)
 
   try {
-    editJsonData(route.params.id, jsonEmployeeUpdate)
+    editEmployeesData(route.params.id, jsonEmployeeUpdate)
     updateEmployee(employeeIndex.value, classEmployeeUpdate)
   } catch (error) {
     console.log(error)
@@ -75,7 +76,7 @@ const updateEmployee = async () => {
 
 onBeforeMount(async () => {
   try {
-    const employees = await readJsonData()
+    const employees = await readEmployeesData()
     fetchData.value.addEmployees(employees)
     employeeIndex.value = fetchData.value
       .getEmployees()
