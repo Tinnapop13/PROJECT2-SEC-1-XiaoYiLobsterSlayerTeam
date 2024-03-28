@@ -28,16 +28,18 @@ const registerMode = ref(false);
 const registrationSuccess = ref(false);
 
 const login = (event) => {
-  const matchUserId = null
+  event.preventDefault()
   for (const [key, value] of Object.entries(users.value)) {
-    if (value.username == username.value && value.password == password.value) {
+    encode(value.id)
+    decode
+    if (value.username == username.value && decode(value.password) == password.value) {
       authStore.loginErrorLog = ""
       authStore.loginFailed = false
       userStore.currentUser = value.id
       userStore.loggedIn = true
       route.push("/home")
       if (keepLoggedIn.value) {
-        localStorage.setItem("login", encode(value.id)); // รวมกับของดลตอน encode 
+        localStorage.setItem("login", encode(value.id)); 
       }
       break;
     }
@@ -73,15 +75,14 @@ const regist = (event) => {
     event.preventDefault();
     return;
   }
-
-  // ค้างตรงนี้
-  // if (hasUpper && hasDigit && hasLower && hasSpecial) {
-   
-  // }
- 
-  addUserData(username.value, password.value);
-  event.preventDefault();
-  registrationSuccess.value = true;
+  if (hasUpper.value &&  hasDigit.value && hasLower.value && hasSpecial.value) {
+    addUserData(username.value, encode(password.value));
+    event.preventDefault();
+    registrationSuccess.value = true; 
+  }
+  event.preventDefault()
+  
+  
 };
 
 
@@ -131,7 +132,7 @@ onMounted(async () => {
           class="bg-slate-400 rounded-md h-10 text-black p-1"
         />
 
-        <div class="form-control">
+        <div v-if="!registerMode" class="form-control">
           <label class="cursor-pointer label">
             <span class="label-text">Remember Me</span>
             <input

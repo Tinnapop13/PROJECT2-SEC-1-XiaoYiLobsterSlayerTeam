@@ -1,54 +1,14 @@
 {
   "users": [
     {
-      "id": "5ca6",
-      "username": "admin",
-      "password": "admin123"
-    },
-    {
-      "id": "fb14",
-      "username": "tako",
-      "password": "boomgae"
-    },
-    {
-      "id": "d111",
-      "username": "goko",
-      "password": ""
-    },
-    {
-      "id": "366d",
+      "id": "2052",
       "username": "gg",
-      "password": "gg"
+      "password": "UjXlM3chBHdh9mQ"
     },
     {
-      "id": "c64c",
-      "username": "boomgayza2546",
-      "password": "gg"
-    },
-    {
-      "id": "547a",
-      "username": "Tinnapop",
-      "password": "Boatpass%^5"
-    },
-    {
-      "id": "1a99",
-      "username": "papangkorn",
-      "password": "Password@1234"
-    },
-    {
-      "id": "845b",
-      "username": "ggs",
-      "password": "ggs"
-    },
-    {
-      "id": "8663",
-      "username": "asdfasd",
-      "password": "poom"
-    },
-    {
-      "id": "fc16",
-      "username": "sdfsd",
-      "password": "poom"
+      "id": "b9a5",
+      "username": "XD",
+      "password": "QyMxA3bwFmbulGV"
     }
   ],
   "profile": {
@@ -59,52 +19,20 @@
   },
   "employees": [
     {
-      "id": "34c2",
+      "id": "12c0",
       "LinkImage": "/src/assets/images/bored.png",
-      "FakeName": "Papangkorn Kijsakulrat",
-      "PositionRank": "asdf",
-      "Age": 23,
-      "PainPoint": "as",
-      "GoalAndNeed": "asdf",
-      "Comment": "fasdf",
+      "FakeName": "dsg",
+      "PositionRank": "safas",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "asfasf",
       "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
+        "coworker": "5",
+        "environment": "4",
+        "responsibility": "7"
       },
-      "OwnedBy": "ggs"
-    },
-    {
-      "id": "f75a",
-      "LinkImage": "/src/assets/images/bored.png",
-      "FakeName": "Papangkorn Kijsakulrat",
-      "PositionRank": "asdf",
-      "Age": 23,
-      "PainPoint": "as",
-      "GoalAndNeed": "asdf",
-      "Comment": "ggg",
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      },
-      "OwnedBy": "845b"
-    },
-    {
-      "id": "f395",
-      "LinkImage": "/src/assets/images/bored.png",
-      "FakeName": "Papangkorn Kijsakulrat",
-      "PositionRank": "asdf",
-      "Age": 23,
-      "PainPoint": "as",
-      "GoalAndNeed": "asdf",
-      "Comment": "asdfasd",
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      },
-      "OwnedBy": "366d"
+      "OwnedBy": "b9a5"
     }
   ]
 }

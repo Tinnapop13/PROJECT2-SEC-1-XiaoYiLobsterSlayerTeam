@@ -143,6 +143,7 @@ onMounted(async () => {
               class="dropdown-content z-[1] menu shadow bg-gray-400 mt-2 text-slate-500-800 rounded-box"
             >
               <button @click="logout()">LOG OUT</button>
+              <router-link to="/stat">STAT</router-link>
             </ul>
           </div>
         </div>
