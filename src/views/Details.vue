@@ -9,7 +9,9 @@ import {
 } from "@/libs/crud"
 import {EmployeeManagement} from "@/libs/EmployeeManagement.js"
 import {useUserStore} from "@/stores/useUserStore.js"
+import DetailsSkeletonLoading from "@/components/DetailsSkeletonLoading.vue"
 import Modal from "@/components/Modal.vue"
+
 
 const userStore = useUserStore()
 const route = useRoute()
@@ -17,6 +19,8 @@ const router = useRouter()
 const employeeIndex = ref(0)
 const fetchData = ref(new EmployeeManagement())
 const updateResult = ref(false)
+const showSkeletonDetails = ref(true)
+const showUserDetails = ref(false)
 const profileData = ref(null)
 const selectingProfile = ref(false)
 
@@ -104,6 +108,10 @@ onBeforeMount(async () => {
       .getEmployees()
       .findIndex((employee) => employee.id === route.params.id)
       profileData.value = await readProfileData()
+    setTimeout(() => {
+      showSkeletonDetails.value = false
+      showUserDetails.value = true
+    }, 1000)
   } catch (error) {
     console.log(error)
   }
@@ -124,9 +132,15 @@ const errorMessage = ref("")
 
   <div class="w-screen h-screen relative">
     <!-- ============================================
+     ============== Skeleton Loader =============
+     ============================================ -->
+    <DetailsSkeletonLoading v-if="showSkeletonDetails" />
+
+    <!-- ============================================
      ============= Navigation Bar ===============
      ============================================ -->
     <header
+      
       class="flex items-center justify-between bg-gray-800 h-[8rem] px-8 w-full absolute top-0"
     >
       <router-link to="/home">
@@ -168,6 +182,7 @@ const errorMessage = ref("")
     </header>
 
     <div
+      v-if="showUserDetails"
       class="flex justify-center w-full h-full items-center gap-x-10 bg-slate-900"
     >
     
