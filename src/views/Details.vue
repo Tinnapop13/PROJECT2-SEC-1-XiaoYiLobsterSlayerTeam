@@ -1,16 +1,20 @@
 <script setup>
 import {ref, onBeforeMount} from "vue"
-import {useRoute} from "vue-router"
-import {readEmployeesData, editEmployeesData, deleteEmployeesData} from "@/libs/crud"
+import {useRoute, useRouter} from "vue-router"
+import {
+  readEmployeesData,
+  editEmployeesData,
+  deleteEmployeesData,
+} from "@/libs/crud"
 import {EmployeeManagement} from "@/libs/EmployeeManagement.js"
 import {useUserStore} from "@/stores/useUserStore.js"
 
 const userStore = useUserStore()
 const route = useRoute()
+const router = useRouter()
 const employeeIndex = ref(0)
 const fetchData = ref(new EmployeeManagement())
 const updateResult = ref(false)
-
 
 const editTemplate = ref({
   FakeName: "",
@@ -72,6 +76,11 @@ const updateEmployee = async () => {
   } catch (error) {
     console.log(error)
   }
+}
+
+const logout = () => {
+  localStorage.removeItem("login")
+  router.push("/")
 }
 
 onBeforeMount(async () => {
