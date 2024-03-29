@@ -140,10 +140,24 @@ onMounted(async () => {
             <div tabindex="0" role="button">{{ userStore.currentUser }}</div>
             <ul
               tabindex="0"
-              class="dropdown-content z-[1] menu shadow bg-gray-400 mt-2 text-slate-500-800 rounded-box"
+              class="dropdown-content z-[1] menu shadow bg-slate-200 mt-2 rounded-box"
             >
-              <button @click="logout()">LOG OUT</button>
-              <router-link to="/stat">STAT</router-link>
+              <li class="hover:bg-slate-400 rounded-lg">
+                <button>
+                  <router-link to="/stat"
+                    >STAT
+                    <span class="material-symbols-outlined">
+                      monitoring
+                    </span></router-link
+                  >
+                </button>
+              </li>
+              <li class="hover:bg-slate-400 rounded-lg">
+                <button @click="logout()">
+                  LOGOUT
+                  <span class="material-symbols-outlined">logout</span>
+                </button>
+              </li>
             </ul>
           </div>
         </div>
@@ -291,6 +305,4 @@ html {
 .right {
   right: 26px;
 }
-
-
 </style>
