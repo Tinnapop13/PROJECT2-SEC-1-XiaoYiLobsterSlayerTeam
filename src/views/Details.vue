@@ -5,10 +5,11 @@ import {
   readEmployeesData,
   editEmployeesData,
   deleteEmployeesData,
-  readProfileData
+  readProfileData,
 } from "@/libs/crud"
 import {EmployeeManagement} from "@/libs/EmployeeManagement.js"
 import {useUserStore} from "@/stores/useUserStore.js"
+import DetailsSkeletonLoading from "@/components/DetailsSkeletonLoading.vue"
 import Modal from "@/components/Modal.vue"
 
 const userStore = useUserStore()
@@ -17,6 +18,8 @@ const router = useRouter()
 const employeeIndex = ref(0)
 const fetchData = ref(new EmployeeManagement())
 const updateResult = ref(false)
+const showSkeletonDetails = ref(true)
+const showUserDetails = ref(false)
 const profileData = ref(null)
 const selectingProfile = ref(false)
 
@@ -103,7 +106,11 @@ onBeforeMount(async () => {
     employeeIndex.value = fetchData.value
       .getEmployees()
       .findIndex((employee) => employee.id === route.params.id)
-      profileData.value = await readProfileData()
+    profileData.value = await readProfileData()
+    setTimeout(() => {
+      showSkeletonDetails.value = false
+      showUserDetails.value = true
+    }, 1000)
   } catch (error) {
     console.log(error)
   }
@@ -117,12 +124,13 @@ const errorMessage = ref("")
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
   />
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-  />
 
   <div class="w-screen h-screen relative">
+    <!-- ============================================
+     ============== Skeleton Loader =============
+     ============================================ -->
+    <DetailsSkeletonLoading v-if="showSkeletonDetails" />
+
     <!-- ============================================
      ============= Navigation Bar ===============
      ============================================ -->
@@ -144,7 +152,7 @@ const errorMessage = ref("")
         <div class="relative">
           <div class="dropdown dropdown-bottom">
             <div
-              class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue flex justify-between items-center gap-4 h-[60px]"
+              class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue flex justify-between items-center gap-4 h-[60px] text-center"
               tabindex="0"
               role="button"
             >
@@ -157,9 +165,14 @@ const errorMessage = ref("")
               <div tabindex="0" role="button">{{ userStore.currentUser }}</div>
               <ul
                 tabindex="0"
-                class="dropdown-content z-[1] menu shadow mt-2 bg-gray-400 text-slate-500-800 rounded-box"
+                class="dropdown-content z-[1] menu shadow bg-slate-200 mt-2 rounded-box"
               >
-                <button @click="logout()">LOG OUT</button>
+                <li class="hover:bg-slate-400 rounded-lg">
+                  <button class="flex" @click="logout()">
+                    LOGOUT
+                    <span class="material-symbols-outlined"> logout </span>
+                  </button>
+                </li>
               </ul>
             </div>
           </div>
@@ -168,21 +181,29 @@ const errorMessage = ref("")
     </header>
 
     <div
+      v-if="showUserDetails"
       class="flex justify-center w-full h-full items-center gap-x-10 bg-slate-900"
     >
-    
       <!-- ================================================
   ===================== IMAGE =========================
   ================================================= -->
       <div class="flex flex-col">
-        <div @click="selectingProfile = !selectingProfile"  
-        class="h-fit w-fit flex justify-center items-center shadow-xl rounded-full p-4 m-4 relative bg-[#f1f1f1]">
-         <span class="bg-white text-black absolute right-0 bottom-0 p-2 rounded-full shadow-2xl">
-            <img :src="'/src/assets/images/change.png'" class="size-[40px] " />
+        <div
+          @click="selectingProfile = !selectingProfile"
+          class="h-fit w-fit flex justify-center items-center shadow-xl rounded-full p-4 m-4 relative bg-[#f1f1f1]"
+        >
+          <span
+            class="bg-white text-black absolute right-0 bottom-0 p-2 rounded-full shadow-2xl"
+          >
+            <img :src="'/src/assets/images/change.png'" class="size-[40px]" />
           </span>
           <img
             class="p-5 w-[200px] h-[200px]"
-            :src="editTemplate.LinkImage.length === 0 ?  fetchData.getEmployees()[employeeIndex]?.LinkImage : editTemplate.LinkImage"
+            :src="
+              editTemplate.LinkImage.length === 0
+                ? fetchData.getEmployees()[employeeIndex]?.LinkImage
+                : editTemplate.LinkImage
+            "
           />
         </div>
         <div
@@ -356,6 +377,12 @@ const errorMessage = ref("")
      ========= Select Profile Modal =============
      ============================================ -->
 
-     <Modal v-if="selectingProfile" :modalType="'SelectingProfile'" :newEmployee="editTemplate"
-    :newEmployeeProfile="profileData" @changeImage="changeProfileImage" @closeModal="closeModal" />
+  <Modal
+    v-if="selectingProfile"
+    :modalType="'SelectingProfile'"
+    :newEmployee="editTemplate"
+    :newEmployeeProfile="profileData"
+    @changeImage="changeProfileImage"
+    @closeModal="closeModal"
+  />
 </template>
