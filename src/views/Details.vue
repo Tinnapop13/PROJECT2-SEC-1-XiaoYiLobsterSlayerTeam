@@ -23,7 +23,7 @@ const showUserDetails = ref(false);
 const profileData = ref(null);
 const selectingProfile = ref(false);
 
-const editTemplate = reactive({
+const editTemplate = ref({
   FakeName: "",
   Age: "",
   PositionRank: "",
@@ -111,12 +111,14 @@ onBeforeMount(async () => {
     fetchData.value.addEmployees(employees);
     employeeIndex.value = fetchData.value
       .getEmployees()
-      .findIndex((employee) => employee.id === route.params.id);
-    profileData.value = await readProfileData();
-
-    editTemplate.Rating.coworker = fetchData.value.getEmployees()[employeeIndex.value]?.Rating.coworker
-    editTemplate.Rating.environment = fetchData.value.getEmployees()[employeeIndex.value]?.Rating.environment
-    editTemplate.Rating.responsibility = fetchData.value.getEmployees()[employeeIndex.value]?.Rating.responsibility
+      .findIndex((employee) => employee.id === route.params.id)
+    editTemplate.value.Rating.coworker =
+      fetchData.value.getEmployees()[employeeIndex.value]?.Rating.coworker
+    editTemplate.value.Rating.environment =
+      fetchData.value.getEmployees()[employeeIndex.value]?.Rating.environment
+    editTemplate.value.Rating.responsibility =
+      fetchData.value.getEmployees()[employeeIndex.value]?.Rating.responsibility
+    profileData.value = await readProfileData()
 
     setTimeout(() => {
       showSkeletonDetails.value = false;
@@ -315,35 +317,63 @@ const errorMessage = ref("");
             Co-worker :
             {{ editTemplate.Rating.coworker }}
           </p>
-          <input
-            type="range"
-            min="1"
-            max="10"
-            class="slider my-1"
-            v-model="editTemplate.Rating.coworker"
-          />
+          <div class="flex flex-col">
+            <input
+              type="range"
+              min="1"
+              max="5"
+              class="range"
+              v-model="editTemplate.Rating.coworker"
+            />
+            <div class="w-full flex justify-between text-xs px-2">
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+            </div>
+          </div>
           <p class="text-slate-200 font-semibold">
             Environment :
             {{ editTemplate.Rating.environment }}
           </p>
-          <input
-            type="range"
-            min="1"
-            max="10"
-            class="slider my-1"
-            v-model="editTemplate.Rating.environment"
-          />
+          <div class="flex flex-col">
+            <input
+              type="range"
+              min="1"
+              max="5"
+              class="range"
+              v-model="editTemplate.Rating.environment"
+            />
+            <div class="w-full flex justify-between text-xs px-2">
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+            </div>
+          </div>
           <p class="text-slate-200 font-semibold">
             Responsibility :
             {{ editTemplate.Rating.responsibility }}
           </p>
-          <input
-            type="range"
-            min="1"
-            max="10"
-            class="slider my-1"
-            v-model="editTemplate.Rating.responsibility"
-          />
+
+          <div class="flex flex-col">
+            <input
+              type="range"
+              min="1"
+              max="5"
+              class="range"
+              v-model="editTemplate.Rating.responsibility"
+            />
+            <div class="w-full flex justify-between text-xs px-2">
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+            </div>
+          </div>
         </div>
 
         <div class="flex justify-end gap-5 mt-5">

@@ -100,7 +100,7 @@ onBeforeMount(async () => {
     const employees = await readEmployeesData()
     userStore.employeeManager.addEmployees(employees)
     profileData.value = await readProfileData()
-    getProfileData()
+    // getProfileData()
   } catch (error) {
     console.log(error)
   }
@@ -176,15 +176,15 @@ onBeforeMount(async () => {
           <p class="text-blue-950 font-semibold">
             Co-worker : {{ newCard.Rating.coworker }}
           </p>
-          <input type="range" min="1" max="10" v-model="newCard.Rating.coworker" class="slider my-1" id="myRange" />
+          <input type="range" min="1" max="5" v-model="newCard.Rating.coworker" class="slider my-1" id="myRange" />
           <p class="text-blue-950 font-semibold">
             Environment : {{ newCard.Rating.environment }}
           </p>
-          <input type="range" min="1" max="10" v-model="newCard.Rating.environment" class="slider my-1" id="myRange" />
+          <input type="range" min="1" max="5" v-model="newCard.Rating.environment" class="slider my-1" id="myRange" />
           <p class="text-blue-950 font-semibold">
             Responsibility : {{ newCard.Rating.responsibility }}
           </p>
-          <input type="range" min="1" max="10" v-model="newCard.Rating.responsibility" class="slider my-1"
+          <input type="range" min="1" max="5" v-model="newCard.Rating.responsibility" class="slider my-1"
             id="myRange" />
         </div>
       </div>
