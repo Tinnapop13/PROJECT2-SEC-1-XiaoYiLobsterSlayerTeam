@@ -70,8 +70,10 @@ onMounted(async () => {
 <!-- ============================================
      ================ Stat Header ===============
      ============================================ -->
-    <div class="font-basblue text-5xl text-black flex gap-4 w-full justify-center my-4">Employee 
-      <div class="text-blue-900">{{ currentState }}
+    <div class="font-basblue text-5xl text-black flex gap-4 w-full justify-center my-4">
+      Employee 
+      <div class="text-blue-900">
+        {{ currentState }}
       </div>
     </div>
 
@@ -162,7 +164,7 @@ onMounted(async () => {
   width: 50%;
   height: 20px;
   background-color: rgba(23, 22, 22, 0.05);
-  transform: skewY(45deg);
+  transform: skew(45deg);
 }
 
 .container {

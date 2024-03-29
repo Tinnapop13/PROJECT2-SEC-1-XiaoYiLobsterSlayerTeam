@@ -29,7 +29,7 @@ const editTemplate = reactive({
   Comment: "",
   LinkImage: "",
   Rating: {
-    coworker:  fetchData.getEmployees()[employeeIndex]?.Rating.coworker ,
+    coworker:  0 ,
     environment: 0,
     responsibility: 0,
   },
