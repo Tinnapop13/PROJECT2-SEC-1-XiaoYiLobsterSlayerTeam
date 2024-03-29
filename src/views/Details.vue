@@ -1,27 +1,27 @@
 <script setup>
-import {ref, reactive, onBeforeMount} from "vue"
-import {useRoute, useRouter} from "vue-router"
+import { ref, reactive, onBeforeMount } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import {
   readEmployeesData,
   editEmployeesData,
   deleteEmployeesData,
   readProfileData,
-} from "@/libs/crud"
-import {EmployeeManagement} from "@/libs/EmployeeManagement.js"
-import {useUserStore} from "@/stores/useUserStore.js"
-import DetailsSkeletonLoading from "@/components/DetailsSkeletonLoading.vue"
-import Modal from "@/components/Modal.vue"
+} from "@/libs/crud";
+import { EmployeeManagement } from "@/libs/EmployeeManagement.js";
+import { useUserStore } from "@/stores/useUserStore.js";
+import DetailsSkeletonLoading from "@/components/DetailsSkeletonLoading.vue";
+import Modal from "@/components/Modal.vue";
 
-const userStore = useUserStore()
-const route = useRoute()
-const router = useRouter()
-const employeeIndex = ref(0)
-const fetchData = ref(new EmployeeManagement())
-const updateResult = ref(false)
-const showSkeletonDetails = ref(true)
-const showUserDetails = ref(false)
-const profileData = ref(null)
-const selectingProfile = ref(false)
+const userStore = useUserStore();
+const route = useRoute();
+const router = useRouter();
+const employeeIndex = ref(0);
+const fetchData = ref(new EmployeeManagement());
+const updateResult = ref(false);
+const showSkeletonDetails = ref(true);
+const showUserDetails = ref(false);
+const profileData = ref(null);
+const selectingProfile = ref(false);
 
 const editTemplate = reactive({
   FakeName: "",
@@ -32,91 +32,102 @@ const editTemplate = reactive({
   Comment: "",
   LinkImage: "",
   Rating: {
-    coworker:  fetchData.getEmployees()[employeeIndex]?.Rating.coworker ,
+    coworker: 0,
     environment: 0,
     responsibility: 0,
   },
-})
+});
 
 const deleteEmployee = async () => {
-  const deleteId = fetchData.value.getEmployees()[employeeIndex.value].id
+  const deleteId = fetchData.value.getEmployees()[employeeIndex.value].id;
   try {
-    await deleteEmployeesData(deleteId)
-    fetchData.value.deleteEmployee(deleteId)
+    await deleteEmployeesData(deleteId);
+    fetchData.value.deleteEmployee(deleteId);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const validateInput = (toEdit) => {
-  const updateObject = {}
+  const updateObject = {};
   if (toEdit.Age.trim().length > 0 && toEdit.Age < 60 && toEdit.Age > 20) {
-    updateObject.Age = toEdit.Age
+    updateObject.Age = toEdit.Age;
+  }
+  if (toEdit.LinkImage.trim().length > 0) {
+    updateObject.LinkImage = toEdit.LinkImage;
+  }
+  if (toEdit.FakeName.trim().length > 0) {
+    updateObject.FakeName = toEdit.FakeName;
   }
   if (toEdit.PositionRank.trim().length > 0) {
-    updateObject.PositionRank = toEdit.PositionRank
+    updateObject.PositionRank = toEdit.PositionRank;
   }
   if (toEdit.PainPoint.trim().length > 0) {
-    updateObject.PainPoint = toEdit.PainPoint
+    updateObject.PainPoint = toEdit.PainPoint;
   }
   if (toEdit.GoalAndNeed.trim().length > 0) {
-    updateObject.GoalAndNeed = toEdit.GoalAndNeed
+    updateObject.GoalAndNeed = toEdit.GoalAndNeed;
   }
   if (toEdit.Comment.trim().length > 0) {
-    updateObject.Comment = toEdit.Comment
+    updateObject.Comment = toEdit.Comment;
   }
   if (
     toEdit.Rating.coworker.length > 0 ||
     toEdit.Rating.environment.length > 0 ||
     toEdit.Rating.responsibility.length > 0
   ) {
-    updateObject.Rating = toEdit.Rating
+    updateObject.Rating = toEdit.Rating;
   }
-  return updateObject
-}
+  return updateObject;
+};
 
 const closeModal = () => {
-  selectingProfile.value = false
-}
+  selectingProfile.value = false;
+};
 
 const changeProfileImage = (profileUrl) => {
-  editTemplate.value.LinkImage = profileUrl
-}
+  editTemplate.LinkImage = profileUrl;
+};
 
 const updateEmployee = async () => {
-  const jsonEmployeeUpdate = validateInput(editTemplate.value)
+  const jsonEmployeeUpdate = validateInput(editTemplate);
 
   try {
-    editEmployeesData(route.params.id, jsonEmployeeUpdate)
-    updateEmployee(employeeIndex.value, classEmployeeUpdate)
+    editEmployeesData(route.params.id, jsonEmployeeUpdate);
+    updateEmployee(employeeIndex.value, classEmployeeUpdate);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const logout = () => {
-  localStorage.removeItem("login")
-  router.push("/")
-}
+  localStorage.removeItem("login");
+  router.push("/");
+};
 
 onBeforeMount(async () => {
   try {
-    const employees = await readEmployeesData()
-    fetchData.value.addEmployees(employees)
+    const employees = await readEmployeesData();
+    fetchData.value.addEmployees(employees);
     employeeIndex.value = fetchData.value
       .getEmployees()
-      .findIndex((employee) => employee.id === route.params.id)
-    profileData.value = await readProfileData()
-    setTimeout(() => {
-      showSkeletonDetails.value = false
-      showUserDetails.value = true
-    }, 1000)
-  } catch (error) {
-    console.log(error)
-  }
-})
+      .findIndex((employee) => employee.id === route.params.id);
+    profileData.value = await readProfileData();
 
-const errorMessage = ref("")
+    editTemplate.Rating.coworker = fetchData.value.getEmployees()[employeeIndex.value]?.Rating.coworker
+    editTemplate.Rating.environment = fetchData.value.getEmployees()[employeeIndex.value]?.Rating.environment
+    editTemplate.Rating.responsibility = fetchData.value.getEmployees()[employeeIndex.value]?.Rating.responsibility
+
+    setTimeout(() => {
+      showSkeletonDetails.value = false;
+      showUserDetails.value = true;
+    }, 1000);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+const errorMessage = ref("");
 </script>
 
 <template>
@@ -209,7 +220,16 @@ const errorMessage = ref("")
         <div
           class="text-white text-center mt-4 text-xl font-semibold underline"
         >
-          {{ fetchData.getEmployees()[employeeIndex]?.FakeName }}
+          <div class="flex flex-col m-2">
+            <p class="m-2 text-xs font-[10]">
+              <input
+                type="text"
+                :placeholder="fetchData.getEmployees()[employeeIndex]?.FakeName"
+                v-model="editTemplate.FakeName"
+                class="input input-bordered input-xs w-full max-w-xs"
+              />
+            </p>
+          </div>
         </div>
       </div>
       <!-- ================================================
@@ -293,7 +313,7 @@ const errorMessage = ref("")
         <div class="flex w-full justify-evenly mt-10">
           <p class="text-slate-200 font-semibold">
             Co-worker :
-            {{}}
+            {{ editTemplate.Rating.coworker }}
           </p>
           <input
             type="range"
@@ -304,7 +324,7 @@ const errorMessage = ref("")
           />
           <p class="text-slate-200 font-semibold">
             Environment :
-            {{ fetchData.getEmployees()[employeeIndex]?.Rating.environment }}
+            {{ editTemplate.Rating.environment }}
           </p>
           <input
             type="range"
@@ -315,7 +335,7 @@ const errorMessage = ref("")
           />
           <p class="text-slate-200 font-semibold">
             Responsibility :
-            {{ fetchData.getEmployees()[employeeIndex]?.Rating.responsibility }}
+            {{ editTemplate.Rating.responsibility }}
           </p>
           <input
             type="range"
