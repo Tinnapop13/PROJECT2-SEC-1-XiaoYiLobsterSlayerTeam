@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onBeforeMount} from "vue"
+import {ref, reactive, onBeforeMount} from "vue"
 import {useRoute, useRouter} from "vue-router"
 import {
   readEmployeesData,
@@ -23,7 +23,7 @@ const showUserDetails = ref(false)
 const profileData = ref(null)
 const selectingProfile = ref(false)
 
-const editTemplate = ref({
+const editTemplate = reactive({
   FakeName: "",
   Age: "",
   PositionRank: "",
@@ -32,7 +32,7 @@ const editTemplate = ref({
   Comment: "",
   LinkImage: "",
   Rating: {
-    coworker: 0,
+    coworker:  fetchData.getEmployees()[employeeIndex]?.Rating.coworker ,
     environment: 0,
     responsibility: 0,
   },
@@ -293,7 +293,7 @@ const errorMessage = ref("")
         <div class="flex w-full justify-evenly mt-10">
           <p class="text-slate-200 font-semibold">
             Co-worker :
-            {{ fetchData.getEmployees()[employeeIndex]?.Rating.coworker }}
+            {{}}
           </p>
           <input
             type="range"

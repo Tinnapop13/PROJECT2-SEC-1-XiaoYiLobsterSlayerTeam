@@ -77,8 +77,8 @@
 
   <div v-if="modalType === 'RegistrationSuccess'"  class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
     <div class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">
-      <div class="text-5xl"> Result</div>
-      <div  class="text-5xl text-green-500">Registration Success !</div>
+      <div class="text-5xl font-basblue text-slate-800"> Result</div>
+      <div  class="text-5xl font-basblue text-green-500">Registration Success !</div>
       <button class="btn-primary btn" @click="$emit('closeModal')">Close</button>
     </div>
   </div>
