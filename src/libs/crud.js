@@ -27,7 +27,7 @@ const addEmployeesData = async (employee) => {
 }
 
 const editEmployeesData = (id, updatedEmployee) => {
-  fetch(`${import.meta.env.VITE_DB_URL}/employees/${Number(id)}`, {
+  fetch(`${import.meta.env.VITE_DB_URL}/employees/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
