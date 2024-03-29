@@ -6,35 +6,61 @@ import Modal from "@/components/Modal.vue";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useUserStore } from "@/stores/useUserStore";
 import { storeToRefs } from "pinia";
+import { encode,decode} from "@/libs/cryptography.js"
 
-const route = useRouter();
-const userStore = useUserStore();
-const authStore = useAuthStore();
-const { hasUpper , hasLower , hasDigit , hasSpecial , username ,password , validatePassword } = storeToRefs(authStore)
+const route = useRouter()
+const userStore = useUserStore()
+const authStore = useAuthStore()
 
-const users = ref(null)
-const keepLoggedIn = ref(false)
+const {
+  hasUpper,
+  hasLower,
+  hasDigit,
+  hasSpecial,
+  username,
+  password,
+  validatePassword,
+} = storeToRefs(authStore);
+
+const users = ref(null);
+const keepLoggedIn = ref(false);
 const registerMode = ref(false);
 const registrationSuccess = ref(false);
 
+/*
+============================================
+============= Login Function ===============
+============================================
+*/
+
 const login = (event) => {
+  event.preventDefault()
   for (const [key, value] of Object.entries(users.value)) {
-    if (value.username == username.value && value.password == password.value) {
-      authStore.loginErrorLog = "";
-      authStore.loginFailed = false;
-      userStore.currentUser = username.value;
-      userStore.loggedIn = true;
-      route.push("/home");
-      return;
-    }
-    if (keepLoggedIn.value) {
-        localStorage.setItem("login", username.value)
+    encode(value.id)
+    decode
+    if (value.username == username.value && decode(value.password) == password.value) {
+      authStore.loginErrorLog = ""
+      authStore.loginFailed = false
+      userStore.currentUser = value.id
+      userStore.loggedIn = true
+      route.push("/home")
+      if (keepLoggedIn.value) {
+        localStorage.setItem("login", encode(value.id)); 
+      }
+      break;
     }
   }
+
   event.preventDefault();
   authStore.loginErrorLog = "Incorrect Username or Password.";
   authStore.loginFailed = true;
 };
+
+/*
+============================================
+=============== Regist Login ===============
+============================================
+*/
 
 const regist = (event) => {
   for (const [key, value] of Object.entries(users.value)) {
@@ -45,6 +71,7 @@ const regist = (event) => {
       return;
     }
   }
+
   if (
     username.value.trim().length === 0 ||
     password.value.trim().length === 0
@@ -60,11 +87,16 @@ const regist = (event) => {
     event.preventDefault();
     return;
   }
-
-  addUserData(username.value, password.value);
-  event.preventDefault();
-  registrationSuccess.value = true;
+  if (hasUpper.value &&  hasDigit.value && hasLower.value && hasSpecial.value) {
+    addUserData(username.value, encode(password.value));
+    event.preventDefault();
+    registrationSuccess.value = true; 
+  }
+  event.preventDefault()
+  
+  
 };
+
 
 const closeModal = () => {
   registrationSuccess.value = false;
@@ -78,16 +110,24 @@ onMounted(async () => {
     console.log(error);
   }
 });
+
 </script>
 <template>
   <div class="w-screen h-screen flex justify-center items-center bg-slate-800">
-    <div
-      class="w-1/2 h-[60vh] rounded-3xl flex flex-col items-center justify-center"
-    >
+    <div class="w-1/2 h-[60vh] rounded-3xl flex flex-col items-center justify-center">
       <img :src="'/src/assets/images/employee_white.png'" class="size-24" />
+
+<!-- ============================================
+     ================ Form Topic ================
+     ============================================ -->
+
       <div class="font-bold text-4xl font-basblue">
         {{ registerMode ? "SIGN UP" : "LOGIN" }}
       </div>
+
+<!-- ============================================
+     ================ Form Input ================
+     ============================================ -->
       <form class="w-1/3 flex flex-col gap-4">
         <label
           class="font-semibold divider divider-neutral divider-start font-basblue mb-0"
@@ -111,7 +151,7 @@ onMounted(async () => {
           class="bg-slate-400 rounded-md h-10 text-black p-1"
         />
 
-        <div class="form-control">
+        <div v-if="!registerMode" class="form-control">
           <label class="cursor-pointer label">
             <span class="label-text">Remember Me</span>
             <input
@@ -135,29 +175,44 @@ onMounted(async () => {
           v-model="validatePassword"
           class="bg-slate-400 rounded-md h-10 text-black p-1"
         />
+
+<!-- ============================================
+     ====== Register Password Validation ========
+     ============================================ -->
         <div v-if="registerMode">
           <div v-if="hasDigit" class="text-green-500">
-            {{ computedPasswordHasDigit }}
-          </div>
-          <div v-else class="text-red-500">{{ computedPasswordHasDigit }}</div>
-          <div v-if="hasLower" class="text-green-500">
-            {{ computedPasswordHasLower }}
-          </div>
-          <div v-else class="text-red-500">{{ computedPasswordHasLower }}</div>
-          <div v-if="hasUpper" class="text-green-500">
-            {{ computedPasswordHasUpper }}
-          </div>
-          <div v-else class="text-red-500">{{ computedPasswordHasUpper }}</div>
-          <div v-if="hasSpecial" class="text-green-500">
-            {{ computedPasswordHasspecial }}
+            {{ authStore.computedPasswordHasDigit }}
           </div>
           <div v-else class="text-red-500">
-            {{ computedPasswordHasspecial }}
+            {{ authStore.computedPasswordHasDigit }}
+          </div>
+          <div v-if="hasLower" class="text-green-500">
+            {{ authStore.computedPasswordHasLower }}
+          </div>
+          <div v-else class="text-red-500">
+            {{ authStore.computedPasswordHasLower }}
+          </div>
+          <div v-if="hasUpper" class="text-green-500">
+            {{ authStore.computedPasswordHasUpper }}
+          </div>
+          <div v-else class="text-red-500">
+            {{ authStore.computedPasswordHasUpper }}
+          </div>
+          <div v-if="hasSpecial" class="text-green-500">
+            {{ authStore.computedPasswordHasspecial }}
+          </div>
+          <div v-else class="text-red-500">
+            {{ authStore.computedPasswordHasspecial }}
           </div>
         </div>
         <div v-if="authStore.loginFailed" class="text-red-500">
           {{ authStore.loginErrorLog }}
         </div>
+
+<!-- ============================================
+     ========== Submit Action Button ============
+     ============================================ -->
+
         <input
           v-if="!registerMode"
           type="submit"

@@ -1,25 +1,38 @@
 <script setup>
-import {ref, onBeforeMount} from "vue"
-import {useRoute} from "vue-router"
-import {readJsonData, editJsonData, deleteJsonData} from "@/libs/crud"
-import {EmployeeManagement} from "../libs/EmployeeManagement.js"
+import {ref, reactive, onBeforeMount} from "vue"
+import {useRoute, useRouter} from "vue-router"
+import {
+  readEmployeesData,
+  editEmployeesData,
+  deleteEmployeesData,
+  readProfileData,
+} from "@/libs/crud"
+import {EmployeeManagement} from "@/libs/EmployeeManagement.js"
 import {useUserStore} from "@/stores/useUserStore.js"
+import DetailsSkeletonLoading from "@/components/DetailsSkeletonLoading.vue"
+import Modal from "@/components/Modal.vue"
 
+const userStore = useUserStore()
 const route = useRoute()
+const router = useRouter()
 const employeeIndex = ref(0)
 const fetchData = ref(new EmployeeManagement())
 const updateResult = ref(false)
-const userStore = useUserStore()
+const showSkeletonDetails = ref(true)
+const showUserDetails = ref(false)
+const profileData = ref(null)
+const selectingProfile = ref(false)
 
-const editTemplate = ref({
+const editTemplate = reactive({
   FakeName: "",
   Age: "",
   PositionRank: "",
   PainPoint: "",
   GoalAndNeed: "",
   Comment: "",
+  LinkImage: "",
   Rating: {
-    coworker: 0,
+    coworker:  fetchData.getEmployees()[employeeIndex]?.Rating.coworker ,
     environment: 0,
     responsibility: 0,
   },
@@ -28,7 +41,7 @@ const editTemplate = ref({
 const deleteEmployee = async () => {
   const deleteId = fetchData.value.getEmployees()[employeeIndex.value].id
   try {
-    await deleteJsonData(deleteId)
+    await deleteEmployeesData(deleteId)
     fetchData.value.deleteEmployee(deleteId)
   } catch (error) {
     console.log(error)
@@ -62,24 +75,42 @@ const validateInput = (toEdit) => {
   return updateObject
 }
 
+const closeModal = () => {
+  selectingProfile.value = false
+}
+
+const changeProfileImage = (profileUrl) => {
+  editTemplate.value.LinkImage = profileUrl
+}
+
 const updateEmployee = async () => {
   const jsonEmployeeUpdate = validateInput(editTemplate.value)
 
   try {
-    await editJsonData(route.params.id, jsonEmployeeUpdate)
+    editEmployeesData(route.params.id, jsonEmployeeUpdate)
     updateEmployee(employeeIndex.value, classEmployeeUpdate)
   } catch (error) {
     console.log(error)
   }
 }
 
+const logout = () => {
+  localStorage.removeItem("login")
+  router.push("/")
+}
+
 onBeforeMount(async () => {
   try {
-    const employees = await readJsonData()
+    const employees = await readEmployeesData()
     fetchData.value.addEmployees(employees)
     employeeIndex.value = fetchData.value
       .getEmployees()
       .findIndex((employee) => employee.id === route.params.id)
+    profileData.value = await readProfileData()
+    setTimeout(() => {
+      showSkeletonDetails.value = false
+      showUserDetails.value = true
+    }, 1000)
   } catch (error) {
     console.log(error)
   }
@@ -93,12 +124,13 @@ const errorMessage = ref("")
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
   />
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-  />
 
   <div class="w-screen h-screen relative">
+    <!-- ============================================
+     ============== Skeleton Loader =============
+     ============================================ -->
+    <DetailsSkeletonLoading v-if="showSkeletonDetails" />
+
     <!-- ============================================
      ============= Navigation Bar ===============
      ============================================ -->
@@ -120,7 +152,7 @@ const errorMessage = ref("")
         <div class="relative">
           <div class="dropdown dropdown-bottom">
             <div
-              class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue flex justify-between items-center gap-4 h-[60px]"
+              class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue flex justify-between items-center gap-4 h-[60px] text-center"
               tabindex="0"
               role="button"
             >
@@ -133,9 +165,14 @@ const errorMessage = ref("")
               <div tabindex="0" role="button">{{ userStore.currentUser }}</div>
               <ul
                 tabindex="0"
-                class="dropdown-content z-[1] menu shadow mt-2 bg-gray-400 text-slate-500-800 rounded-box"
+                class="dropdown-content z-[1] menu shadow bg-slate-200 mt-2 rounded-box"
               >
-                <button @click="logout()">LOG OUT</button>
+                <li class="hover:bg-slate-400 rounded-lg">
+                  <button class="flex" @click="logout()">
+                    LOGOUT
+                    <span class="material-symbols-outlined"> logout </span>
+                  </button>
+                </li>
               </ul>
             </div>
           </div>
@@ -144,22 +181,37 @@ const errorMessage = ref("")
     </header>
 
     <div
+      v-if="showUserDetails"
       class="flex justify-center w-full h-full items-center gap-x-10 bg-slate-900"
     >
       <!-- ================================================
   ===================== IMAGE =========================
   ================================================= -->
-      <div class="avatar indicator">
-        <span
-          v-if="!updateResult"
-          class="bg-white text-black indicator-item badge badge-secondary text-lg"
-          >{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}</span
+      <div class="flex flex-col">
+        <div
+          @click="selectingProfile = !selectingProfile"
+          class="h-fit w-fit flex justify-center items-center shadow-xl rounded-full p-4 m-4 relative bg-[#f1f1f1]"
         >
-        <div class="rounded-sm overflow-hidden m-6 border-white border size-64">
-          <img :src="fetchData.getEmployees()[employeeIndex]?.LinkImage" />
+          <span
+            class="bg-white text-black absolute right-0 bottom-0 p-2 rounded-full shadow-2xl"
+          >
+            <img :src="'/src/assets/images/change.png'" class="size-[40px]" />
+          </span>
+          <img
+            class="p-5 w-[200px] h-[200px]"
+            :src="
+              editTemplate.LinkImage.length === 0
+                ? fetchData.getEmployees()[employeeIndex]?.LinkImage
+                : editTemplate.LinkImage
+            "
+          />
+        </div>
+        <div
+          class="text-white text-center mt-4 text-xl font-semibold underline"
+        >
+          {{ fetchData.getEmployees()[employeeIndex]?.FakeName }}
         </div>
       </div>
-
       <!-- ================================================
   ===================== Edit detail =========================
   ================================================= -->
@@ -167,7 +219,7 @@ const errorMessage = ref("")
       <div class="flex flex-col gap-y-5">
         <div class="flex justify-evenly">
           <div class="flex flex-col m-5">
-            <p class="m-2">Age</p>
+            <p class="m-2 font-basblue text-3xl">Age</p>
             <p class="m-2 text-xs font-[10]">
               <input
                 @input="
@@ -186,7 +238,7 @@ const errorMessage = ref("")
             <p>{{ errorMessage }}</p>
           </div>
           <div class="flex flex-col m-5">
-            <p class="m-2">Rank</p>
+            <p class="m-2 font-basblue text-3xl">Rank</p>
             <p class="m-2 text-xs font-[10]">
               <input
                 type="text"
@@ -199,7 +251,7 @@ const errorMessage = ref("")
             </p>
           </div>
           <div class="flex flex-col m-5">
-            <p class="m-2">Pain Point</p>
+            <p class="m-2 font-basblue text-3xl">Pain Point</p>
             <p class="m-2 text-xs font-[10]">
               <input
                 type="text"
@@ -212,7 +264,7 @@ const errorMessage = ref("")
             </p>
           </div>
           <div class="flex flex-col m-5">
-            <p class="m-2">Goal And Need</p>
+            <p class="m-2 font-basblue text-3xl">Goal And Need</p>
             <p class="m-2 text-xs font-[10]">
               <input
                 type="text"
@@ -241,7 +293,7 @@ const errorMessage = ref("")
         <div class="flex w-full justify-evenly mt-10">
           <p class="text-slate-200 font-semibold">
             Co-worker :
-            {{ fetchData.getEmployees()[employeeIndex]?.Rating.coworker }}
+            {{}}
           </p>
           <input
             type="range"
@@ -300,11 +352,11 @@ const errorMessage = ref("")
   <!-- ============================================
   ================ Details Modal ==================
   ============================================= -->
-  <modal
+  <div
     v-if="updateResult"
     class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center"
   >
-    <innerModal
+    <div
       class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4"
     >
       <p class="text-green-500">UPDATE SUCCESS!!!</p>
@@ -318,6 +370,19 @@ const errorMessage = ref("")
         @click="updateEmployee()"
         >CLOSE</router-link
       >
-    </innerModal>
-  </modal>
+    </div>
+  </div>
+
+  <!-- ============================================
+     ========= Select Profile Modal =============
+     ============================================ -->
+
+  <Modal
+    v-if="selectingProfile"
+    :modalType="'SelectingProfile'"
+    :newEmployee="editTemplate"
+    :newEmployeeProfile="profileData"
+    @changeImage="changeProfileImage"
+    @closeModal="closeModal"
+  />
 </template>

@@ -1,32 +1,32 @@
-const readJsonData = async () => {
-  return await fetch(`${import.meta.env.VITE_DB_URL}/employees`).then((respJson) =>
-    respJson.json()
+const readEmployeesData = async () => {
+  return await fetch(`${import.meta.env.VITE_DB_URL}/employees`).then(
+    (respJson) => respJson.json()
   )
 }
 
 const readProfileData = async () => {
-  return await fetch(`${import.meta.env.VITE_DB_URL}/profile`).then((response) =>
-    response.json()
+  return await fetch(`${import.meta.env.VITE_DB_URL}/profile`).then(
+    (response) => response.json()
   )
 }
 
-const deleteJsonData = async (id) => {
-  return await fetch(`${import.meta.env.VITE_DB_URL}/employees/${Number(id)}`, {
+const deleteEmployeesData = async (id) => {
+  return await fetch(`${import.meta.env.VITE_DB_URL}/employees/${id}`, {
     method: "DELETE",
   }).then((respJson) => respJson.json())
 }
 
-const addJsonData = async (employee, id) => {
+const addEmployeesData = async (employee) => {
   return fetch(`${import.meta.env.VITE_DB_URL}/employees`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({id, ...employee}),
+    body: JSON.stringify({...employee}),
   }).then((respJson) => respJson.json())
 }
 
-const editJsonData = (id, updatedEmployee) => {
+const editEmployeesData = (id, updatedEmployee) => {
   fetch(`${import.meta.env.VITE_DB_URL}/employees/${Number(id)}`, {
     method: "PATCH",
     headers: {
@@ -55,11 +55,11 @@ const addUserData = async (username, password) => {
 }
 
 export {
-  deleteJsonData,
-  readJsonData,
-  addJsonData,
+  deleteEmployeesData,
+  readEmployeesData,
+  addEmployeesData,
   readProfileData,
-  editJsonData,
+  editEmployeesData,
   getUsersData,
   addUserData,
 }

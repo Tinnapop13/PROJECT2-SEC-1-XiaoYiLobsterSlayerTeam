@@ -42,13 +42,13 @@
 
   <div v-if="modalType === 'SelectingProfile'"
     class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
-    <div class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">
+    <div class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4 max-2xl:h-[90vh] max-2xl:w-[60vw] overflow-y-scroll">
       <div class="text-4xl text-slate-800 font-basblue">What do you feel?</div>
-      <div class="flex ">
+      <div class="flex flex-wrap justify-center">
         <div v-for="profile in newEmployeeProfile" @click="$emit('changeImage',profile)"
           class="h-fit w-fit flex justify-center items-center overflow-hidden shadow-xl rounded-full p-4 m-4"
           :class="{ 'bg-slate-300': newEmployee.LinkImage === profile }">
-          <img :src="profile" class="size-24">
+          <img :src="profile" class="size-[75px]">
         </div>
       </div>
       <button class="btn-primary btn" @click="$emit('closeModal')">Close</button>
@@ -77,8 +77,8 @@
 
   <div v-if="modalType === 'RegistrationSuccess'"  class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
     <div class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">
-      <div class="text-5xl"> Result</div>
-      <div  class="text-5xl text-green-500">Registration Success !</div>
+      <div class="text-5xl font-basblue text-slate-800"> Result</div>
+      <div  class="text-5xl font-basblue text-green-500">Registration Success !</div>
       <button class="btn-primary btn" @click="$emit('closeModal')">Close</button>
     </div>
   </div>
@@ -87,3 +87,16 @@
 
 
 </template>
+
+<style scoped>
+div::-webkit-scrollbar{
+  display: none;
+}
+
+
+div {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+</style>

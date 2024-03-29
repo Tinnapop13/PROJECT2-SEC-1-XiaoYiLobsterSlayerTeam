@@ -1,298 +1,429 @@
 {
   "users": [
     {
-      "username": "admin",
-      "password": "admin123",
-      "id": "5ca6"
-    },
-    {
-      "username": "tako",
-      "password": "boomgae",
-      "id": "fb14"
-    },
-    {
-      "id": "d111",
-      "username": "goko",
-      "password": ""
-    },
-    {
-      "id": "366d",
+      "id": "991c",
       "username": "gg",
-      "password": "gg"
+
+      "password": "UjXlM3chBHdh9mQ"
     },
     {
-      "id": "c64c",
-      "username": "boomgayza2546",
-      "password": "gg"
+      "id": "b9a5",
+      "username": "XD",
+      "password": "QyMxA3bwFmbulGV"
     },
     {
-      "id": "547a",
-      "username": "Tinnapop",
-      "password": "Boatpass%^5"
-    },
-    {
-      "id": "1a99",
-      "username": "papangkorn",
-      "password": "Password@1234"
+      "id": "9039",
+      "username": "test",
+      "password": "QyMyEDdzVGV"
+
     }
   ],
   "profile": {
-    "angry": "/src/assets/profile/angry.png",
-    "happy": "/src/assets/profile/happy.png"
+    "bored": "/src/assets/images/bored.png",
+    "happy": "/src/assets/images/happy.png",
+    "stress": "/src/assets/images/stress.png",
+    "tired": "/src/assets/images/tired.png"
   },
   "employees": [
     {
-      "id": "333",
-      "LinkImage": "/src/assets/profile/happy.png",
-      "FakeName": "Xi Qwee",
-      "PositionRank": "God",
-      "Age": "46",
-      "PainPoint": "ass",
-      "GoalAndNeed": "oil",
-      "Comment": "",
+      "id": "00bb",
+      "LinkImage": "/src/assets/images/happy.png",
+      "FakeName": "Papangkorn Kijsakulrat",
+      "PositionRank": "asdf",
+      "Age": 23,
+      "PainPoint": "as",
+      "GoalAndNeed": "asdf",
+      "Comment": "asdfasdfa",
       "Rating": {
-        "coworker": "4",
-        "environment": 0,
-        "responsibility": 0
-      }
-    },
-    {
-      "id": "555",
-      "LinkImage": "/src/assets/profile/happy.png",
-      "FakeName": "Xi Mhaoti",
-      "PositionRank": "God",
-      "Age": "43",
-      "PainPoint": "",
-      "GoalAndNeed": "oil",
-      "Comment": "",
-      "Rating": {
-        "coworker": 3,
-        "environment": 6,
-        "responsibility": 8
-      }
-    },
-    {
-      "id": "666",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "Min Chong YiawMin",
-      "PositionRank": "God",
-      "Age": "56",
-      "PainPoint": "ass",
-      "GoalAndNeed": "",
-      "Comment": "",
-      "Rating": {
-        "coworker": 0,
-        "environment": 0,
-        "responsibility": 0
-      }
-    },
-    {
-      "id": "667",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "tinnapop tienbang",
-      "PositionRank": "hjkhkj",
-      "Age": "24",
-      "PainPoint": "hjjkh",
-      "GoalAndNeed": "uihiuhu",
-      "Comment": "asfafasfas",
-      "Rating": {
-        "coworker": "4",
-        "environment": "8",
-        "responsibility": "10"
+        "coworker": "6",
+        "environment": "5",
+        "responsibility": "3"
       },
-      "OwnedBy": "gg"
+      "OwnedBy": "b9a5"
     },
     {
-      "id": "556",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "Phatcharadol ",
-      "PositionRank": "newbie",
+      "id": "c24c",
+      "LinkImage": "/src/assets/images/happy.png",
+      "FakeName": "asf",
+      "PositionRank": "saf",
       "Age": 20,
       "PainPoint": "",
       "GoalAndNeed": "",
       "Comment": "saf",
       "Rating": {
-        "coworker": "2",
-        "environment": "8",
-        "responsibility": "4"
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
       },
-      "OwnedBy": "boomgayza2546"
+      "OwnedBy": "b9a5"
     },
     {
-      "id": "558",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "Papangkorn Kijsakulrat",
-      "PositionRank": "xcv",
-      "Age": 29,
-      "PainPoint": "asdfasdf",
-      "GoalAndNeed": "zxasdfas",
-      "Comment": "zxcv",
+      "id": "684f",
+      "LinkImage": "/src/assets/images/happy.png",
+      "FakeName": "asfasf",
+      "PositionRank": "asf",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "asfasf",
       "Rating": {
         "coworker": "4",
-        "environment": "2",
-        "responsibility": "8"
+        "environment": "6",
+        "responsibility": "3"
       },
-      "OwnedBy": "gg"
+      "OwnedBy": "b9a5"
     },
     {
-      "id": "563",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "asdf asdf",
-      "PositionRank": "asdfasdf",
+      "id": "8cba",
+      "LinkImage": "/src/assets/images/stress.png",
+      "FakeName": "fasf",
+      "PositionRank": "saf",
       "Age": 20,
-      "PainPoint": "asdfasdfasdf",
-      "GoalAndNeed": "asdfasdfa",
-      "Comment": "asdfasdf",
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "asf",
       "Rating": {
         "coworker": 0,
         "environment": 0,
         "responsibility": 0
       },
-      "OwnedBy": "gg"
+      "OwnedBy": "b9a5"
     },
     {
-      "id": "564",
-      "LinkImage": "/src/assets/profile/happy.png",
-      "FakeName": "sdgdsgds",
-      "PositionRank": "sdgds",
-      "Age": 22,
-      "PainPoint": "fas",
-      "GoalAndNeed": "asfasf",
-      "Comment": "asfsaf",
-      "Rating": {
-        "coworker": "5",
-        "environment": "3",
-        "responsibility": "8"
-      },
-      "OwnedBy": "goko"
-    },
-    {
-      "id": "56335",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "asfasf",
-      "PositionRank": "asfasf",
-      "Age": 23,
-      "PainPoint": "asfa",
-      "GoalAndNeed": "fafasfsaf",
-      "Comment": "afssafsafafaf",
-      "Rating": {
-        "coworker": "2",
-        "environment": "5",
-        "responsibility": "7"
-      },
-      "OwnedBy": "goko"
-    },
-    {
-      "id": "5615",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "asfasf",
-      "PositionRank": "asfasf",
-      "Age": 23,
-      "PainPoint": "asfa",
-      "GoalAndNeed": "fafasfsaf",
-      "Comment": "afssafsafafaf",
-      "Rating": {
-        "coworker": "2",
-        "environment": "5",
-        "responsibility": "7"
-      },
-      "OwnedBy": "goko"
-    },
-    {
-      "id": "5634",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "asfasf",
-      "PositionRank": "asfasf",
-      "Age": 23,
-      "PainPoint": "asfa",
-      "GoalAndNeed": "fafasfsaf",
-      "Comment": "afssafsafafaf",
-      "Rating": {
-        "coworker": "2",
-        "environment": "5",
-        "responsibility": "7"
-      },
-      "OwnedBy": "goko"
-    },
-    {
-      "id": "5635",
-      "LinkImage": "/src/assets/profile/happy.png",
-      "FakeName": "Thanos",
-      "PositionRank": "Guardian of Galaxy",
-      "Age": 37,
-      "PainPoint": "Pain Ass",
-      "GoalAndNeed": "Healthy Ass",
-      "Comment": "ASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-      "Rating": {
-        "coworker": "8",
-        "environment": "6",
-        "responsibility": "2"
-      },
-      "OwnedBy": "goko"
-    },
-    {
-      "id": "5637",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "Thanos",
-      "PositionRank": "Guardian of Galaxy",
-      "Age": 37,
-      "PainPoint": "Pain Ass",
-      "GoalAndNeed": "Healthy Ass",
-      "Comment": "ASSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
-      "Rating": {
-        "coworker": "2",
-        "environment": "6",
-        "responsibility": "9"
-      },
-      "OwnedBy": "Tinnapop"
-    },
-    {
-      "id": "5638",
-      "LinkImage": "/src/assets/profile/happy.png",
-      "FakeName": "JIDJID",
-      "PositionRank": "Guardian of Galaxy",
-      "Age": 37,
-      "PainPoint": "Pain Ass",
-      "GoalAndNeed": "Healthy Ass",
-      "Comment": "BoomDoubleGay",
-      "Rating": {
-        "coworker": "3",
-        "environment": "5",
-        "responsibility": "7"
-      },
-      "OwnedBy": "Tinnapop"
-    },
-    {
-      "id": "5639",
-      "LinkImage": "/src/assets/profile/happy.png",
-      "FakeName": "GG",
-      "PositionRank": "kdfbkasfasf",
-      "Age": 21,
-      "PainPoint": "safsaf",
-      "GoalAndNeed": "asf",
-      "Comment": "asfsafsafsaf",
+      "id": "b137",
+      "LinkImage": "/src/assets/images/stress.png",
+      "FakeName": "asf",
+      "PositionRank": "asf",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "asf",
       "Rating": {
         "coworker": "4",
+        "environment": "7",
+        "responsibility": "4"
+      },
+      "OwnedBy": "b9a5"
+    },
+    {
+      "id": "d088",
+      "LinkImage": "/src/assets/images/stress.png",
+      "FakeName": "asf",
+      "PositionRank": "asfasf",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "asfsaf",
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "b9a5"
+    },
+    {
+      "id": "2343",
+      "LinkImage": "/src/assets/images/tired.png",
+      "FakeName": "asf",
+      "PositionRank": "asfasf",
+      "Age": 20,
+      "PainPoint": "asf",
+      "GoalAndNeed": "asf",
+      "Comment": "asf",
+      "Rating": {
+        "coworker": "5",
         "environment": "4",
         "responsibility": "3"
       },
-      "OwnedBy": "Tinnapop"
+      "OwnedBy": "b9a5"
     },
     {
-      "id": "5641",
-      "LinkImage": "/src/assets/profile/angry.png",
-      "FakeName": "Papangkorn Kijsakulrat",
-      "PositionRank": "asdfa",
-      "Age": 27,
-      "PainPoint": "asdfasdf",
-      "GoalAndNeed": "zasdfxz",
-      "Comment": "asdf",
+      "id": "f673",
+      "LinkImage": "/src/assets/images/tired.png",
+      "FakeName": "asf",
+      "PositionRank": "asfasf",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "asfasf",
       "Rating": {
-        "coworker": "9",
+        "coworker": "6",
+        "environment": "4",
+        "responsibility": "3"
+      },
+      "OwnedBy": "b9a5"
+    },
+    {
+      "id": "dc68",
+      "LinkImage": "/src/assets/images/tired.png",
+      "FakeName": "asf",
+      "PositionRank": "asfsaf",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "asfasf",
+      "Rating": {
+        "coworker": "4",
+        "environment": "3",
+        "responsibility": "7"
+      },
+      "OwnedBy": "b9a5"
+    },
+    {
+      "id": "bd80",
+      "LinkImage": "/src/assets/images/tired.png",
+      "FakeName": "asfasf",
+      "PositionRank": "asfsaf",
+      "Age": 21,
+      "PainPoint": "asfasf",
+      "GoalAndNeed": "asf",
+      "Comment": "asfasfsaf",
+      "Rating": {
+        "coworker": "4",
         "environment": "4",
         "responsibility": "5"
       },
-      "OwnedBy": "papangkorn"
+      "OwnedBy": "b9a5"
+    },
+    {
+      "id": "55ed",
+      "LinkImage": "/src/assets/images/bored.png",
+      "FakeName": "asfasf",
+      "PositionRank": "asfsaf",
+      "Age": 21,
+      "PainPoint": "asfasf",
+      "GoalAndNeed": "asf",
+      "Comment": "as",
+      "Rating": {
+        "coworker": "3",
+        "environment": "4",
+        "responsibility": "3"
+      },
+      "OwnedBy": "9039"
+    },
+    {
+      "id": "5ea0",
+      "LinkImage": "/src/assets/images/happy.png",
+      "FakeName": "asfasf",
+      "PositionRank": "asfsaf",
+      "Age": 21,
+      "PainPoint": "asfasf",
+      "GoalAndNeed": "asf",
+      "Comment": "asf",
+      "Rating": {
+        "coworker": "4",
+        "environment": "4",
+        "responsibility": "4"
+      },
+      "OwnedBy": "2052"
+    },
+    {
+      "id": "6d51",
+      "LinkImage": "/src/assets/images/stress.png",
+      "FakeName": "saf",
+      "PositionRank": "saf",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "safsaf",
+      "Rating": {
+        "coworker": "5",
+        "environment": "4",
+        "responsibility": "5"
+      },
+      "OwnedBy": "2052"
+    },
+    {
+      "id": "f173",
+      "LinkImage": "/src/assets/images/tired.png",
+      "FakeName": "saf",
+      "PositionRank": "safasf",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "safsaf",
+      "Rating": {
+        "coworker": "4",
+        "environment": "4",
+        "responsibility": "7"
+      },
+      "OwnedBy": "2052"
+    },
+    {
+      "id": "ae38",
+      "LinkImage": "/src/assets/images/bored.png",
+      "FakeName": "sfafewfs",
+      "PositionRank": "safasf",
+      "Age": 20,
+      "PainPoint": "ds",
+      "GoalAndNeed": "",
+      "Comment": "sdgs",
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "2052"
+    },
+    {
+      "id": "8710",
+      "LinkImage": "/src/assets/images/bored.png",
+      "FakeName": "sdv",
+      "PositionRank": "safasf",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "safasfsaf",
+      "Rating": {
+        "coworker": "4",
+        "environment": "4",
+        "responsibility": "4"
+      },
+      "OwnedBy": "2052"
+    },
+    {
+      "id": "8d1c",
+      "LinkImage": "/src/assets/images/bored.png",
+      "FakeName": "asf",
+      "PositionRank": "asf",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "asf",
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "2052"
+    },
+    {
+      "id": "983b",
+      "LinkImage": "/src/assets/images/stress.png",
+      "FakeName": "dsf",
+      "PositionRank": "sdg",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "dsgsg",
+      "Rating": {
+        "coworker": "3",
+        "environment": "4",
+        "responsibility": "6"
+      },
+      "OwnedBy": "2052"
+    },
+    {
+      "id": "309e",
+      "LinkImage": "/src/assets/images/stress.png",
+      "FakeName": "sdgdsg",
+      "PositionRank": "sdgsgd",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "dsgsdg",
+      "Rating": {
+        "coworker": "4",
+        "environment": "6",
+        "responsibility": "4"
+      },
+      "OwnedBy": "2052"
+    },
+    {
+      "id": "b0df",
+      "LinkImage": "/src/assets/images/tired.png",
+      "FakeName": "qwr",
+      "PositionRank": "wqr",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "fafa",
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "2052"
+    },
+    {
+      "id": "bc20",
+      "LinkImage": "/src/assets/images/tired.png",
+      "FakeName": "qwr",
+      "PositionRank": "wqr",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "safsag",
+      "Rating": {
+        "coworker": "3",
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "2052"
+    },
+    {
+      "id": "455f",
+      "LinkImage": "/src/assets/images/happy.png",
+      "FakeName": "tinnapop tienbang",
+      "PositionRank": "124",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "123",
+      "Rating": {
+        "coworker": "3",
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "2052"
+    },
+    {
+      "id": "560b",
+      "LinkImage": "/src/assets/images/happy.png",
+      "FakeName": "214",
+      "PositionRank": "214",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "124t ewd",
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "2052"
+    },
+    {
+      "id": "bd8c",
+      "LinkImage": "/src/assets/images/happy.png",
+      "FakeName": "safa",
+      "PositionRank": "saf",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "safasf",
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "2052"
+    },
+    {
+      "id": "33c5",
+      "LinkImage": "/src/assets/images/stress.png",
+      "FakeName": "saf",
+      "PositionRank": "saf",
+      "Age": 20,
+      "PainPoint": "",
+      "GoalAndNeed": "",
+      "Comment": "asf",
+      "Rating": {
+        "coworker": 0,
+        "environment": 0,
+        "responsibility": 0
+      },
+      "OwnedBy": "2052"
     }
   ]
 }
