@@ -27,6 +27,12 @@ const keepLoggedIn = ref(false);
 const registerMode = ref(false);
 const registrationSuccess = ref(false);
 
+/*
+============================================
+============= Login Function ===============
+============================================
+*/
+
 const login = (event) => {
   event.preventDefault()
   for (const [key, value] of Object.entries(users.value)) {
@@ -49,6 +55,12 @@ const login = (event) => {
   authStore.loginErrorLog = "Incorrect Username or Password.";
   authStore.loginFailed = true;
 };
+
+/*
+============================================
+=============== Regist Login ===============
+============================================
+*/
 
 const regist = (event) => {
   for (const [key, value] of Object.entries(users.value)) {
@@ -102,13 +114,20 @@ onMounted(async () => {
 </script>
 <template>
   <div class="w-screen h-screen flex justify-center items-center bg-slate-800">
-    <div
-      class="w-1/2 h-[60vh] rounded-3xl flex flex-col items-center justify-center"
-    >
+    <div class="w-1/2 h-[60vh] rounded-3xl flex flex-col items-center justify-center">
       <img :src="'/src/assets/images/employee_white.png'" class="size-24" />
+
+<!-- ============================================
+     ================ Form Topic ================
+     ============================================ -->
+
       <div class="font-bold text-4xl font-basblue">
         {{ registerMode ? "SIGN UP" : "LOGIN" }}
       </div>
+
+<!-- ============================================
+     ================ Form Input ================
+     ============================================ -->
       <form class="w-1/3 flex flex-col gap-4">
         <label
           class="font-semibold divider divider-neutral divider-start font-basblue mb-0"
@@ -156,6 +175,10 @@ onMounted(async () => {
           v-model="validatePassword"
           class="bg-slate-400 rounded-md h-10 text-black p-1"
         />
+
+<!-- ============================================
+     ====== Register Password Validation ========
+     ============================================ -->
         <div v-if="registerMode">
           <div v-if="hasDigit" class="text-green-500">
             {{ authStore.computedPasswordHasDigit }}
@@ -185,6 +208,11 @@ onMounted(async () => {
         <div v-if="authStore.loginFailed" class="text-red-500">
           {{ authStore.loginErrorLog }}
         </div>
+
+<!-- ============================================
+     ========== Submit Action Button ============
+     ============================================ -->
+
         <input
           v-if="!registerMode"
           type="submit"
