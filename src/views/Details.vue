@@ -1,5 +1,5 @@
 <script setup>
-import {ref, reactive, onBeforeMount} from "vue"
+import {ref, onBeforeMount} from "vue"
 import {useRoute, useRouter} from "vue-router"
 import {
   readEmployeesData,
@@ -23,7 +23,7 @@ const showUserDetails = ref(false)
 const profileData = ref(null)
 const selectingProfile = ref(false)
 
-const editTemplate = reactive({
+const editTemplate = ref({
   FakeName: "",
   Age: "",
   PositionRank: "",
@@ -32,7 +32,7 @@ const editTemplate = reactive({
   Comment: "",
   LinkImage: "",
   Rating: {
-    coworker:  fetchData.getEmployees()[employeeIndex]?.Rating.coworker ,
+    coworker: 0,
     environment: 0,
     responsibility: 0,
   },
