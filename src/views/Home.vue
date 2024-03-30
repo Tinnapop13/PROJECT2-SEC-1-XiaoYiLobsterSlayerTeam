@@ -137,7 +137,7 @@ onMounted(async () => {
               src="/src/assets/images/user.png"
               class="size-full"
             />
-            <div tabindex="0" role="button">{{ userStore.currentUser }}</div>
+            <div tabindex="0" role="button">{{ userStore.currentUsername }}</div>
             <ul
               tabindex="0"
               class="dropdown-content z-[1] menu shadow bg-slate-200 mt-2 rounded-box"

@@ -8,6 +8,7 @@ export const useUserStore = defineStore("user", () => {
   const searchKey = ref("")
   const currentUser = ref("")
   const loggedIn = ref(false)
+  const currentUsername = ref("")
   /*
     ============================================
     ======= Filtered Data For Searching ========
@@ -39,11 +40,18 @@ export const useUserStore = defineStore("user", () => {
     })
   })
 
+  const filteredUsername = computed(() => {
+    return employeeManager.value.users.filter((users) => {
+      return users.username === currentUsername.value
+    })
+  })
   return {
     loggedIn,
     currentUser,
+    currentUsername,
     employeeManager,
     filteredData,
+    filteredUsername,
     filteredSearchData,
     searchKey,
   }

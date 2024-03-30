@@ -32,7 +32,7 @@ const editTemplate = reactive({
   Comment: "",
   LinkImage: "",
   Rating: {
-    coworker:  fetchData.getEmployees()[employeeIndex]?.Rating.coworker ,
+    coworker:  0 ,
     environment: 0,
     responsibility: 0,
   },
@@ -293,7 +293,7 @@ const errorMessage = ref("")
         <div class="flex w-full justify-evenly mt-10">
           <p class="text-slate-200 font-semibold">
             Co-worker :
-            {{}}
+            {{fetchData.getEmployees()[employeeIndex]?.Rating.coworker}}
           </p>
           <input
             type="range"
