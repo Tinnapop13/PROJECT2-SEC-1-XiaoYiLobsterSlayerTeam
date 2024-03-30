@@ -6,6 +6,7 @@ import {
   editEmployeesData,
   deleteEmployeesData,
   readProfileData,
+  getUsersData
 } from "@/libs/crud";
 import { EmployeeManagement } from "@/libs/EmployeeManagement.js";
 import { useUserStore } from "@/stores/useUserStore.js";
@@ -117,11 +118,18 @@ onBeforeMount(async () => {
     editTemplate.Rating.coworker = fetchData.value.getEmployees()[employeeIndex.value]?.Rating.coworker
     editTemplate.Rating.environment = fetchData.value.getEmployees()[employeeIndex.value]?.Rating.environment
     editTemplate.Rating.responsibility = fetchData.value.getEmployees()[employeeIndex.value]?.Rating.responsibility
+    editTemplate.Comment = fetchData.value.getEmployees()[employeeIndex.value]?.Comment
 
     setTimeout(() => {
       showSkeletonDetails.value = false;
       showUserDetails.value = true;
     }, 1000);
+    const users = await getUsersData()
+    for (const user of users) {
+      if (userStore.currentUser === user.id){
+        userStore.currentUsername = user.username
+      }
+  }
   } catch (error) {
     console.log(error);
   }
@@ -156,7 +164,7 @@ const errorMessage = ref("");
               class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue flex justify-between items-center gap-4 h-[60px] text-center"
               tabindex="0" role="button">
               <img tabindex="0" role="button" src="/src/assets/images/user.png" class="size-full" />
-              <div tabindex="0" role="button">{{ userStore.currentUser }}</div>
+              <div tabindex="0" role="button">{{ userStore.currentUsername }}</div>
               <ul tabindex="0" class="dropdown-content z-[1] menu shadow bg-slate-200 mt-2 rounded-box">
                 <li class="hover:bg-slate-400 rounded-lg">
                   <button class="flex" @click="logout()">
@@ -323,10 +331,10 @@ const errorMessage = ref("");
   <!-- ============================================
   ================ Details Modal ==================
   ============================================= -->
-  <div v-if="updateResult" class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
+  <div v-if="updateResult" class="text-2xl w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
     <div class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">
-      <p class="text-green-500">UPDATE SUCCESS!!!</p>
-      <p class="text-blue-500">
+      <p class="font-basblue text-green-500 text-4xl">UPDATE SUCCESS!!!</p>
+      <p class="font-basblue text-blue-500">
         Employee "{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}"
         Updated.
       </p>

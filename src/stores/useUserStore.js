@@ -8,6 +8,7 @@ export const useUserStore = defineStore("user", () => {
   const searchKey = ref("")
   const currentUser = ref("")
   const loggedIn = ref(false)
+  const currentUsername = ref("")
   /*
     ============================================
     ======= Filtered Data For Searching ========
@@ -42,6 +43,7 @@ export const useUserStore = defineStore("user", () => {
   return {
     loggedIn,
     currentUser,
+    currentUsername,
     employeeManager,
     filteredData,
     filteredSearchData,

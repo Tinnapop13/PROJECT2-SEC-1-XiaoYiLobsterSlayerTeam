@@ -42,6 +42,7 @@ const login = (event) => {
       authStore.loginErrorLog = ""
       authStore.loginFailed = false
       userStore.currentUser = value.id
+      userStore.currentUsername = username.value
       userStore.loggedIn = true
       route.push("/home")
       if (keepLoggedIn.value) {

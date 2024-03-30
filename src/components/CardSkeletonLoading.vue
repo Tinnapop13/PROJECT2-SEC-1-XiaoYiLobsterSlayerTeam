@@ -7,7 +7,7 @@
   <div class="w-[20rem] h-[35rem] bg-[#F9F7F7] rounded-xl max-sm:w-full">
     <!-- image and details -->
     <div
-      class="flex items-center justify-center mx-auto h-[10rem] gap-x-5 bg-blue-300 rounded-b-xl"
+      class="flex items-center justify-center mx-auto h-[10rem] gap-x-5 bg-blue-300 rounded-xl"
     >
       <div class="skeleton size-24 rounded-full"></div>
 
