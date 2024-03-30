@@ -14,7 +14,7 @@ const router = createRouter({
     {path: "/details/:id", name: "Details", component: Details},
     {path: "/addcard", name: "addcard", component: AddCard},
     {path: "/", name: "auth", component: Authentication},
-    {path: "/stat" , name:"stat", component: Statistics}
+    {path: "/stat", name: "stat", component: Statistics},
   ],
 })
 
@@ -31,7 +31,7 @@ router.beforeEach(async (to, from) => {
 
 router.beforeEach(async (to, from) => {
   const userStore = useUserStore()
- 
+
   if (userToken !== null && !userStore.loggedIn && to.name === "auth") {
     const decodeToken = decode(userToken)
     userStore.currentUser = decodeToken

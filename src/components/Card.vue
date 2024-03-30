@@ -122,21 +122,21 @@ onMounted(() => {
       <div class="flex mt-5 justify-evenly">
         <div
           class="radial-progress text-[#9fb4dd]"
-          :style="`--value:${Rating?.coworker*10}`"
+          :style="`--value:${Rating?.coworker*20}`"
           role="progressbar"
         >
           <span class="material-symbols-outlined"> groups </span>
         </div>
         <div
           class="radial-progress text-[#9fb4dd]"
-          :style="`--value:${Rating?.environment*10}`"
+          :style="`--value:${Rating?.environment*20}`"
          
         >
           <span class="material-symbols-outlined"> source_environment </span>
         </div>
         <div
           class="radial-progress text-[#9fb4dd]"
-          :style="`--value:${Rating?.responsibility*10}`"
+          :style="`--value:${Rating?.responsibility*20}`"
         >
           <span class="material-symbols-outlined"> work </span>
         </div>
