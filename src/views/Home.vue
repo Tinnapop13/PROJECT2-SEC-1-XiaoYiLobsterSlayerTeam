@@ -1,7 +1,7 @@
 <script setup>
 import {ref, reactive, watch, onBeforeMount, computed, onMounted} from "vue"
 import Card from "@/components/Card.vue"
-import {readEmployeesData, deleteEmployeesData} from "/src/libs/crud.js"
+import {readEmployeesData, deleteEmployeesData, getUsersData} from "/src/libs/crud.js"
 import {useUserStore} from "@/stores/useUserStore"
 import Modal from "@/components/Modal.vue"
 import {useRouter} from "vue-router"
@@ -71,6 +71,12 @@ onMounted(async () => {
   try {
     const employees = await readEmployeesData()
     userStore.employeeManager.addEmployees(employees)
+    const users = await getUsersData()
+    for (const user of users) {
+      if (userStore.currentUser === user.id){
+        userStore.currentUsername = user.username
+      }
+  }
   } catch (error) {
     console.log("cannot fetch")
   }
@@ -305,4 +311,6 @@ html {
 .right {
   right: 26px;
 }
+
+
 </style>

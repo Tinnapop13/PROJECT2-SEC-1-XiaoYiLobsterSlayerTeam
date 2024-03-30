@@ -40,18 +40,12 @@ export const useUserStore = defineStore("user", () => {
     })
   })
 
-  const filteredUsername = computed(() => {
-    return employeeManager.value.users.filter((users) => {
-      return users.username === currentUsername.value
-    })
-  })
   return {
     loggedIn,
     currentUser,
     currentUsername,
     employeeManager,
     filteredData,
-    filteredUsername,
     filteredSearchData,
     searchKey,
   }
