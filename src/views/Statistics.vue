@@ -6,7 +6,6 @@ import ManyEmployeeIcon from "@/components/ManyEmployeeIcon.vue"
 import LeastEmployeeIcon from "@/components/LeastEmployeeIcon.vue"
 import StatisticsSkeletonLoading from "@/components/StatisticsSkeletonLoading.vue"
 const userStore = useUserStore()
-const currentState = ref("MOOD RATIO")
 const profileData = ref(null)
 const showSkeleton = ref(true)
 const showDefaultStatistic = ref(false)
@@ -30,15 +29,16 @@ const employeeMood = reactive({
 
 const displayColor = (chart) => {
   return {
-    ["bg-red-500/[0.5]"]: chart.color === "red",
-    ["bg-yellow-500/[0.5]"]: chart.color === "#F2CD0F",
-    ["bg-purple-500/[0.5]"]: chart.color === "#AD5CFF",
-    ["bg-cyan-500/[0.5]"]: chart.color === "#0C8EFF",
+    ["bg-red-500/[0.5] stress"]: chart.color === "red",
+    ["bg-yellow-500/[0.5] happy"]: chart.color === "#F2CD0F",
+    ["bg-purple-500/[0.5] bored"]: chart.color === "#AD5CFF",
+    ["bg-cyan-500/[0.5] tired"]: chart.color === "#0C8EFF",
   }
 }
 
 onMounted(async () => {
   profileData.value = await readProfileData()
+  if(userStore.filteredData.length!==0){
   Object.entries(employeeMood).forEach(([mood, info]) => {
     employeeMood[mood].amount = userStore.filteredData.filter((employee) =>
       employee.LinkImage.includes(mood)
@@ -62,6 +62,13 @@ onMounted(async () => {
     }
   })
 
+  Object.entries(chartAnimationVar).forEach(([mood, info])=>{
+    chartAnimationVar[mood] = `${((employeeMood[mood].amount/countAllMood)*100).toFixed(2)}%`
+  })
+
+  console.log(chartAnimationVar);
+}
+
   setTimeout(() => {
     showSkeleton.value = false
     showDefaultStatistic.value = true
@@ -77,16 +84,23 @@ onMounted(async () => {
 
   <main
     v-if="showDefaultStatistic"
-    class="w-screen h-screen bg-slate-300 p-4 overflow-y-scroll items-center flex flex-col"
+    class="w-screen h-screen bg-slate-300 p-4 overflow-y-scroll items-center flex flex-col relative"
   >
+  <router-link to="/home" class="absolute top-2 right-2 text-black flex items-center gap-2 bg-white rounded-xl font-bold shadow-lg text-2xl p-4 ">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+    </svg>
+
+      Go Back
+  </router-link>
     <!-- ============================================
      ================ Stat Header ===============
      ============================================ -->
-    <div
-      class="font-basblue text-5xl text-black flex gap-4 w-full justify-center my-4"
-    >
-      Employee
-      <div class="text-blue-900">{{ currentState }}</div>
+    <div class="font-basblue text-5xl text-black flex gap-4 w-full justify-center my-4">
+      Employee 
+      <div class="text-blue-900">
+        MOOD PERCENTAGE
+      </div>
     </div>
 
     <!-- ============================================
@@ -109,7 +123,7 @@ onMounted(async () => {
           <div
             class="font-basblue text-center absolute -top-10 -left-1 text-4xl drop-shadow-lg text-slate-100"
           >
-            {{ ((chart.amount / countAllMood) * 100).toFixed(2) }}%
+            {{ chart.amount === 0 ? '0.00' : ((chart.amount / countAllMood) * 100).toFixed(2) }}%
           </div>
           <div
             class="w-full h-[50px] -bottom-14 absolute text-3xl font-basblue flex justify-center"
@@ -150,9 +164,7 @@ onMounted(async () => {
               >
                 <div class="text-3xl font-extrabold">
                   {{
-                    ((employeeMood[name].amount / countAllMood) * 100).toFixed(
-                      2
-                    )
+                    (( employeeMood[name].amount === 0 ? '0.00' : employeeMood[name].amount / countAllMood) * 100).toFixed(2)
                   }}
                   %
                 </div>
@@ -191,7 +203,7 @@ onMounted(async () => {
                 class="font-extrabold"
                 :style="{color: employeeMood[mood.mood]?.color}"
               >
-                - {{ mostEmployeeMood.length === 4 ? "All Mood" : mood.mood }}
+                - {{ mostEmployeeMood.length === 4 ? "All Mood" :   mood.mood }}
               </div>
             </div>
 
@@ -220,6 +232,11 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+
+:root {
+  --test: 100%;
+  
+}
 .base {
   position: absolute;
   bottom: 0;
@@ -227,7 +244,7 @@ onMounted(async () => {
   width: 50%;
   height: 20px;
   background-color: rgba(23, 22, 22, 0.05);
-  transform: skewY(45deg);
+  transform: skew(45deg);
 }
 
 .container {
@@ -263,17 +280,33 @@ onMounted(async () => {
   transform: skewX(45deg);
 }
 
-@keyframes grow {
-  from {
-    height: 0;
-  }
-  to {
-    height: 100%;
-  }
+.stress{
+  --animateHeight: v-bind('chartAnimationVar.stress');
+}
+
+.happy{
+  --animateHeight: v-bind('chartAnimationVar.happy');
+}
+
+.bored{
+  --animateHeight: v-bind('chartAnimationVar.bored');
+}
+
+.tired{
+  --animateHeight: v-bind('chartAnimationVar.tired');
 }
 
 .chart {
   animation-name: grow;
   animation-duration: 4s;
+}
+
+@keyframes grow {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--animateHeight);
+  }
 }
 </style>

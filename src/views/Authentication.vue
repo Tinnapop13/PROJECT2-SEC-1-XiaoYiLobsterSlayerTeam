@@ -112,9 +112,9 @@ onMounted(async () => {
 });
 
 </script>
-<template>
-  <div class="w-screen h-screen flex justify-center items-center bg-slate-800">
-    <div class="w-1/2 h-[60vh] rounded-3xl flex flex-col items-center justify-center">
+<template> 
+  <div class="w-screen h-screen bg-slate-800 overflow-y-scroll ">
+    <div class="w-1/2 rounded-3xl m-auto my-10  flex flex-col items-center justify-center">
       <img :src="'/src/assets/images/employee_white.png'" class="size-24" />
 
 <!-- ============================================
