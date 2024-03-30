@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, onBeforeMount, computed } from "vue"
-import { addEmployeesData, readEmployeesData, readProfileData } from "@/libs/crud"
+import { addEmployeesData, editEmployeesData, readEmployeesData, readProfileData } from "@/libs/crud"
 import Modal from "@/components/Modal.vue"
 import { useUserStore } from "@/stores/useUserStore"
 import { useRouter } from "vue-router"
@@ -95,12 +95,21 @@ const computedAgeError = computed(() => {
   return
 })
 
+const displayColor = () => {
+  return {
+    ["text-red-500 border-red-500"]: newCard.LinkImage.includes("stress") ,
+    ["text-yellow-500 border-yellow-500"]: newCard.LinkImage.includes("happy"),
+    ["text-purple-500 border-purple-500"]: newCard.LinkImage.includes("bored"),
+    ["text-cyan-500 border-cyan-500"]: newCard.LinkImage.includes("tired"),
+  }
+}
+
 onBeforeMount(async () => {
   try {
     const employees = await readEmployeesData()
     userStore.employeeManager.addEmployees(employees)
     profileData.value = await readProfileData()
-    getProfileData()
+    // getProfileData()
   } catch (error) {
     console.log(error)
   }
@@ -115,12 +124,12 @@ onBeforeMount(async () => {
     <!-- ====== Form Header ======= -->
     <router-link to="/home">
       <div class="flex h-[10vhpx]">
-        <h1 class="text-4xl font-bold mb-4 text-blue-950">ADD EMPLOYEE</h1>
+        <h1 class="text-4xl font-bold mb-4 text-blue-950 font-basblue">ADD EMPLOYEE</h1>
         <img :src="'/src/assets/images/employee_black.png'" class="size-10 mx-4" />
       </div>
     </router-link>
 
-    <div class="flex flex-col justify-evenly items-center">
+    <div class="flex flex-col justify-evenly items-center gap-1">
       <!-- ====== Profile Selector Form ======= -->
       <div @click="selectingProfile = !selectingProfile"
         class="h-fit w-fit flex justify-center items-center shadow-xl rounded-full p-4 m-4 relative bg-[#f1f1f1]">
@@ -130,13 +139,23 @@ onBeforeMount(async () => {
         <img :src="newCard.LinkImage" class="w-[100px] h-[100px]" />
       </div>
 
+      <div
+        :class="displayColor()"
+        class="border rounded-badge flex items-center font-basblue py-1 px-8 text-2xl transition-all">
+         {{ newCard.LinkImage.includes('stress') ? 'Stress' : 
+            newCard.LinkImage.includes('bored') ? 'Bored' : 
+            newCard.LinkImage.includes('tired') ? 'Tired' :
+            newCard.LinkImage.includes('happy') ? 'Happy' : ''
+         }}
+        </div>
+
       <div class="flex flex-col bg-[#a6bbc8] p-4 rounded-2xl w-full">
         <!-- ====== Text Input Form ======= -->
         <div>
           <p class="text-base font-bold text-blue-950">Name :</p>
           <input type="text" class="bg-white w-full border border-gray-300 p-0.5 outline-none rounded-lg text-black"
             v-model="newCard.FakeName" />
-          <p class="text-red-700">{{ computedNameError }}</p>
+          <p class="text-red-700 ">{{ computedNameError }}</p>
         </div>
         <div class="flex gap-4">
           <div class="w-[50%]">
@@ -176,15 +195,15 @@ onBeforeMount(async () => {
           <p class="text-blue-950 font-semibold">
             Co-worker : {{ newCard.Rating.coworker }}
           </p>
-          <input type="range" min="1" max="10" v-model="newCard.Rating.coworker" class="slider my-1" id="myRange" />
+          <input type="range" min="1" max="5" v-model="newCard.Rating.coworker" class="slider my-1" id="myRange" />
           <p class="text-blue-950 font-semibold">
             Environment : {{ newCard.Rating.environment }}
           </p>
-          <input type="range" min="1" max="10" v-model="newCard.Rating.environment" class="slider my-1" id="myRange" />
+          <input type="range" min="1" max="5" v-model="newCard.Rating.environment" class="slider my-1" id="myRange" />
           <p class="text-blue-950 font-semibold">
             Responsibility : {{ newCard.Rating.responsibility }}
           </p>
-          <input type="range" min="1" max="10" v-model="newCard.Rating.responsibility" class="slider my-1"
+          <input type="range" min="1" max="5" v-model="newCard.Rating.responsibility" class="slider my-1"
             id="myRange" />
         </div>
       </div>
