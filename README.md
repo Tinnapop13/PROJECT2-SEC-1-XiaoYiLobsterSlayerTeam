@@ -45,7 +45,7 @@
 
 ## GROWTH 📈
 ### Each member's learning in the past 5 weeks 
-- Natsaran Sae-oueng 65130500022 - -
+- Natsaran Sae-oueng 65130500022 - communication between components, REST API, Vue Router, Life cycle hook.
 - Tinnapop Tienbang 65130500023 - -
 - Papangkorn Kijsakulrat 65130500041 - -
 - Phatcharadol Thangplub 65130500046 - Vue directives, Vue component and HTTP Request Method.
