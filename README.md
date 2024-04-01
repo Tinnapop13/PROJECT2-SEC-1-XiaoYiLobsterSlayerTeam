@@ -48,7 +48,7 @@
 - Natsaran Sae-oueng 65130500022 - -
 - Tinnapop Tienbang 65130500023 - -
 - Papangkorn Kijsakulrat 65130500041 - -
-- Phatcharadol Thangplub 65130500046 - Vue directives, Vue slot, Vue component and HTTP Request Method.
+- Phatcharadol Thangplub 65130500046 - Vue directives, Vue component and HTTP Request Method.
 
 ---
 
