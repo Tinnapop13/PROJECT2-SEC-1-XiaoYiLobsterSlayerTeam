@@ -120,7 +120,7 @@ onBeforeMount(async () => {
      ================ Form Input ================
      ============================================ -->
 
-  <section class="inset-0 flex flex-col items-center justify-center m-auto my-4 rounded-xl p-4 bg-slate-200 w-[50vw]">
+  <section class="inset-0 flex flex-col items-center justify-center m-auto my-4 rounded-xl p-4 bg-slate-200 w-[50vw] slide-top">
     <!-- ====== Form Header ======= -->
     <router-link to="/home">
       <div class="flex h-[10vhpx]">
@@ -235,6 +235,8 @@ onBeforeMount(async () => {
 </template>
 
 <style scoped>
+
+
 .slider {
   -webkit-appearance: none;
   width: 100%;
@@ -267,5 +269,18 @@ onBeforeMount(async () => {
   border-radius: 50%;
   background: #052c51;
   cursor: pointer;
+}
+
+.slide-top {
+	animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@keyframes slide-top {
+  0% {
+    transform: translateY(100px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 </style>

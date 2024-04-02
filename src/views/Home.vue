@@ -2,6 +2,8 @@
 import {ref, reactive, watch, onBeforeMount, computed, onMounted} from "vue"
 import Card from "@/components/Card.vue"
 import {readEmployeesData, deleteEmployeesData, getUsersData} from "/src/libs/crud.js"
+import ArrowDown from "@/components/icons/ArrowDown.vue"
+import AddUserIcon from "@/components/icons/AddUserIcon.vue"
 import {useUserStore} from "@/stores/useUserStore"
 import Modal from "@/components/Modal.vue"
 import {useRouter} from "vue-router"
@@ -93,9 +95,10 @@ onMounted(async () => {
   />
 
   <header
-    class="flex items-center justify-between bg-gray-800 px-8 w-full h-[15vh]"
+    class="flex items-center justify-between bg-gray-800 px-8 w-screen h-[15vh] overflow-"
+
   >
-    <div class="text-white font-bold text-4xl flex items-center font-basblue">
+    <div class="text-white font-bold text-4xl flex items-center font-basblue tracking-in-expand">
       Employee Insight
       <img
         :src="'/src/assets/images/employee_white.png'"
@@ -124,14 +127,14 @@ onMounted(async () => {
         </svg>
       </label>
       <router-link
-        class="bg-blue-500 text-white font-bold py-2 px-4 rounded-badge focus:outline-none focus:shadow-outline-blue hover:bg-blue-700 flex justify-center items-center w-[200px] h-[60px] text-[20px]"
+        class="bg-blue-500 text-white font-bold py-2 px-4 rounded-badge focus:outline-none focus:shadow-outline-blue hover:bg-blue-700 flex justify-center items-center w-[160px] h-[60px] text-[15px] hover:tranform hover:scale-95 transition-all"
         :to="{path: '/addcard'}"
       >
         ADD EMPLOYEE
+        <AddUserIcon/>
       </router-link>
 
-      <div class="relative">
-        <div class="dropdown dropdown-bottom">
+      <div class="dropdown dropdown-bottom dropdown-end ">
           <div
             class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue flex justify-between items-center gap-4 h-[60px]"
             tabindex="0"
@@ -141,9 +144,10 @@ onMounted(async () => {
               tabindex="0"
               role="button"
               src="/src/assets/images/user.png"
-              class="size-full"
+              class="size-[40px]"
             />
             <div tabindex="0" role="button">{{ userStore.currentUsername }}</div>
+            <ArrowDown/>
             <ul
               tabindex="0"
               class="dropdown-content z-[1] menu shadow bg-slate-200 mt-2 rounded-box"
@@ -167,7 +171,9 @@ onMounted(async () => {
             </ul>
           </div>
         </div>
-      </div>
+     
+        
+  
     </ul>
   </header>
 
@@ -193,7 +199,7 @@ onMounted(async () => {
 
       <!-- =========== Slider Container ============ -->
       <div class="card-slider" :ref="'card_slider'">
-        <section class="flex flex-row mb-4 mx-16 gap-10 items-center">
+        <section class="flex flex-row mb-4 mx-16 gap-10 items-center ">
           <Card
             v-for="employee in userStore.searchKey.trim().length === 0
               ? userStore.filteredData
@@ -312,5 +318,21 @@ html {
   right: 26px;
 }
 
+.tracking-in-expand {
+	animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 </style>

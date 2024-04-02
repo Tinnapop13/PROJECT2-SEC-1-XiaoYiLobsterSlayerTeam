@@ -61,7 +61,7 @@ onMounted(() => {
 
   <div
     v-if="showCardDetails"
-    class="w-[20rem] h-[35rem] bg-[#F9F7F7]  max-sm:w-full overflow-hidden shadow-lg relative rounded-2xl"
+    class="w-[20rem] h-[35rem] bg-[#F9F7F7]  max-sm:w-full overflow-hidden shadow-lg relative rounded-2xl flip-in-ver-right"
   >
     <!-- =============== image and details ============== -->
     <router-link  :to="{ path: '/details/' + employeeId }  ">
@@ -70,13 +70,13 @@ onMounted(() => {
       <div class="bg-white rounded-full size-fit p-4  shadow-xl">
       <img
         :src="imgUrl"
-        class="size-24 rounded-full "
+        class="size-[96px] rounded-full "
       />
     </div>
 
       <!-- ========= div details : name, age and position ======== -->
-      <div class="flex flex-col justify-center bg-[#F9F7F7] w-[8vw] rounded-bl-2xl rounded-tr-2xl p-3 resize-none m-4">
-        <h1 class="text-xl font-extrabold text-[#3F72AF] break-words truncate">
+      <div class="flex flex-col justify-center bg-[#F9F7F7] w-[130px] rounded-bl-2xl rounded-tr-2xl p-3 resize-none m-4">
+        <h1 class="text-xl font-basblue font-extrabold text-[#3F72AF] break-words truncate">
           <slot name="fullname">-</slot>
         </h1>
         <h3 class="font-bold text-sm text-[#3F72AF]">
@@ -164,4 +164,19 @@ onMounted(() => {
 
 </template>
 
-<style scoped></style>
+<style scoped>
+.flip-in-ver-right {
+	animation: flip-in-ver-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@keyframes flip-in-ver-right {
+  0% {
+    transform: rotateY(-80deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateY(0);
+    opacity: 1;
+  }
+}
+
+</style>

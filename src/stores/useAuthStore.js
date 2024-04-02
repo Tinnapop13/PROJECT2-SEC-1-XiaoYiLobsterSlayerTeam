@@ -10,6 +10,7 @@ export const useAuthStore = defineStore("authentication", () => {
   const validatePassword = ref("")
 
   const hasUpper = ref(false)
+  const hasLongUsername = ref(false)
   const hasLower = ref(false)
   const hasDigit = ref(false)
   const hasSpecial = ref(false)
@@ -51,6 +52,16 @@ export const useAuthStore = defineStore("authentication", () => {
       return "Password doesn't have any special character"
     }
   })
+
+  const computedUsernameLength = computed(() => {
+    if (username.value.length <= 15 && username.value.length >= 6) {
+      hasLongUsername.value = true
+      return "Username has 6-15 characters"
+    } else {
+      hasLongUsername.value = false
+      return "Username must between 6-15 characters"
+    }
+  })
   return {
     loginErrorLog,
     loginFailed,
@@ -58,6 +69,7 @@ export const useAuthStore = defineStore("authentication", () => {
     hasLower,
     hasDigit,
     hasDigit,
+    hasLongUsername,
     hasSpecial,
     isBoxChecked,
     username,
@@ -67,5 +79,6 @@ export const useAuthStore = defineStore("authentication", () => {
     computedPasswordHasLower,
     computedPasswordHasUpper,
     computedPasswordHasspecial,
+    computedUsernameLength
   }
 })
