@@ -17,6 +17,7 @@ const {
   hasLower,
   hasDigit,
   hasSpecial,
+  hasLongUsername,
   username,
   password,
   validatePassword,
@@ -88,7 +89,7 @@ const regist = (event) => {
     event.preventDefault();
     return;
   }
-  if (hasUpper.value &&  hasDigit.value && hasLower.value && hasSpecial.value) {
+  if (hasUpper.value &&  hasDigit.value && hasLower.value && hasSpecial.value && hasLongUsername.value) {
     addUserData(username.value, encode(password.value));
     event.preventDefault();
     registrationSuccess.value = true; 
@@ -204,6 +205,12 @@ onMounted(async () => {
           </div>
           <div v-else class="text-red-500">
             {{ authStore.computedPasswordHasspecial }}
+          </div>
+          <div v-if="hasLongUsername" class="text-green-500">
+            {{ authStore.computedUsernameLength }}
+          </div>
+          <div v-else class="text-red-500">
+            {{ authStore.computedUsernameLength }}
           </div>
         </div>
         <div v-if="authStore.loginFailed" class="text-red-500">

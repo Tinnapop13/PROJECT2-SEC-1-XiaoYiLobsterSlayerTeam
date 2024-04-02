@@ -2,8 +2,8 @@
 import {useUserStore} from "@/stores/useUserStore"
 import {readProfileData} from "@/libs/crud"
 import {ref, reactive, computed, onMounted} from "vue"
-import ManyEmployeeIcon from "@/components/ManyEmployeeIcon.vue"
-import LeastEmployeeIcon from "@/components/LeastEmployeeIcon.vue"
+import ManyEmployeeIcon from "@/components/icons/ManyEmployeeIcon.vue"
+import LeastEmployeeIcon from "@/components/icons/LeastEmployeeIcon.vue"
 import StatisticsSkeletonLoading from "@/components/StatisticsSkeletonLoading.vue"
 const userStore = useUserStore()
 const profileData = ref(null)
@@ -86,7 +86,7 @@ onMounted(async () => {
     v-if="showDefaultStatistic"
     class="w-screen h-screen bg-slate-300 p-4 overflow-y-scroll items-center flex flex-col relative"
   >
-  <router-link to="/home" class="absolute top-2 right-2 text-black flex items-center gap-2 bg-white rounded-xl font-bold shadow-lg text-2xl p-4 ">
+  <router-link to="/home" class="absolute top-2 right-2 text-black flex items-center gap-2 bg-white rounded-xl font-bold shadow-lg text-2xl p-4 hover:tranform hover:scale-95 transition-all ">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
       <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
     </svg>
@@ -107,7 +107,7 @@ onMounted(async () => {
      =========== Chart Container ================
      ============================================ -->
 
-    <div class="container w-full pt-8 flex">
+    <div class="container w-full pt-8 flex ">
       <div class="base"></div>
       <div class="chart-container w-1/2 h-full flex justify-evenly items-end">
         <div
@@ -149,7 +149,7 @@ onMounted(async () => {
             v-for="[name, info] in !profileData
               ? {}
               : Object.entries(employeeMood)"
-            class="flex items-center bg-white rounded-lg shadow-lg w-[48.8%] h-2/5 gap-4 p-4"
+            class="flex items-center bg-white rounded-lg shadow-lg w-[48%] h-2/5 gap-4 p-4 max-lg:w-full"
           >
             <img :src="profileData[name]" class="w-[80px] h-[80px]" />
             <div class="flex flex-col">

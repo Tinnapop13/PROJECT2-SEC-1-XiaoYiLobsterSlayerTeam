@@ -159,7 +159,7 @@ const errorMessage = ref("");
       </router-link>
       <ul class="space-x-14">
         <div class="relative">
-          <div class="dropdown dropdown-bottom">
+          <div class="dropdown dropdown-bottom dropdown-end ">
             <div
               class="bg-white text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue flex justify-between items-center gap-4 h-[60px] text-center"
               tabindex="0" role="button">
@@ -183,7 +183,7 @@ const errorMessage = ref("");
       <!-- ================================================
   ===================== IMAGE =========================
   ================================================= -->
-      <div class="flex flex-col">
+      <div class="flex flex-col shrink-0">
         <div @click="selectingProfile = !selectingProfile"
           class="h-fit w-fit flex justify-center items-center shadow-xl rounded-full p-4 m-4 relative bg-[#f1f1f1]">
           <span class="bg-white text-black absolute right-0 bottom-0 p-2 rounded-full shadow-2xl">

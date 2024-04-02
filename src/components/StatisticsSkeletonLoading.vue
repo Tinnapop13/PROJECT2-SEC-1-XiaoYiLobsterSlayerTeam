@@ -15,7 +15,7 @@
     </div>
 
     
-    <div class="w-full pt-8 flex justify-center">
+    <div class="w-full pt-8 flex justify-center ">
       <!-- ============================================
      =========== Chart Container ================
      ============================================ -->
