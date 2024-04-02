@@ -15,16 +15,11 @@
 ## FEATURE 💡
 |  📍 |                        **FEATURE**                       | **DESCRIPTION** |
 |:--:|:-------------------------------------------------------------:|:---------------:|
-|  1 | - | - |
-|  2 | - | - |
-| 3  | - |  -  |
-| 4  | - |  -  |
-| 5  | - | - |
-| 6  | - | - |
-| 7  | - | - |
-| 8  | -  | - |
-| 9  | -  | - |
-| 10 | - | - |
+| 1 | Authentication | User can either create and login with there own accounts. |
+| 2 | Authentication Encode | Tricky encode algorithm to keep user credential safe. |
+| 3 | Employees Update | User can update there own employees details or keep there old information. |
+| 4 | Employees Delete | User can delete there own employees. |
+| 5 | Information Graph | User can look at a graph view of there own employees. |
 ---
 
 ## TUTORIAL ❓ 
