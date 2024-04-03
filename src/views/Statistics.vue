@@ -9,15 +9,22 @@ const userStore = useUserStore()
 const profileData = ref(null)
 const showSkeleton = ref(true)
 const showDefaultStatistic = ref(false)
+const currentMode = ref('mood percentage')
 let countAllMood = 0
 let mostEmployeeMood = []
 let leastEmployeeMood = []
 
-const chartAnimationVar = reactive({
+const moodChartAnimationVar = reactive({
   stress: "",
   happy: "",
   bored: "",
   tired: "",
+})
+
+const rateChartAnimationVar = reactive({
+  coworker: "",
+  environment: "",
+  responsibility: "",
 })
 
 const employeeMood = reactive({
@@ -36,16 +43,7 @@ const displayColor = (chart) => {
   }
 }
 
-onMounted(async () => {
-  profileData.value = await readProfileData()
-  if(userStore.filteredData.length!==0){
-  Object.entries(employeeMood).forEach(([mood, info]) => {
-    employeeMood[mood].amount = userStore.filteredData.filter((employee) =>
-      employee.LinkImage.includes(mood)
-    ).length
-    countAllMood += employeeMood[mood].amount
-  })
-
+const findMinMax = () => {
   Object.entries(employeeMood).forEach(([mood, info]) => {
     if (mostEmployeeMood.every((mood) => mood.amount < info.amount)) {
       mostEmployeeMood = []
@@ -61,19 +59,45 @@ onMounted(async () => {
       leastEmployeeMood.push({mood: mood, amount: info.amount})
     }
   })
+} 
 
-  Object.entries(chartAnimationVar).forEach(([mood, info])=>{
-    chartAnimationVar[mood] = `${((employeeMood[mood].amount/countAllMood)*100).toFixed(2)}%`
+const findAmountEachMood = () => {
+   if(userStore.filteredData.length!==0){
+  Object.entries(employeeMood).forEach(([mood, info]) => {
+    employeeMood[mood].amount = userStore.filteredData.filter((employee) =>
+      employee.LinkImage.includes(mood)
+    ).length
   })
-
-  console.log(chartAnimationVar);
+}
 }
 
+const setMoodChartHeight = () => {
+  Object.entries(moodChartAnimationVar).forEach(([mood, info])=>{
+    moodChartAnimationVar[mood] = `${((employeeMood[mood].amount/countAllMood)*100).toFixed(2)}%`
+  })
+
+  rateChartAnimationVar['coworker'] = userStore.averageCoworkerData
+  rateChartAnimationVar['environment'] = userStore.averageEnvironmentData
+  rateChartAnimationVar['responsibility'] = userStore.averageResponsibilityData
+
+}
+
+
+onMounted(async () => {
+  profileData.value = await readProfileData()
+  countAllMood = userStore.filteredData.length
+  findAmountEachMood()
+  setMoodChartHeight()
+  findMinMax()
   setTimeout(() => {
     showSkeleton.value = false
     showDefaultStatistic.value = true
   }, 1000)
 })
+
+console.log(rateChartAnimationVar);
+console.log(moodChartAnimationVar);
+
 </script>
 
 <template>
@@ -96,10 +120,13 @@ onMounted(async () => {
     <!-- ============================================
      ================ Stat Header ===============
      ============================================ -->
-    <div class="font-basblue text-5xl text-black flex gap-4 w-full justify-center my-4">
+    <div class="font-basblue text-5xl text-black flex gap-4 w-full justify-center my-4 transition-all">
       Employee 
       <div class="text-blue-900">
-        MOOD PERCENTAGE
+        {{currentMode}}
+      </div>
+      <div class="form-control  flex justify-center"  @click="currentMode =  currentMode === 'rate' ? 'mood percentage' : 'rate'">
+        <input type="checkbox" class="toggle toggle-primary" checked />
       </div>
     </div>
 
@@ -109,7 +136,8 @@ onMounted(async () => {
 
     <div class="container w-full pt-8 flex ">
       <div class="base"></div>
-      <div class="chart-container w-1/2 h-full flex justify-evenly items-end">
+
+      <div v-if="currentMode === 'mood percentage'" class=" chart-container w-1/2 h-full flex justify-evenly items-end">
         <div
           v-for="[name, chart] in Object.entries(employeeMood)"
           class="bar h-0 chart"
@@ -117,12 +145,10 @@ onMounted(async () => {
           :style="{
             height: `${((chart.amount / countAllMood) * 100).toFixed(2)}%`,
           }"
-        >
+         >
           <div class="back brightness-50" :class="displayColor(chart)"></div>
           <div class="top brightness-200" :class="displayColor(chart)"></div>
-          <div
-            class="font-basblue text-center absolute -top-10 -left-1 text-4xl drop-shadow-lg text-slate-100"
-          >
+          <div class="font-basblue text-center absolute -top-10 -left-1 text-4xl drop-shadow-lg text-slate-100">
             {{ chart.amount === 0 ? '0.00' : ((chart.amount / countAllMood) * 100).toFixed(2) }}%
           </div>
           <div
@@ -134,11 +160,34 @@ onMounted(async () => {
         </div>
       </div>
 
+      <div v-if="currentMode === 'rate'" class=" chart-container w-1/2 h-full flex justify-evenly items-end">
+        <div
+          v-for="[name, chart] in Object.entries(rateChartAnimationVar)"
+          class="bar h-0 chart bg-sky-600/[0.5]"
+          :class="name"
+          :style="{
+            height: `${chart*20}%`,
+          }"
+         >
+          <div class="back brightness-50" :class="'bg-sky-600/[0.5]'"></div>
+          <div class="top brightness-200" :class="'bg-sky-600/[0.5]'"></div>
+          <div class="font-basblue text-center absolute -top-10 -left-1 text-4xl drop-shadow-lg text-slate-100">
+          {{ chart === 0 ? '0.0' : (chart).toFixed(1) }}
+          </div>
+          <div
+            class="w-full h-[50px] -bottom-14 absolute text-3xl font-basblue flex justify-center text-sky-800"
+            :style="{color: chart.color}"
+          >
+            {{ name }}
+          </div>
+        </div>
+      </div>
+
       <!-- ============================================
      ================ Stat Info =================
      ============================================ -->
 
-      <div class="w-1/2 rounded-2xl p-4">
+      <div class="w-1/2 rounded-2xl p-4" v-if="currentMode === 'mood percentage'">
         <div
           class="font-basblue text-4xl text-slate-800 divider after:bg-slate-900 divider-start"
         >
@@ -150,7 +199,7 @@ onMounted(async () => {
               ? {}
               : Object.entries(employeeMood)"
             class="flex items-center bg-white rounded-lg shadow-lg w-[48%] h-2/5 gap-4 p-4 max-lg:w-full"
-          >
+           >
             <img :src="profileData[name]" class="w-[80px] h-[80px]" />
             <div class="flex flex-col">
               <div
@@ -184,10 +233,10 @@ onMounted(async () => {
           </div>
 
           <!-- ============================================
-     =========== Stat Info 2nd Section ==========
-     ============================================ -->
+          =========== Stat Info 2nd Section ==========
+           ============================================ -->
 
-          <div class="w-full flex justify-between gap-4">
+          <div class="w-full flex justify-between gap-4" >
             <div
               class="font-basblue text-2xl flex flex-col w-full h-fit bg-sky-800 gap-2 p-4 rounded-lg shadow-lg"
             >
@@ -225,6 +274,52 @@ onMounted(async () => {
               </div>
             </div>
           </div>
+
+
+        </div>
+      </div>
+
+      <div class="w-1/2 rounded-2xl p-4" v-if="currentMode === 'rate'">
+        <div
+          class="font-basblue text-4xl text-slate-800 divider after:bg-slate-900 divider-start"
+        >
+          Statistics
+        </div>
+        <div class="flex flex-col gap-4 justify-between">
+          <div
+            v-for="[name, info] in Object.entries(rateChartAnimationVar)"
+            class="flex items-center bg-white rounded-lg shadow-lg w-full h-2/5 gap-4 p-4 max-lg:w-full"
+           >
+          
+            <div class="radial-progress bg-sky-200 text-primary-content border-4 border-sky-200 w-[80px] h-[80px] font-basblue text-4xl" :style="`--value:${info*20}` " role="progressbar">{{ info }}</div>
+
+            <div class="flex flex-col">
+              <div
+                class="text-2xl w-full font-basblue"
+                :style="{color: `black`}"
+              >
+                Average rate of 
+              </div>
+              <div
+                class="font-basblue text-xl text-sky-950 flex gap-4 items-end"
+              >
+              
+                <div class="text-3xl font-extrabold ">
+                  {{ name }}
+                </div>
+                
+              </div>
+            </div>
+          </div>
+
+          <div class="w-full border-opacity-50">
+            <div
+              class="divider font-basblue text-4xl text-slate-800 before:bg-slate-800 my-2 m-0 divider-end"
+            >
+              Total {{ countAllMood }}
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -281,20 +376,33 @@ onMounted(async () => {
 }
 
 .stress{
-  --animateHeight: v-bind('chartAnimationVar.stress');
+  --animateHeight: v-bind('moodChartAnimationVar.stress');
 }
 
 .happy{
-  --animateHeight: v-bind('chartAnimationVar.happy');
+  --animateHeight: v-bind('moodChartAnimationVar.happy');
 }
 
 .bored{
-  --animateHeight: v-bind('chartAnimationVar.bored');
+  --animateHeight: v-bind('moodChartAnimationVar.bored');
 }
 
 .tired{
-  --animateHeight: v-bind('chartAnimationVar.tired');
+  --animateHeight: v-bind('moodChartAnimationVar.tired');
 }
+
+.coworker{
+  --animateHeight: v-bind('rateChartAnimationVar.coworker  * 20 + "%"');
+}
+
+.environment{
+  --animateHeight: v-bind('rateChartAnimationVar.environment * 20 + "%"');
+}
+
+.responsibility{
+  --animateHeight: v-bind('rateChartAnimationVar.responsibility * 20 + "%"');
+}
+
 
 .chart {
   animation-name: grow;

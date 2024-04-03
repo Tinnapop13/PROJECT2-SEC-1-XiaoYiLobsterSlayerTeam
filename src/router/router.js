@@ -32,6 +32,13 @@ router.beforeEach(async (to, from) => {
 router.beforeEach(async (to, from) => {
   const userStore = useUserStore()
 
+  userStore.moodFilter = ""
+})
+
+
+router.beforeEach(async (to, from) => {
+  const userStore = useUserStore()
+
   if (userToken !== null && !userStore.loggedIn && to.name === "auth") {
     const decodeToken = decode(userToken)
     userStore.currentUser = decodeToken
