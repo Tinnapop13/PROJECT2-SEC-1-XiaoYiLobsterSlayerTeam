@@ -1,5 +1,5 @@
 # PROJECT2-SEC-1-XiaoYiLobsterSlayerTeam
-⭐⭐⭐
+⭐⭐⭐⭐
 
 # Employees Management 🎮
 
@@ -8,10 +8,10 @@
  ## MEMBER 👨‍👨‍👦‍👦
 |    **ID**   |    **NAME**    |      **ROLE**      | **RESPONSIBILITY** | **%** |
 |:-----------:|:--------------:|:------------------:|--------------------|-------|
-| 65130500022 | Natsaran Sae-oueng | Function | -  	 | - |
-| 65130500023 | Tinnapop Tienbang  | Function&Animation | -  |  -     |
-| 65130500041 | Papangkorn Kijsakulrat | Ui Design | - |  -    |
-| 65130500046 | Phatcharadol Thangplub  |  MISC  | EVERYTHING | 100% |
+| 65130500022 | Natsaran Sae-oueng | Function | <ul><li>Checking password when user create new account</li>  <li>Create/Delete an Employee Card on Home page</li> <li>Checking requirement when adding an new employee card</li></ul>  	 | - |
+| 65130500023 | Tinnapop Tienbang  | Function&Animation | <ul><li></li>  <li></li> <li></li></ul> |  -     |
+| 65130500041 | Papangkorn Kijsakulrat | Ui Design | <ul><li></li>  <li></li> <li></li></ul> |  -    |
+| 65130500046 | Phatcharadol Thangplub  |  MISC  | Nothing | 0% |
 ---
 
 ## FEATURE 💡
