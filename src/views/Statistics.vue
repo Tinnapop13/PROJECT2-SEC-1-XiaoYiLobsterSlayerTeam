@@ -1,7 +1,7 @@
 <script setup>
 import {useUserStore} from "@/stores/useUserStore"
 import {readProfileData} from "@/libs/crud"
-import {ref, reactive, computed, onMounted} from "vue"
+import {ref, reactive,  onBeforeMount} from "vue"
 import ManyEmployeeIcon from "@/components/icons/ManyEmployeeIcon.vue"
 import LeastEmployeeIcon from "@/components/icons/LeastEmployeeIcon.vue"
 import StatisticsSkeletonLoading from "@/components/StatisticsSkeletonLoading.vue"
@@ -83,7 +83,7 @@ const setMoodChartHeight = () => {
 }
 
 
-onMounted(async () => {
+onBeforeMount(async () => {
   profileData.value = await readProfileData()
   countAllMood = userStore.filteredData.length
   findAmountEachMood()
@@ -95,8 +95,6 @@ onMounted(async () => {
   }, 1000)
 })
 
-console.log(rateChartAnimationVar);
-console.log(moodChartAnimationVar);
 
 </script>
 
@@ -166,13 +164,13 @@ console.log(moodChartAnimationVar);
           class="bar h-0 chart bg-sky-600/[0.5]"
           :class="name"
           :style="{
-            height: `${chart*20}%`,
+            height: `${isNaN(chart) ? 0 : chart*20}%`,
           }"
          >
           <div class="back brightness-50" :class="'bg-sky-600/[0.5]'"></div>
           <div class="top brightness-200" :class="'bg-sky-600/[0.5]'"></div>
           <div class="font-basblue text-center absolute -top-10 -left-1 text-4xl drop-shadow-lg text-slate-100">
-          {{ chart === 0 ? '0.0' : (chart).toFixed(1) }}
+          {{ isNaN(chart)  ? '0.0' : (chart).toFixed(1) }}
           </div>
           <div
             class="w-full h-[50px] -bottom-14 absolute text-3xl font-basblue flex justify-center text-sky-800"
@@ -291,7 +289,7 @@ console.log(moodChartAnimationVar);
             class="flex items-center bg-white rounded-lg shadow-lg w-full h-2/5 gap-4 p-4 max-lg:w-full"
            >
           
-            <div class="radial-progress bg-sky-200 text-primary-content border-4 border-sky-200 w-[80px] h-[80px] font-basblue text-4xl" :style="`--value:${info*20}` " role="progressbar">{{ info }}</div>
+            <div class="radial-progress bg-sky-200 text-primary-content border-4 border-sky-200 w-[80px] h-[80px] font-basblue text-4xl" :style="`--value:${isNaN(info) ? 0 : info*20}` " role="progressbar">{{ isNaN(info) ? 0 : info }}</div>
 
             <div class="flex flex-col">
               <div

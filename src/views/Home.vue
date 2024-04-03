@@ -1,5 +1,5 @@
 <script setup>
-import {ref, reactive, watch, onBeforeMount, computed, onMounted} from "vue"
+import {ref,  onBeforeMount} from "vue"
 import Card from "@/components/Card.vue"
 import {readEmployeesData, deleteEmployeesData, getUsersData , readProfileData} from "/src/libs/crud.js"
 import ArrowDown from "@/components/icons/ArrowDown.vue"
@@ -42,12 +42,9 @@ const slide = (direction) => {
 */
 
 const deleteEmployee = async (deleteId) => {
-  try {
+  
     await deleteEmployeesData(deleteId)
     userStore.employeeManager.deleteEmployee(deleteId)
-  } catch (error) {
-    console.log(error)
-  }
   closeModal()
 }
 
@@ -72,8 +69,7 @@ const logout = () => {
 ============================================
 */
 
-onMounted(async () => {
-  try {
+onBeforeMount(async () => {
     const employees = await readEmployeesData()
     userStore.employeeManager.addEmployees(employees)
     const users = await getUsersData()
@@ -82,10 +78,8 @@ onMounted(async () => {
       if (userStore.currentUser === user.id){
         userStore.currentUsername = user.username
       }
-  }
-  } catch (error) {
-    console.log("cannot fetch")
-  }
+    }
+ 
 })
 </script>
 
@@ -256,7 +250,7 @@ onMounted(async () => {
     class="w-screen flex  items-center flex-col h-[85vh] gap-4 bg-slate-900"
   >
   <div class="flex gap-4 vh-[20vh] items-center justify-center">
-    <div class="font-basblue text-4xl text-slate-200"  @click="userStore.moodFilter = ''" :class="userStore.moodFilter.length === 0 ? 'bg-slate-200 p-2 rounded-lg' : ''">ALL </div>
+    <div class="font-basblue text-4xl text-slate-200"  @click="userStore.moodFilter = ''" :class="userStore.moodFilter.length === 0 ? 'bg-slate-200 p-2 rounded-lg text-slate-800' : ''">ALL </div>
     <div v-for="[name,profile] in !profileData ? {} :Object.entries(profileData)" @click="userStore.moodFilter = name"
           class="h-fit w-fit flex justify-center items-center overflow-hidden shadow-xl rounded-full p-2 m-2"
           :class="{ 'bg-slate-300': profileData.LinkImage === profile , 'bg-slate-200 p-2 rounded-lg' : name === userStore.moodFilter}">

@@ -8,7 +8,6 @@ import {
   readProfileData,
   getUsersData
 } from "@/libs/crud";
-import { EmployeeManagement } from "@/libs/EmployeeManagement.js";
 import { useUserStore } from "@/stores/useUserStore.js";
 import DetailsSkeletonLoading from "@/components/DetailsSkeletonLoading.vue";
 import Modal from "@/components/Modal.vue";
@@ -17,7 +16,6 @@ const userStore = useUserStore();
 const route = useRoute();
 const router = useRouter();
 const employeeIndex = ref(0);
-const fetchData = ref(new EmployeeManagement());
 const updateResult = ref(false);
 const showSkeletonDetails = ref(true);
 const showUserDetails = ref(false);
@@ -40,13 +38,11 @@ const editTemplate = reactive({
 });
 
 const deleteEmployee = async () => {
-  const deleteId = fetchData.value.getEmployees()[employeeIndex.value].id;
-  try {
+  const deleteId = userStore.employeeManager.getEmployees()[employeeIndex.value].id;
+  
     await deleteEmployeesData(deleteId);
-    fetchData.value.deleteEmployee(deleteId);
-  } catch (error) {
-    console.log(error);
-  }
+    userStore.employeeManager.deleteEmployee(deleteId);
+
 };
 
 const validateInput = (toEdit) => {
@@ -92,13 +88,8 @@ const changeProfileImage = (profileUrl) => {
 
 const updateEmployee = async () => {
   const jsonEmployeeUpdate = validateInput(editTemplate);
-
-  try {
     editEmployeesData(route.params.id, jsonEmployeeUpdate);
-    updateEmployee(employeeIndex.value, classEmployeeUpdate);
-  } catch (error) {
-    console.log(error);
-  }
+ 
 };
 
 const logout = () => {
@@ -107,18 +98,18 @@ const logout = () => {
 };
 
 onBeforeMount(async () => {
-  try {
+  
     const employees = await readEmployeesData();
-    fetchData.value.addEmployees(employees);
-    employeeIndex.value = fetchData.value
+    userStore.employeeManager.addEmployees(employees);
+    employeeIndex.value = userStore.employeeManager
       .getEmployees()
       .findIndex((employee) => employee.id === route.params.id);
     profileData.value = await readProfileData();
 
-    editTemplate.Rating.coworker = fetchData.value.getEmployees()[employeeIndex.value]?.Rating.coworker
-    editTemplate.Rating.environment = fetchData.value.getEmployees()[employeeIndex.value]?.Rating.environment
-    editTemplate.Rating.responsibility = fetchData.value.getEmployees()[employeeIndex.value]?.Rating.responsibility
-    editTemplate.Comment = fetchData.value.getEmployees()[employeeIndex.value]?.Comment
+    editTemplate.Rating.coworker = userStore.employeeManager.getEmployees()[employeeIndex.value]?.Rating.coworker
+    editTemplate.Rating.environment = userStore.employeeManager.getEmployees()[employeeIndex.value]?.Rating.environment
+    editTemplate.Rating.responsibility = userStore.employeeManager.getEmployees()[employeeIndex.value]?.Rating.responsibility
+    editTemplate.Comment = userStore.employeeManager.getEmployees()[employeeIndex.value]?.Comment
 
     setTimeout(() => {
       showSkeletonDetails.value = false;
@@ -130,9 +121,7 @@ onBeforeMount(async () => {
         userStore.currentUsername = user.username
       }
   }
-  } catch (error) {
-    console.log(error);
-  }
+  
 });
 
 const errorMessage = ref("");
@@ -190,14 +179,14 @@ const errorMessage = ref("");
             <img :src="'/src/assets/images/change.png'" class="size-[40px]" />
           </span>
           <img class="p-5 w-[200px] h-[200px]" :src="editTemplate.LinkImage.length === 0
-        ? fetchData.getEmployees()[employeeIndex]?.LinkImage
+        ? userStore.employeeManager.getEmployees()[employeeIndex]?.LinkImage
         : editTemplate.LinkImage
       " />
         </div>
 
         <div class="text-white mt-4 text-3xl font-semibold flex flex-col">
             <div class="font-basblue">Name</div>
-            <input type="text" :placeholder="fetchData.getEmployees()[employeeIndex]?.FakeName"
+            <input type="text" :placeholder="userStore.employeeManager.getEmployees()[employeeIndex]?.FakeName"
               v-model="editTemplate.FakeName" class="input input-bordered w-full max-w-xs" />
         </div>
   
@@ -218,29 +207,29 @@ const errorMessage = ref("");
         Number(editTemplate.Age) > 20
         ? ''
         : 'Invalid age input!!!'
-      " type="text" :placeholder="fetchData.getEmployees()[employeeIndex]?.Age" v-model="editTemplate.Age"
+      " type="text" :placeholder="userStore.employeeManager.getEmployees()[employeeIndex]?.Age" v-model="editTemplate.Age"
                 class="input input-bordered text-xl  w-full max-w-xs" />
             </p>
-            <p>{{ errorMessage }}</p>
+            <p class="text-red-500">{{ errorMessage }}</p>
           </div>
           <div class="flex flex-col ">
             <p class="m-2 font-basblue text-3xl">Rank</p>
             <p class="m-2 text-xs ">
-              <input type="text" :placeholder="fetchData.getEmployees()[employeeIndex]?.PositionRank
+              <input type="text" :placeholder="userStore.employeeManager.getEmployees()[employeeIndex]?.PositionRank
       " v-model="editTemplate.PositionRank" class="input input-bordered text-xl  w-full max-w-xs" />
             </p>
           </div>
           <div class="flex flex-col ">
             <p class="m-2 font-basblue text-3xl">Pain Point</p>
             <p class="m-2 text-xs ">
-              <input type="text" :placeholder="fetchData.getEmployees()[employeeIndex]?.PainPoint
+              <input type="text" :placeholder="userStore.employeeManager.getEmployees()[employeeIndex]?.PainPoint
       " v-model="editTemplate.PainPoint" class="input input-bordered text-xl w-full max-w-xs" />
             </p>
           </div>
           <div class="flex flex-col ">
             <p class="m-2 font-basblue text-3xl">Goal And Need</p>
             <p class="m-2 text-xs ">
-              <input type="text" :placeholder="fetchData.getEmployees()[employeeIndex]?.GoalAndNeed
+              <input type="text" :placeholder="userStore.employeeManager.getEmployees()[employeeIndex]?.GoalAndNeed
       " v-model="editTemplate.GoalAndNeed" class="input input-bordered text-xl  w-full max-w-xs" />
             </p>
           </div>
@@ -249,7 +238,7 @@ const errorMessage = ref("");
         <div class="flex justify-evenly flex-col">
           <div class="font-basblue text-3xl my-4">Comment</div>
           <textarea class="textarea textarea-bordered text-lg w-full" rows="4" style="resize: none;"
-            :placeholder="fetchData.getEmployees()[employeeIndex]?.Comment" v-model="editTemplate.Comment" >
+            :placeholder="userStore.employeeManager.getEmployees()[employeeIndex]?.Comment" v-model="editTemplate.Comment" >
           </textarea>
         </div>
 
@@ -335,7 +324,7 @@ const errorMessage = ref("");
     <div class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">
       <p class="font-basblue text-green-500 text-4xl">UPDATE SUCCESS!!!</p>
       <p class="font-basblue text-blue-500">
-        Employee "{{ fetchData.getEmployees()[employeeIndex]?.FakeName }}"
+        Employee "{{ userStore.employeeManager.getEmployees()[employeeIndex]?.FakeName }}"
         Updated.
       </p>
       <router-link to="/home" class="btn-primary btn btn-ghost text-xl mr-2 bg-blue-500 text-white"
