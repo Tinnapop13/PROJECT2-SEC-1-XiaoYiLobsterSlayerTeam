@@ -6,9 +6,9 @@
  ## MEMBER 👨‍👨‍👦‍👦
 |    **ID**   |    **NAME**    |      **ROLE**      | **RESPONSIBILITY** | **%** |
 |:-----------:|:--------------:|:------------------:|--------------------|-------|
-| 65130500022 | Natsaran Sae-oueng | -           | -  	 | - |
-| 65130500023 | Tinnapop Tienbang  | - | -  |  -     |
-| 65130500041 | Papangkorn Kijsakulrat | -         | - |  -    |
+| 65130500022 | Natsaran Sae-oueng | Function | -  	 | - |
+| 65130500023 | Tinnapop Tienbang  | Function&Animation | -  |  -     |
+| 65130500041 | Papangkorn Kijsakulrat | Ui Design | - |  -    |
 | 65130500046 | Phatcharadol Thangplub  |  MISC  | EVERYTHING | 100% |
 ---
 
