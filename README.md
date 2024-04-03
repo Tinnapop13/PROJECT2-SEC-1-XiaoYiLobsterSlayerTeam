@@ -12,6 +12,7 @@
 | 65130500023 | Tinnapop Tienbang  | Function&Animation | <ul><li></li>  <li></li> <li></li></ul> |  -     |
 | 65130500041 | Papangkorn Kijsakulrat | Ui Design | <ul><li></li>  <li></li> <li></li></ul> |  -    |
 | 65130500046 | Phatcharadol Thangplub  |  MISC  | Nothing | 0% |
+
 ---
 
 ## FEATURE 💡
@@ -22,6 +23,20 @@
 | 3 | Employees Update | User can update there own employees details or keep there old information. |
 | 4 | Employees Delete | User can delete there own employees. |
 | 5 | Information Graph | User can look at a graph view of there own employees. |
+
+---
+
+## DIAGRAM 🍭
+![image](https://github.com/Tinnapop13/PROJECT2-SEC-1-XiaoYiLobsterSlayerTeam/assets/43667929/521f3a6e-9ec3-4e89-95da-baa7acbcdeeb)
+
+---
+
+![image](https://github.com/Tinnapop13/PROJECT2-SEC-1-XiaoYiLobsterSlayerTeam/assets/43667929/2bd710d0-f332-4df0-9748-46b1ce8498a3)
+
+---
+
+![image](https://github.com/Tinnapop13/PROJECT2-SEC-1-XiaoYiLobsterSlayerTeam/assets/43667929/791cbd5a-9ff1-48b7-aa3a-3482096b9977)
+
 ---
 
 ## TUTORIAL ❓ 
@@ -34,13 +49,13 @@
 #### 7. On the Details page, you can edit everything the same as the Add Employee process, such as profile and data. Once you complete clicking the edit button, it's going to update the user data. You can also delete an employee card on this page.
 #### 8. On the statistics page, you can display graphs and information on the overall mood of employees based on cards that were added earlier. 
 #### 9. In case you want to switch accounts, you can log out of the system in the menu.
+
 --- 
 
 ## EMPLOYEE INSIGHT DEMO 🕹️
 
 
 https://github.com/Tinnapop13/PROJECT2-SEC-1-XiaoYiLobsterSlayerTeam/assets/110712994/329c0fb4-0e11-41d6-b793-a4a477f2b568
-
 
 ---
 
