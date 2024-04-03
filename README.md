@@ -3,6 +3,8 @@
 
 # Employees Management 🎮
 
+![banner_pic](https://media.discordapp.net/attachments/1196805209381404682/1225047412763132014/BANNER.png?ex=661fb54f&is=660d404f&hm=15ccc6f403afeff6865b9bea8e7ff0f45e06db032f5282ba4cffd762244de6a8&=&format=webp&quality=lossless&width=1440&height=379)
+
  ## MEMBER 👨‍👨‍👦‍👦
 |    **ID**   |    **NAME**    |      **ROLE**      | **RESPONSIBILITY** | **%** |
 |:-----------:|:--------------:|:------------------:|--------------------|-------|
