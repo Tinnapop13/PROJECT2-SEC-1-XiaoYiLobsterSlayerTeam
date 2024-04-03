@@ -8,10 +8,10 @@
  ## MEMBER 👨‍👨‍👦‍👦
 |    **ID**   |    **NAME**    |      **ROLE**      | **RESPONSIBILITY** | **%** |
 |:-----------:|:--------------:|:------------------:|--------------------|-------|
-| 65130500022 | Natsaran Sae-oueng | Function | <ul><li>Checking password when user create new account</li>  <li>Create/Delete an Employee Card on Home page</li> <li>Checking requirement when adding an new employee card</li></ul>  	 | - |
-| 65130500023 | Tinnapop Tienbang  | Function&Animation | <ul><li></li>  <li></li> <li></li></ul> |  -     |
-| 65130500041 | Papangkorn Kijsakulrat | Ui Design | <ul><li></li>  <li></li> <li></li></ul> |  -    |
-| 65130500046 | Phatcharadol Thangplub  |  MISC  | Nothing | 0% |
+| 65130500022 | Natsaran Sae-oueng | Coder | <ul><li>Validate password when user create new account</li>  <li>Create/Delete an Employee Card on Home page</li> <li>Checking requirement when adding an new employee card</li></ul>  	 | 24% |
+| 65130500023 | Tinnapop Tienbang  | QA | <ul><li>Statistic page</li> <li>Code optimization</li> <li>Authentication template</li></ul> | 28% |
+| 65130500041 | Papangkorn Kijsakulrat | UI and Coder | <ul><li>Card component</li>  <li>Skeleton loading</li> <li>Page Routing and Overall Detail page</li></ul> | 24% |
+| 65130500046 | Phatcharadol Thangplub  | Coder | <ul><li>Validate and update user input in detail page</li> <li>Local storage and Rememberme checkbox</li> <li>Encoding base algorithm</li></ul> | 24% |
 
 ---
 
@@ -31,7 +31,7 @@
 
 ---
 
-![image](https://github.com/Tinnapop13/PROJECT2-SEC-1-XiaoYiLobsterSlayerTeam/assets/43667929/2bd710d0-f332-4df0-9748-46b1ce8498a3)
+![image](https://github.com/Tinnapop13/PROJECT2-SEC-1-XiaoYiLobsterSlayerTeam/assets/43667929/aac77beb-e5dc-4977-894e-d67c7b3af62a)
 
 ---
 
@@ -61,7 +61,7 @@ https://github.com/Tinnapop13/PROJECT2-SEC-1-XiaoYiLobsterSlayerTeam/assets/1107
 
 ## GROWTH 📈
 ### Each member's learning in the past 5 weeks 
-- Natsaran Sae-oueng 65130500022 - communication between components, REST API, Vue Router, Life cycle hook.
-- Tinnapop Tienbang 65130500023 - -
-- Papangkorn Kijsakulrat 65130500041 - -
-- Phatcharadol Thangplub 65130500046 - Vue directives, Vue component and HTTP Request Method.
+- Natsaran Sae-oueng 65130500022 - Communication between Vue Components, REST API, Vue Router, Life cycle hook.
+- Tinnapop Tienbang 65130500023 - Basic State management, Fetch API and Basic Vue Components.
+- Papangkorn Kijsakulrat 65130500041 - Basic Vue Components, Vue Router and HTTP Request Method.
+- Phatcharadol Thangplub 65130500046 - Basic Vue Components and HTTP Request Method.
