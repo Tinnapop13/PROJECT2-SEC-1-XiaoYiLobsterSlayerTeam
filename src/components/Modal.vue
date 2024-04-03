@@ -13,6 +13,10 @@
 
 
 <template>
+
+<!-- ============================================
+     ===== Add Employee Failed Modal ===========
+     ============================================ -->
   <div v-if="modalType === 'AddEmployeeFailed'"  class="w-screen h-screen bg-black/[.8] fixed top-0 left-0 flex items-center justify-center">
     <div class="h-[60vh] w-[30vw] bg-white rounded-xl flex flex-col items-center justify-evenly p-4">
       <div class="text-black font-bold text-5xl font-basblue">Result</div>

@@ -1,7 +1,7 @@
 <script setup>
 import {ref, reactive, watch, onBeforeMount, computed, onMounted} from "vue"
 import Card from "@/components/Card.vue"
-import {readEmployeesData, deleteEmployeesData, getUsersData} from "/src/libs/crud.js"
+import {readEmployeesData, deleteEmployeesData, getUsersData , readProfileData} from "/src/libs/crud.js"
 import ArrowDown from "@/components/icons/ArrowDown.vue"
 import AddUserIcon from "@/components/icons/AddUserIcon.vue"
 import {useUserStore} from "@/stores/useUserStore"
@@ -12,8 +12,11 @@ const userStore = useUserStore()
 const deleteName = ref("")
 const deleteId = ref("")
 const card_slider = ref(null)
+const profileData = ref(null)
 const card_slider_container = ref(null)
 const router = useRouter()
+
+
 
 /*
 ============================================
@@ -74,6 +77,7 @@ onMounted(async () => {
     const employees = await readEmployeesData()
     userStore.employeeManager.addEmployees(employees)
     const users = await getUsersData()
+    profileData.value = await readProfileData();
     for (const user of users) {
       if (userStore.currentUser === user.id){
         userStore.currentUsername = user.username
@@ -171,9 +175,6 @@ onMounted(async () => {
             </ul>
           </div>
         </div>
-     
-        
-  
     </ul>
   </header>
 
@@ -188,7 +189,16 @@ onMounted(async () => {
       userStore.filteredSearchData.length !== 0
     "
   >
-    <div class="card-slider-container mt-16" :ref="'card_slider_container'">
+  <div class="flex gap-4 vh-[20vh] items-center justify-center">
+    <div class="font-basblue text-4xl text-slate-200"  @click="userStore.moodFilter = ''" :class="userStore.moodFilter.length === 0 ? 'bg-slate-200 p-2 rounded-lg text-slate-800' : ''">ALL </div>
+    <div v-for="[name,profile] in !profileData ? {} :Object.entries(profileData)" @click="userStore.moodFilter = name"
+          class="h-fit w-fit flex justify-center items-center overflow-hidden shadow-xl rounded-full p-2 m-2"
+          :class="{ 'bg-slate-300': profileData.LinkImage === profile , 'bg-slate-200 p-2 rounded-lg' : name === userStore.moodFilter}">
+          <img :src="profile" class="size-[45px]">
+        </div>
+
+  </div>
+    <div class="card-slider-container " :ref="'card_slider_container'">
       <!-- =========== Slider to left arrow ============ -->
       <div
         class="bg-white p-3 text-black rounded-full ml-5 mt-0.5 text-2xs btn-circle size-fit scale-x-[-1]"
@@ -243,8 +253,18 @@ onMounted(async () => {
 
   <div
     v-else
-    class="w-screen flex justify-center items-center flex-col h-[85vh] gap-4 bg-slate-900"
+    class="w-screen flex  items-center flex-col h-[85vh] gap-4 bg-slate-900"
   >
+  <div class="flex gap-4 vh-[20vh] items-center justify-center">
+    <div class="font-basblue text-4xl text-slate-200"  @click="userStore.moodFilter = ''" :class="userStore.moodFilter.length === 0 ? 'bg-slate-200 p-2 rounded-lg' : ''">ALL </div>
+    <div v-for="[name,profile] in !profileData ? {} :Object.entries(profileData)" @click="userStore.moodFilter = name"
+          class="h-fit w-fit flex justify-center items-center overflow-hidden shadow-xl rounded-full p-2 m-2"
+          :class="{ 'bg-slate-300': profileData.LinkImage === profile , 'bg-slate-200 p-2 rounded-lg' : name === userStore.moodFilter}">
+          <img :src="profile" class="size-[45px]">
+        </div>
+
+  </div>
+  <div class="flex  items-center flex-col w-full gap-4 place-content-center flex-grow">
     <img :src="'/src/assets/images/sad_emoji.png'" class="size-[150px]" />
     <div
       v-if="
@@ -263,6 +283,7 @@ onMounted(async () => {
       It looks like you haven't added any employees yet. Managing your team is
       easy! Simply tap the "Add Employee"
     </div>
+  </div>
   </div>
 
   <Modal

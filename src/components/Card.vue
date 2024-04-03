@@ -99,13 +99,13 @@ onMounted(() => {
 
     <div class="flex flex-col mx-5 my-2 max-h-[30rem] gap-1">
       <!-- ======= Comment =======-->
-      <h2 class="text-lg font-extrabold text-[#3F72AF] underline">Comment</h2>
+      <h2 class="text-lg font-extrabold text-[#3F72AF] divider divider-start ">Comment</h2>
       <p class="text-[#3F72AF] break-words text-sm truncate">
         <slot name="comment">-</slot>
       </p>
 
       <!-- ======= PainPoints ======= -->
-      <h2 class="text-lg font-extrabold text-[#3F72AF] underline">
+      <h2 class="text-lg font-extrabold text-[#3F72AF] divider divider-start ">
         Pain Points
       </h2>
       <p class="text-[#3F72AF] break-words text-sm truncate">
@@ -113,7 +113,7 @@ onMounted(() => {
       </p>
 
       <!-- ======= GoalAndNeed ======= -->
-      <h2 class="text-[#3F72AF] font-extrabold underline text-lg">Goal and Needs</h2>
+      <h2 class=" text-lg font-extrabold text-[#3F72AF] divider divider-start ">Goal and Needs</h2>
       <p class="text-[#3F72AF] break-words text-sm truncate">
         <slot name="GoalAndNeeds">-</slot>
       </p>

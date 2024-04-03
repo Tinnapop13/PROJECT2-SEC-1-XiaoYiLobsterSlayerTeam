@@ -20,9 +20,9 @@ const newCard = reactive({
   GoalAndNeed: "",
   Comment: "",
   Rating: {
-    coworker: 0,
-    environment: 0,
-    responsibility: 0,
+    coworker: 1,
+    environment: 1,
+    responsibility: 1,
   },
   OwnedBy: userStore.currentUser,
 })
