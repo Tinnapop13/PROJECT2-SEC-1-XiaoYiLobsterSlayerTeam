@@ -39,7 +39,7 @@
 ## EMPLOYEE INSIGHT DEMO 🕹️
 
 
-![demo_video](https://github.com/Tinnapop13/PROJECT2-SEC-1-XiaoYiLobsterSlayerTeam/assets/110712994/329c0fb4-0e11-41d6-b793-a4a477f2b568)
+https://github.com/Tinnapop13/PROJECT2-SEC-1-XiaoYiLobsterSlayerTeam/assets/110712994/329c0fb4-0e11-41d6-b793-a4a477f2b568
 
 
 ---
