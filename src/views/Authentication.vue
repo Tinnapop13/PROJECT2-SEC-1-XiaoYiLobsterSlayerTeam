@@ -1,7 +1,7 @@
 <script setup>
 import { getUsersData, addUserData } from "@/libs/crud.js";
 import { useRouter } from "vue-router";
-import { ref, onMounted, computed } from "vue";
+import { ref, onBeforeMount } from "vue";
 import Modal from "@/components/Modal.vue";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useUserStore } from "@/stores/useUserStore";
@@ -105,12 +105,10 @@ const closeModal = () => {
   location.reload();
 };
 
-onMounted(async () => {
-  try {
+onBeforeMount(async () => {
+  
     users.value = await getUsersData();
-  } catch (error) {
-    console.log(error);
-  }
+  
 });
 
 </script>

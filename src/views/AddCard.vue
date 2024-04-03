@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, onBeforeMount, computed } from "vue"
-import { addEmployeesData, editEmployeesData, readEmployeesData, readProfileData } from "@/libs/crud"
+import { addEmployeesData, readEmployeesData, readProfileData } from "@/libs/crud"
 import Modal from "@/components/Modal.vue"
 import { useUserStore } from "@/stores/useUserStore"
 import { useRouter } from "vue-router"
@@ -37,7 +37,6 @@ const newCard = reactive({
 const addValidate = () => {
   if (newCard.Age > 60 || newCard.Age < 20) {
     addResult.value = "AddEmployeeFailed"
-    console.log(newCard.Age)
     return
   }
 
@@ -105,14 +104,12 @@ const displayColor = () => {
 }
 
 onBeforeMount(async () => {
-  try {
+  
     const employees = await readEmployeesData()
     userStore.employeeManager.addEmployees(employees)
     profileData.value = await readProfileData()
     // getProfileData()
-  } catch (error) {
-    console.log(error)
-  }
+  
 })
 </script>
 <template>

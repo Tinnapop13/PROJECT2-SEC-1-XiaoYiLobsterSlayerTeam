@@ -11,7 +11,7 @@
       class="font-basblue text-5xl text-black flex gap-4 w-full justify-center my-4"
     >
       Employee
-      <div class="skeleton w-[7rem] h-[2.6rem]">{{ currentState }}</div>
+      <div class="skeleton w-[7rem] h-[2.6rem]"></div>
     </div>
 
     

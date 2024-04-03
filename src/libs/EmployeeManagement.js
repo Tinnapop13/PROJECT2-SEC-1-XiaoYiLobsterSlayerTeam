@@ -18,11 +18,6 @@ class EmployeeManagement {
       this.employees.splice(deleteIndex, 1)
     }
   }
-
-  updateEmployee(index, updatedEmployee) {
-    this.employees.splice(index, 1, updatedEmployee)
-  }
-
   getEmployees() {
     return this.employees
   }
