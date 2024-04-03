@@ -289,7 +289,7 @@ onBeforeMount(async () => {
             class="flex items-center bg-white rounded-lg shadow-lg w-full h-2/5 gap-4 p-4 max-lg:w-full"
            >
           
-            <div class="radial-progress bg-sky-200 text-primary-content border-4 border-sky-200 w-[80px] h-[80px] font-basblue text-4xl" :style="`--value:${isNaN(info) ? 0 : info*20}` " role="progressbar">{{ isNaN(info) ? 0 : info }}</div>
+            <div class="radial-progress bg-sky-200 text-primary-content border-4 border-sky-200 w-[80px] h-[80px] font-basblue text-4xl" :style="`--value:${isNaN(info) ? 0 : info*20}` " role="progressbar">{{ isNaN(info) ? 0 : info.toFixed(1) }}</div>
 
             <div class="flex flex-col">
               <div
