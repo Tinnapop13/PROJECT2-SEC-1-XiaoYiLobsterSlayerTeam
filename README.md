@@ -38,7 +38,9 @@
 
 ## EMPLOYEE INSIGHT DEMO 🕹️
 
--
+- https://github.com/Tinnapop13/PROJECT2-SEC-1-XiaoYiLobsterSlayerTeam/assets/110712994/912804af-032a-4c00-8453-7cf70e60b64a
+
+
 
 ---
 
